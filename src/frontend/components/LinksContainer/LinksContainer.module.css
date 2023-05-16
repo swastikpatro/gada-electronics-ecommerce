@@ -1,0 +1,74 @@
+.linksContainer {
+  /* border: 2px solid red; */
+  width: 30%;
+  max-width: 18rem;
+  display: flex;
+  margin-top: 0.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.1rem;
+}
+
+.exploreLink {
+  /* border: 2px solid red; */
+  margin-bottom: 0.25rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--primary-500);
+}
+
+.link {
+  color: var(--black);
+  font-size: 1.35rem;
+  display: block;
+  position: relative;
+}
+
+.itemCount {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  bottom: 1rem;
+  left: 0.65rem;
+  border-radius: 50%;
+  background: var(--primary-700);
+  color: var(--white);
+  font-size: 0.85rem;
+  display: grid;
+  place-content: center;
+}
+
+.link.active {
+  cursor: default;
+  color: var(--primary-500);
+}
+.login {
+  font-size: 1.15rem;
+  color: var(--primary-700);
+  font-weight: 600;
+  margin-top: -0.25rem;
+  border: 3px solid var(--primary-700);
+  padding: 0.35rem;
+  border-radius: var(--borderRadius);
+}
+
+@media screen and (max-width: 768px) {
+  .linksContainer {
+    width: 60%;
+    max-width: 15rem;
+    margin-bottom: 0.35rem;
+    margin-left: -1.5rem;
+  }
+
+  .link {
+    font-size: 1.25rem;
+  }
+
+  .exploreLink {
+    font-size: 0.9rem;
+  }
+  .login {
+    font-size: 0.85rem;
+  }
+}

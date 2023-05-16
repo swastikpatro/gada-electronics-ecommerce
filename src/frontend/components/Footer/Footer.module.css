@@ -1,0 +1,50 @@
+.footer {
+  padding: 2rem;
+  background: var(--black);
+}
+
+.linksContainer {
+  color: var(--white);
+  margin: 0 auto;
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.linksContainer a {
+  font-size: 1.25rem;
+  color: var(--white);
+  transition: var(--transition);
+}
+
+.footer p {
+  color: var(--white);
+  text-align: center;
+  margin: 0 auto;
+  /* border: 2px solid black; */
+}
+
+.footer span {
+  color: var(--primary-300);
+}
+
+@media screen and (min-width: 768px) {
+  .footer p {
+    letter-spacing: var(--letterSpacing);
+    font-size: 1.15rem;
+  }
+
+  .linksContainer {
+    gap: 0 2rem;
+  }
+
+  .linksContainer a {
+    font-size: 1.75rem;
+  }
+
+  .linksContainer a:hover {
+    color: var(--primary-400);
+  }
+}

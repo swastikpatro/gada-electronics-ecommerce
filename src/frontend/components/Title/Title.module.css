@@ -1,0 +1,23 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.titleUnderline {
+  background: var(--primary-500);
+  width: 7rem;
+  height: 0.25rem;
+  margin: 0 auto;
+  margin-top: -0.25rem;
+  margin-bottom: 2.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .titleUnderline {
+    width: 10rem;
+  }
+}

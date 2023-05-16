@@ -1,0 +1,42 @@
+.productsAndFilterContainer {
+  min-height: calc(100vh - 5rem);
+  padding: 2.5rem 0;
+  display: grid;
+  gap: 1rem 3rem;
+  /* border: 2px solid red; */
+}
+
+.productsAndFilterContainer > .redirectToTopLink {
+  position: fixed;
+  bottom: 3rem;
+  right: 1rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background: var(--black);
+  color: var(--white);
+  letter-spacing: var(--letterSpacing);
+  z-index: 100;
+  font-size: 1.75rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+  border-color: transparent;
+}
+
+.redirectToTopLink:active {
+  background: var(--grey-300);
+  color: var(--black);
+}
+
+@media screen and (min-width: 768px) {
+  .productsAndFilterContainer {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .productsAndFilterContainer > .redirectToTopLink {
+    display: none;
+  }
+}

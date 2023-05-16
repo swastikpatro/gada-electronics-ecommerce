@@ -1,43 +1,46 @@
-import "./App.css";
-import logo from "./logo.png";
+// import { useState } from 'react';
+// import reactLogo from './assets/react.svg';
+// import viteLogo from '/vite.svg';
 
-function App() {
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  CartPage,
+  ErrorPage,
+  Home,
+  LoginPage,
+  ProductListingPage,
+  Profile,
+  SharedLayout,
+  SingleProductPage,
+  WishListPage,
+} from './frontend/pages';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
-      </header>
-    </div>
+    <BrowserRouter>
+      <main>
+        <Routes>
+          <Route path='/' element={<SharedLayout />}>
+            <Route index element={<Home />} />
+
+            <Route path='products' element={<ProductListingPage />} />
+
+            <Route path='products/:productId' element={<SingleProductPage />} />
+
+            <Route path='products' element={<ProductListingPage />} />
+
+            <Route path='cart' element={<CartPage />} />
+            <Route path='wishlist' element={<WishListPage />} />
+            <Route path='profile' element={<Profile />} />
+          </Route>
+
+          {/* requires auth */}
+          <Route path='login' element={<LoginPage />} />
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

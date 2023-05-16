@@ -1,0 +1,25 @@
+.productListSection > p {
+  margin-top: 2rem;
+  text-align: center;
+  letter-spacing: var(--letterSpacing);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.productsCenter {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  gap: 3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .productListSection > p {
+    margin-top: 0;
+    text-align: left;
+  }
+
+  .productsCenter {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+}
