@@ -153,14 +153,14 @@
   margin-bottom: 0.5rem; */
 }
 
-.footer .cartBtn {
+.footer .cardBtn {
   display: block;
   color: var(--white);
   padding: 0.5rem;
   width: 100%;
 }
 
-.footer .cartBtn.goToCartBtn {
+.footer .cardBtn.goToCartBtn {
   /* color: red; */
   background: var(--primary-900);
 }
@@ -178,11 +178,11 @@
   }
 
   .imgContainer img {
-    scale: 1.3;
+    scale: 1.1;
   }
 
   .imgContainer img:hover {
-    scale: 0.8;
+    scale: 0.9;
   }
 
   .cardHeader p {
@@ -196,7 +196,7 @@
   }
 
   .cardMain {
-    margin-top: 0.25rem;
+    margin-top: 0.35rem;
     gap: 0 1rem;
   }
 
@@ -205,8 +205,12 @@
   }
 
   .footer {
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     margin-bottom: 0.5rem;
+  }
+
+  .colorsContainer {
+    margin-top: 1rem;
   }
 
   .colorsContainer span {

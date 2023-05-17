@@ -1,0 +1,18 @@
+.wishlistPage > p {
+  text-align: center;
+  font-size: 1.25rem;
+  letter-spacing: var(--letterSpacing);
+}
+
+.wishlistsContainer {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  place-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .wishlistPage > p {
+    font-size: 1.5rem;
+  }
+}

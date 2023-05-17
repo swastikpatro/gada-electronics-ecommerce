@@ -5,8 +5,9 @@ import LoginPage from './LoginPage';
 import ProductListingPage from './ProductListingPage/ProductListingPage';
 import SharedLayout from './SharedLayout';
 import SingleProductPage from './SingleProductPage';
-import WishListPage from './WishListPage';
+import WishListPage from './WishlistPage/WishListPage';
 import Profile from './Profile';
+import SignupPage from './SignupPage';
 
 export {
   CartPage,
@@ -18,4 +19,5 @@ export {
   SingleProductPage,
   WishListPage,
   Profile,
+  SignupPage,
 };

@@ -13,7 +13,7 @@ const ProductListingPage = () => {
   return (
     <main
       id='filters'
-      className={`container ${styles.productsAndFilterContainer}`}
+      className={`container ${styles.productsAndFilterContainer} full-page`}
     >
       <Filters />
       <ProductsList />

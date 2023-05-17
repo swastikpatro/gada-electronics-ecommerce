@@ -2,7 +2,7 @@
 import { AiFillHeart, AiFillStar, AiOutlineHeart } from 'react-icons/ai';
 import styles from './ProductCard.module.css';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
 import { calculateDiscountPercent } from '../../utils/utils';
 
@@ -31,20 +31,47 @@ const ProductCard = ({ product }) => {
   const [isWishlist, setIsWishlist] = useState(false);
   const [isCart, setIsCart] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location);
+
+  // functions
+  const handleCart = () => {
+    // find that in cart from cartContext here
+    // add to cart, if that product is not present in the cart
+    // else onClick of the button, navigate('/cart')
+  };
+
+  const handleWishlist = () => {
+    // find that in wishlist from wishListContext here
+    // add to cart and remove from wishlist, if that product is not present in the cart
+    // else onClick of the button. navigate('/cart')
+  };
+
+  const isCardInWishlistPage = location.pathname === '/wishlist';
+
+  const productBtnUtils = {
+    handleProductBtnClick: isCardInWishlistPage ? handleWishlist : handleCart,
+
+    productBtnText: isCardInWishlistPage
+      ? isCart // In wishlist page, if this product is in cart- "already in cart" else show 'move to cart'
+        ? 'Already in Cart'
+        : 'Move to Cart'
+      : isCart // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
+      ? 'go to cart'
+      : 'add to cart',
+
+    productBtnClassName: isCart // check in cart context, if found then styling
+      ? `btn ${styles.cardBtn} ${styles.goToCartBtn}`
+      : `btn ${styles.cardBtn}`,
+  };
+
+  // implement the above ternary, make a single button as the styles are same and only text and clickHandler is different
+
   // the above is made for UI purpose
   const discountPercent = calculateDiscountPercent(
     product.price,
     product.originalPrice
   );
-
-  const handleToCart = () => {
-    // that find in cart from cartContext here
-    if (isCart) {
-      navigate('/cart');
-      return;
-    }
-    setIsCart(!isCart);
-  };
 
   // console.log({ [product.name]: product.colors });
 
@@ -100,14 +127,10 @@ const ProductCard = ({ product }) => {
 
         <footer className={styles.footer}>
           <button
-            onClick={handleToCart}
-            className={
-              isCart
-                ? `btn ${styles.cartBtn} ${styles.goToCartBtn}`
-                : `btn ${styles.cartBtn}`
-            }
+            className={productBtnUtils.productBtnClassName}
+            onClick={productBtnUtils.handleProductBtnClick}
           >
-            {isCart ? 'go to cart' : 'add to cart'}
+            {productBtnUtils.productBtnText}
           </button>
         </footer>
       </div>
