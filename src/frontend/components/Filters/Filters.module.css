@@ -2,7 +2,7 @@
   border: 2px solid black;
   margin: 0 auto;
   width: 300px;
-  height: 35rem;
+  height: 36.5rem;
   overflow-y: auto;
   background: var(--white);
   padding: 1rem 1.5rem;
@@ -44,51 +44,9 @@
   margin-bottom: -0.1rem;
 }
 
-.colorsContainer {
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0 0.5rem;
-  /* background: red; */
-}
-
-.colorsContainer .allBtn {
-  color: var(--grey-500);
-  border-color: transparent;
-  background: transparent;
-  cursor: pointer;
+.filtersContainer select {
+  padding: 0.25rem;
   text-transform: capitalize;
-  /* border: 2px solid red; */
-}
-
-.allBtn.underlineBtn {
-  border-bottom: 2px solid var(--primary-500);
-}
-
-.colorsContainer .colorBtn {
-  width: 1rem;
-  height: 1rem;
-  opacity: 0.7;
-  outline-color: transparent;
-  border-color: transparent;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.colorsContainer .active {
-  opacity: 1;
-}
-
-.active {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-}
-
-.active svg {
-  font-weight: 600;
-  color: var(--white);
-  font-size: 0.75rem;
 }
 
 @media screen and (min-width: 768px) {

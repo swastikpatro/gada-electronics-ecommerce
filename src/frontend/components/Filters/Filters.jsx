@@ -1,4 +1,3 @@
-import { AiOutlineCheck } from 'react-icons/ai';
 import { FaStar } from 'react-icons/fa';
 import { dataMain } from '../../assets/data';
 import { giveUniqueLabelFOR } from '../../utils/utils';
@@ -7,7 +6,7 @@ import Price from '../Price';
 import { useState } from 'react';
 
 const Filters = () => {
-  console.log({ dataMain });
+  // console.log({ dataMain });
 
   const categoriesList = [
     ...new Set(dataMain.map((product) => product.category)),
@@ -15,12 +14,6 @@ const Filters = () => {
   const companiesList = [
     ...new Set(dataMain.map((product) => product.company)),
   ];
-  const colorsList = [
-    ...new Set(dataMain.map((product) => product.colors).flat()),
-  ];
-
-  const activeColor = '#0000ff';
-  console.log({ colorsList });
 
   const [rangeValue, setRangeValue] = useState(10000);
 
@@ -81,38 +74,6 @@ const Filters = () => {
             </option>
           ))}
         </select>
-      </fieldset>
-
-      <fieldset>
-        <legend>Colors</legend>
-        <div className={styles.colorsContainer}>
-          <button
-            className={
-              'all' === activeColor
-                ? `${styles.allBtn} ${styles.underlineBtn}`
-                : styles.allBtn
-            }
-          >
-            all
-          </button>
-
-          {colorsList.map((color, index) => {
-            const isActive = color === activeColor;
-            return (
-              <button
-                key={index}
-                className={
-                  isActive
-                    ? `${styles.colorBtn} ${styles.active}`
-                    : styles.colorBtn
-                }
-                style={{ background: color }}
-              >
-                {isActive && <AiOutlineCheck />}
-              </button>
-            );
-          })}
-        </div>
       </fieldset>
 
       <fieldset>

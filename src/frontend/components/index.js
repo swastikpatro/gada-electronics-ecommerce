@@ -10,6 +10,9 @@ import ProductCard from './ProductCard/ProductCard';
 import Categories from './Categories/Categories';
 import Filters from './Filters/Filters';
 import ProductsList from './ProductsList/ProductsList';
+import LoginAndSignupLayout from './LoginAndSignupLayout';
+import FormRow from './FormRow';
+import PasswordRow from './PasswordRow/PasswordRow';
 
 export {
   Navbar,
@@ -24,4 +27,7 @@ export {
   Categories,
   Filters,
   ProductsList,
+  LoginAndSignupLayout,
+  FormRow,
+  PasswordRow,
 };

@@ -229,6 +229,15 @@ ul {
   background: var(--red-dark);
   color: var(--white);
 }
+
+.btn-success {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+.btn-success:hover {
+  background: var(--green-dark);
+  color: var(--white);
+}
 /* alerts */
 .alert {
   padding: 0.375rem 0.75rem;
@@ -284,6 +293,11 @@ ul {
 .btn-block {
   height: 35px;
 }
+
+.btn-block {
+  margin-bottom: 0.5rem;
+}
+
 .form-row {
   margin-bottom: 1rem;
 }
@@ -342,6 +356,12 @@ ul {
 }
 .full-page {
   min-height: 100vh;
+  padding: 2.5rem 0;
+}
+
+.half-page {
+  min-height: calc(100vh - 14rem);
+  padding: 2.5rem 0;
 }
 
 .coffee-info {
@@ -398,4 +418,14 @@ ul {
 
 .btn-width-100 {
   width: 100%;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+  /* border: 2px solid red; */
+}
+
+.page-without-navHeight {
+  min-height: calc(100vh - var(--nav-height));
 }

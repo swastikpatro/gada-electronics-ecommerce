@@ -40,7 +40,6 @@
 }
 
 .link.active {
-  cursor: default;
   color: var(--primary-500);
 }
 .login {

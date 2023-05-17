@@ -11,6 +11,7 @@ import {
   ProductListingPage,
   Profile,
   SharedLayout,
+  SignupPage,
   SingleProductPage,
   WishListPage,
 } from './frontend/pages';
@@ -32,10 +33,12 @@ const App = () => {
             <Route path='cart' element={<CartPage />} />
             <Route path='wishlist' element={<WishListPage />} />
             <Route path='profile' element={<Profile />} />
+            {/* requires auth */}
           </Route>
 
-          {/* requires auth */}
-          <Route path='login' element={<LoginPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+
           <Route path='*' element={<ErrorPage />} />
         </Routes>
       </main>
