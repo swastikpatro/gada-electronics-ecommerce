@@ -19,6 +19,15 @@
   gap: 0.25rem;
 }
 
+.loginNavCenter {
+  justify-content: center;
+}
+
+.loginNavCenter h3 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
 .logo {
   margin-top: 0.75rem;
   color: var(--black);
@@ -34,6 +43,6 @@
   }
   .logo {
     margin-top: 0.25rem;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 }
