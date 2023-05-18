@@ -16,10 +16,29 @@ import {
   WishListPage,
 } from './frontend/pages';
 
+import Mockman from 'mockman-js';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from './frontend/components/PrivateRoute';
+
 const App = () => {
   return (
     <BrowserRouter>
       <main>
+        <ToastContainer
+          position='top-left'
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='dark'
+        />
+
         <Routes>
           <Route path='/' element={<SharedLayout />}>
             <Route index element={<Home />} />
@@ -30,14 +49,36 @@ const App = () => {
 
             <Route path='products' element={<ProductListingPage />} />
 
-            <Route path='cart' element={<CartPage />} />
-            <Route path='wishlist' element={<WishListPage />} />
-            <Route path='profile' element={<Profile />} />
+            <Route
+              path='cart'
+              element={
+                <PrivateRoute>
+                  <CartPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='wishlist'
+              element={
+                <PrivateRoute>
+                  <WishListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='profile'
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
             {/* requires auth */}
           </Route>
 
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
+          <Route path='/mockman' element={<Mockman />} />
 
           <Route path='*' element={<ErrorPage />} />
         </Routes>

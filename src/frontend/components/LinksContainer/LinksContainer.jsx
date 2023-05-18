@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './LinksContainer.module.css';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
+import { useAuthContext } from '../../contexts/AuthContextProvider';
 
 const ItemCount = ({ count }) => {
   if (count < 1) return;
@@ -11,7 +12,7 @@ const ItemCount = ({ count }) => {
 
 const LinksContainer = () => {
   // from userContext I will get whether its login or not
-  const isLogin = false;
+  const { user } = useAuthContext();
   const navStyle = ({ isActive }) => {
     const outputClass = styles.link;
     if (isActive) return `${outputClass} ${styles.active}`;
@@ -25,12 +26,8 @@ const LinksContainer = () => {
         Explore
       </NavLink>
 
-      <NavLink className={navStyle} to={isLogin ? '/profile' : '/login'}>
-        {isLogin ? (
-          <FaRegUserCircle />
-        ) : (
-          <div className={styles.login}>Login {/*Logout */}</div>
-        )}
+      <NavLink className={navStyle} to={'/profile'}>
+        {user ? <FaRegUserCircle /> : <div className={styles.login}>Login</div>}
       </NavLink>
 
       <NavLink className={navStyle} to='/wishlist'>

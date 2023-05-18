@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 // .red {
 //   color: #0000ff; /*#blue*/
 //   color: #00ff00; /*green*/
@@ -9,9 +11,9 @@
 // ['#0000ff', '#00ff00', '#ff0000', '#000', '#ffb900'];
 // ['blue', 'green', 'red', 'black', 'yellow'];
 
-export const data = [
+export const dataMain = [
   {
-    _id: 'redmi-1',
+    _id: uuid(),
     name: 'mi book 15',
     price: 31990,
     originalPrice: 51999,
@@ -29,7 +31,7 @@ export const data = [
     stars: 3.7,
   },
   {
-    _id: 'redmi-2',
+    _id: uuid(),
     name: 'mi notebook pro',
     price: 54499,
     originalPrice: 74999,
@@ -47,7 +49,7 @@ export const data = [
     stars: 4.3,
   },
   {
-    _id: 'redmi-3',
+    _id: uuid(),
     name: 'mi 5A',
     price: 13499,
     originalPrice: 24999,
@@ -65,7 +67,7 @@ export const data = [
     stars: 4.2,
   },
   {
-    _id: 'redmi-4',
+    _id: uuid(),
     name: 'mi horizon',
     price: 21399,
     originalPrice: 29999,
@@ -83,7 +85,7 @@ export const data = [
     stars: 4.1,
   },
   {
-    _id: 'redmi-5',
+    _id: uuid(),
     name: 'mi sonicBass',
     price: 1299,
     originalPrice: 1599,
@@ -101,7 +103,7 @@ export const data = [
     stars: 2.5,
   },
   {
-    _id: 'redmi-6',
+    _id: uuid(),
     name: 'mi buds 3 lite',
     price: 2999,
     originalPrice: 1599,
@@ -119,7 +121,7 @@ export const data = [
     stars: 1.5,
   },
   {
-    _id: 'redmi-7',
+    _id: uuid(),
     name: 'mi watch 2 lite',
     price: 2280,
     originalPrice: 7999,
@@ -138,7 +140,7 @@ export const data = [
     stars: 3.5,
   },
   {
-    _id: 'redmi-8',
+    _id: uuid(),
     name: 'mi smartband pro',
     price: 1999,
     originalPrice: 5999,
@@ -156,7 +158,7 @@ export const data = [
     stars: 4.5,
   },
   {
-    _id: 'redmi-9',
+    _id: uuid(),
     name: 'mi 12 pro',
     price: 44999,
     originalPrice: 79999,
@@ -174,7 +176,7 @@ export const data = [
     stars: 4.0,
   },
   {
-    _id: 'redmi-10',
+    _id: uuid(),
     name: 'mi go phone',
     price: 5399,
     originalPrice: 6499,
@@ -192,7 +194,7 @@ export const data = [
     stars: 2.9,
   },
   {
-    _id: 'redmi-11',
+    _id: uuid(),
     name: 'mi 10 prime',
     price: 14999,
     originalPrice: 16999,
@@ -210,7 +212,7 @@ export const data = [
     stars: 4.9,
   },
   {
-    _id: 'redmi-12',
+    _id: uuid(),
     name: 'mi note 12',
     price: 17999,
     originalPrice: 19999,
@@ -228,7 +230,7 @@ export const data = [
     stars: 2.9,
   },
   {
-    _id: 'redmi-13',
+    _id: uuid(),
     name: 'mi 9 activ',
     price: 9499,
     originalPrice: 10999,
@@ -245,11 +247,8 @@ export const data = [
     reviewCount: 70,
     stars: 1.3,
   },
-];
-
-export const data2 = [
   {
-    _id: 'apple-1',
+    _id: uuid(),
     name: 'apple air 2020',
     price: 82900,
     originalPrice: 99900,
@@ -267,7 +266,7 @@ export const data2 = [
     stars: 4.6,
   },
   {
-    _id: 'apple-2',
+    _id: uuid(),
     name: 'apple air 2022',
     price: 106999,
     originalPrice: 119999,
@@ -285,7 +284,7 @@ export const data2 = [
     stars: 3.3,
   },
   {
-    _id: 'apple-3',
+    _id: uuid(),
     name: 'apple air 2023',
     price: 110899,
     originalPrice: 120999,
@@ -304,7 +303,7 @@ export const data2 = [
     stars: 4.5,
   },
   {
-    _id: 'apple-4',
+    _id: uuid(),
     name: 'apple prod display xdr',
     price: 59899,
     originalPrice: 89999,
@@ -322,7 +321,7 @@ export const data2 = [
     stars: 2.6,
   },
   {
-    _id: 'apple-5',
+    _id: uuid(),
     name: 'apple airPods pro',
     price: 23625,
     originalPrice: 24900,
@@ -340,7 +339,7 @@ export const data2 = [
     stars: 4.5,
   },
   {
-    _id: 'apple-6',
+    _id: uuid(),
     name: 'apple airPods max',
     price: 25999,
     originalPrice: 29999,
@@ -358,7 +357,7 @@ export const data2 = [
     stars: 3.8,
   },
   {
-    _id: 'apple-7',
+    _id: uuid(),
     name: 'apple watch ultra',
     price: 56304,
     originalPrice: 59900,
@@ -376,7 +375,7 @@ export const data2 = [
     stars: 4.4,
   },
   {
-    _id: 'apple-8',
+    _id: uuid(),
     name: 'apple watch SE',
     price: 42999,
     originalPrice: 45999,
@@ -394,7 +393,7 @@ export const data2 = [
     stars: 3.8,
   },
   {
-    _id: 'apple-9',
+    _id: uuid(),
     name: 'iPhone 12',
     price: 69000,
     originalPrice: 74000,
@@ -412,7 +411,7 @@ export const data2 = [
     stars: 3.2,
   },
   {
-    _id: 'apple-10',
+    _id: uuid(),
     name: 'iPhone 14 plus',
     price: 57999,
     originalPrice: 58999,
@@ -429,15 +428,11 @@ export const data2 = [
     reviewCount: 22031,
     stars: 4.7,
   },
-];
-
-// companies - mi, apple, dell(laptops),
-
-// laptops from dell
-export const data3 = [
+  // companies - mi, apple, dell(laptops),
+  // laptops from dell
   //dell laptops
   {
-    _id: 'dell-1',
+    _id: uuid(),
     name: 'dell vostro',
     price: 42990,
     originalPrice: 61817,
@@ -455,7 +450,7 @@ export const data3 = [
     stars: 1.2,
   },
   {
-    _id: 'dell-2',
+    _id: uuid(),
     name: 'dell inspiron',
     price: 58990,
     originalPrice: 80472,
@@ -473,7 +468,7 @@ export const data3 = [
     stars: 4.7,
   },
   {
-    _id: 'dell-3',
+    _id: uuid(),
     name: 'dell latitude',
     price: 33990,
     originalPrice: 48444,
@@ -492,7 +487,7 @@ export const data3 = [
   },
   // oneplus tv
   {
-    _id: 'oneplus-1',
+    _id: uuid(),
     name: 'oneplus 50Y1S pro',
     price: 32999,
     originalPrice: 45999,
@@ -510,7 +505,7 @@ export const data3 = [
     stars: 4.2,
   },
   {
-    _id: 'oneplus-2',
+    _id: uuid(),
     name: 'oneplus 40Y1S',
     price: 21999,
     originalPrice: 29999,
@@ -528,7 +523,7 @@ export const data3 = [
     stars: 3.8,
   },
   {
-    _id: 'oneplus-3',
+    _id: uuid(),
     name: 'oneplus 55U1S',
     price: 42999,
     originalPrice: 59999,
@@ -546,7 +541,7 @@ export const data3 = [
     stars: 3.5,
   },
   {
-    _id: 'oneplus-4',
+    _id: uuid(),
     name: 'oneplus 55Q1IN-1',
     price: 49990,
     originalPrice: 69900,
@@ -566,7 +561,7 @@ export const data3 = [
   // oneplus earphone
   // start
   {
-    _id: 'oneplus-5',
+    _id: uuid(),
     name: 'oneplus buds z2',
     price: 4999,
     originalPrice: 5999,
@@ -584,7 +579,7 @@ export const data3 = [
     stars: 3.6,
   },
   {
-    _id: 'oneplus-6',
+    _id: uuid(),
     name: 'oneplus nord buds',
     price: 2299,
     originalPrice: 2699,
@@ -602,7 +597,7 @@ export const data3 = [
     stars: 2.1,
   },
   {
-    _id: 'oneplus-7',
+    _id: uuid(),
     name: 'oneplus buds pro',
     price: 11999,
     originalPrice: 13999,
@@ -620,7 +615,7 @@ export const data3 = [
     stars: 0.9,
   },
   {
-    _id: 'oneplus-8',
+    _id: uuid(),
     name: 'oneplus bullets z2',
     price: 1999,
     originalPrice: 2299,
@@ -639,7 +634,7 @@ export const data3 = [
   },
   // oneplus smartbands(2)
   {
-    _id: 'oneplus-9',
+    _id: uuid(),
     name: 'oneplus smart band',
     price: 4280,
     originalPrice: 8999,
@@ -657,7 +652,7 @@ export const data3 = [
     stars: 4.8,
   },
   {
-    _id: 'oneplus-10',
+    _id: uuid(),
     name: 'oneplus nord watch',
     price: 4999,
     originalPrice: 6999,
@@ -676,7 +671,7 @@ export const data3 = [
   },
   // oneplus mobiles (5)
   {
-    _id: 'oneplus-11',
+    _id: uuid(),
     name: 'oneplus nord CE 3 lite',
     price: 21999,
     originalPrice: 21999,
@@ -694,7 +689,7 @@ export const data3 = [
     stars: 3.2,
   },
   {
-    _id: 'oneplus-12',
+    _id: uuid(),
     name: 'oneplus 11R',
     price: 44999,
     originalPrice: 44999,
@@ -712,7 +707,7 @@ export const data3 = [
     stars: 2.7,
   },
   {
-    _id: 'oneplus-13',
+    _id: uuid(),
     name: 'oneplus nord 2T',
     price: 28999,
     originalPrice: 28999,
@@ -730,7 +725,7 @@ export const data3 = [
     stars: 1.7,
   },
   {
-    _id: 'oneplus-14',
+    _id: uuid(),
     name: 'oneplus 10R',
     price: 34999,
     originalPrice: 38999,
@@ -748,7 +743,7 @@ export const data3 = [
     stars: 0.7,
   },
   {
-    _id: 'oneplus-15',
+    _id: uuid(),
     name: 'oneplus 11',
     price: 61999,
     originalPrice: 61999,
@@ -766,13 +761,10 @@ export const data3 = [
     reviewCount: 22031,
     stars: 5,
   },
-];
-
-// 9 products
-export const data4 = [
+  // 9 products
   // vivo laptop
   {
-    _id: 'vivo-1',
+    _id: uuid(),
     name: 'vivoBook 16X',
     price: 54333,
     originalPrice: 74990,
@@ -790,7 +782,7 @@ export const data4 = [
     stars: 1.9,
   },
   {
-    _id: 'vivo-2',
+    _id: uuid(),
     name: 'vivoBook ultra k14',
     price: 40990,
     originalPrice: 58990,
@@ -808,7 +800,7 @@ export const data4 = [
     stars: 2.2,
   },
   {
-    _id: 'vivo-3',
+    _id: uuid(),
     name: 'vivoBook 14',
     price: 69990,
     originalPrice: 85990,
@@ -826,7 +818,7 @@ export const data4 = [
     stars: 4.3,
   },
   {
-    _id: 'vivo-4',
+    _id: uuid(),
     name: 'vivoBook 15',
     price: 42990,
     originalPrice: 60990,
@@ -845,7 +837,7 @@ export const data4 = [
   },
   // vivo mobile
   {
-    _id: 'vivo-5',
+    _id: uuid(),
     name: 'vivo V23',
     price: 27524,
     originalPrice: 37990,
@@ -863,7 +855,7 @@ export const data4 = [
     stars: 4.3,
   },
   {
-    _id: 'vivo-6',
+    _id: uuid(),
     name: 'vivo Y15C',
     price: 9499,
     originalPrice: 14590,
@@ -881,7 +873,7 @@ export const data4 = [
     stars: 3.6,
   },
   {
-    _id: 'vivo-7',
+    _id: uuid(),
     name: 'vivo t1x',
     price: 11999,
     originalPrice: 16990,
@@ -899,7 +891,7 @@ export const data4 = [
     stars: 2.9,
   },
   {
-    _id: 'vivo-8',
+    _id: uuid(),
     name: 'vivo Y22',
     price: 16499,
     originalPrice: 19990,
@@ -917,7 +909,7 @@ export const data4 = [
     stars: 4.1,
   },
   {
-    _id: 'vivo-9',
+    _id: uuid(),
     name: 'vivo Y16',
     price: 10499,
     originalPrice: 14999,
@@ -935,7 +927,3 @@ export const data4 = [
     stars: 2.8,
   },
 ];
-
-// 10 products
-
-export const dataMain = [...data, ...data2, ...data3, ...data4];
