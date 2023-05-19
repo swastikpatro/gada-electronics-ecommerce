@@ -5,31 +5,12 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
 import { calculateDiscountPercent } from '../../utils/utils';
-
-// {
-//     _id: 'redmi-7',
-//     name: 'mi watch 2 lite',
-//     price: 2280,
-//     originalPrice: 7999,
-//     featured: true,
-//     // img to add
-//     image:
-//       'https://res.cloudinary.com/dtbd1y4en/image/upload/v1683909641/mi-watch-2-lite_ofbl7m.jpg',
-//     colors: ['#00ff00', '#000', '#ffb900'],
-//     company: 'redmi',
-//     description:
-//       'For this model, screen size is 3.94 cm and rectangular in shape.  Special Feature includes Rate Monitor, Oxymeter (SpO2), Music Player, Camera. Jethalal uses it to track his heart beat 🧡, when Babita ji comes!',
-//     category: 'smartwatch',
-//     isShippingAvailable: true,
-//     inStock: true,
-//     reviewCount: 508,
-//     stars: 3.5,
-//   }
+import { WishListPage } from '../../pages';
 
 const ProductCard = ({ product }) => {
   // instead of creating State find it from wishlist content, if found show colored, else non-colored
   const [isWishlist, setIsWishlist] = useState(false);
-  const [isCart, setIsCart] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(location);
@@ -49,23 +30,44 @@ const ProductCard = ({ product }) => {
 
   const isCardInWishlistPage = location.pathname === '/wishlist';
 
-  const productBtnUtils = {
-    handleProductBtnClick: isCardInWishlistPage ? handleWishlist : handleCart,
+  // ignore line 34 to 53 // a different way to implement line 55 to 70
+  // const { productBtnText } = [
+  //   {
+  //     condition: isCardInWishlistPage && isInCart,
+  //     productBtnText: 'already in Cart',
+  //   },
+  //   {
+  //     condition: isCardInWishlistPage && !isInCart,
+  //     productBtnText: 'move to cart',
+  //   },
+  //   {
+  //     condition: !isCardInWishlistPage && isInCart,
+  //     productBtnText: 'go to cart',
+  //   },
+  //   {
+  //     condition: !isCardInWishlistPage && !isInCart,
+  //     productBtnText: 'add to cart',
+  //   },
+  // ].find(({ condition }) => condition);
 
-    productBtnText: isCardInWishlistPage
-      ? isCart // In wishlist page, if this product is in cart- "already in cart" else show 'move to cart'
-        ? 'Already in Cart'
-        : 'Move to Cart'
-      : isCart // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
-      ? 'go to cart'
-      : 'add to cart',
+  // console.log({ productBtnText }); // working
 
-    productBtnClassName: isCart // check in cart context, if found then styling
-      ? `btn ${styles.cardBtn} ${styles.goToCartBtn}`
-      : `btn ${styles.cardBtn}`,
-  };
+  let productBtnText = '';
 
-  // implement the above ternary, make a single button as the styles are same and only text and clickHandler is different
+  // If card is in wishlist page & product is in cartContext show- "already in cart" else show 'move to cart'
+  if (isCardInWishlistPage && isInCart) {
+    productBtnText = 'already in Cart';
+  }
+  if (isCardInWishlistPage && !isInCart) {
+    productBtnText = 'move to cart';
+  }
+  // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
+  if (!isCardInWishlistPage && isInCart) {
+    productBtnText = 'go to cart';
+  }
+  if (!isCardInWishlistPage && !isInCart) {
+    productBtnText = 'add to cart';
+  }
 
   // the above is made for UI purpose
   const discountPercent = calculateDiscountPercent(
@@ -127,10 +129,14 @@ const ProductCard = ({ product }) => {
 
         <footer className={styles.footer}>
           <button
-            className={productBtnUtils.productBtnClassName}
-            onClick={productBtnUtils.handleProductBtnClick}
+            className={
+              isInCart
+                ? `btn ${styles.cardBtn} ${styles.goToCartBtn}`
+                : `btn ${styles.cardBtn}`
+            }
+            onClick={isCardInWishlistPage ? handleWishlist : handleCart}
           >
-            {productBtnUtils.productBtnText}
+            {productBtnText}
           </button>
         </footer>
       </div>
