@@ -17,7 +17,7 @@ const Suggestions = ({ filteredList, isLoading, updateTextToEmpty }) => {
     return (
       <SuggestionContainer>
         <div className='horizontal-center'>
-          <p>No products found</p>
+          <p className='error-text'>No products found ☹️</p>
         </div>
       </SuggestionContainer>
     );

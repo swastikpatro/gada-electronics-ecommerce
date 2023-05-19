@@ -476,3 +476,8 @@ ul {
 .white-color {
   color: var(--white);
 }
+
+.error-text {
+  color: var(--red-dark);
+  letter-spacing: var(--letterSpacing);
+}
