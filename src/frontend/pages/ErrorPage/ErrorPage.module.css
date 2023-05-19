@@ -1,0 +1,10 @@
+.imageContainer {
+  width: 95vw;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.imageContainer img {
+  width: 100%;
+  object-fit: cover;
+}

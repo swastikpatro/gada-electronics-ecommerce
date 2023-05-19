@@ -40,6 +40,8 @@ const App = () => {
         />
 
         <Routes>
+          <Route path='*' element={<ErrorPage />} />
+
           <Route path='/' element={<SharedLayout />}>
             <Route index element={<Home />} />
 
@@ -79,8 +81,6 @@ const App = () => {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/mockman' element={<Mockman />} />
-
-          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </main>
     </BrowserRouter>
