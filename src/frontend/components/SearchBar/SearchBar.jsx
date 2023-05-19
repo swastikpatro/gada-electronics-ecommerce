@@ -33,6 +33,7 @@ const SearchBar = () => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line
   }, [trimmedSearch]);
 
   const handleSearchChange = (e) => {
