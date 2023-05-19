@@ -38,3 +38,19 @@ export const signupService = async (userData) => {
     };
   }
 };
+
+export const getAllProductsCategoriesService = async () => {
+  const productsPromise = axios.get('/api/products');
+  const categoriesPromise = axios.get('/api/categories');
+
+  const [productsResponse, categoriesResponse] = await Promise.all([
+    productsPromise,
+    categoriesPromise,
+  ]);
+
+  // console.log({ productsResponse, categoriesResponse });
+  const { products } = productsResponse.data;
+  const { categories } = categoriesResponse.data;
+
+  return { products, categories };
+};

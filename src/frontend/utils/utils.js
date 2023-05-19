@@ -36,3 +36,5 @@ export const getFromLocalStorage = (name) => {
 export const removeLocalStorage = (name) => {
   localStorage.removeItem(name);
 };
+
+export const wait = (delay) => new Promise((res) => setTimeout(res, delay));

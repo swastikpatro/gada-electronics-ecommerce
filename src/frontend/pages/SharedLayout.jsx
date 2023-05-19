@@ -2,14 +2,30 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Footer, Navbar } from '../components';
 import { useAllProductsContext } from '../contexts/ProductsContextProvider';
 import specsSvg from '../assets/specs.svg';
+import { useEffect } from 'react';
 
 const SharedLayout = () => {
-  const { isDataLoading, isDataError } = useAllProductsContext();
-  const navigate = useNavigate();
+  const { isDataLoading /*isDataError*/ } = useAllProductsContext();
+  // const navigate = useNavigate();
 
-  if (isDataError) {
-    navigate('*');
-  }
+  // this didnot work, so commented out,
+
+  // if (isDataError) {
+  //   // console.log({ isDataError });
+  //   navigate('*');
+  //   return;
+  // }
+
+  // Link: used to resolve (https://stackoverflow.com/questions/72160276/warning-cannot-update-a-component-browserrouter-while-rendering-a-different)
+
+  // DOUBT
+  // useEffect(() => {
+  //   if (isDataError) {
+  //     navigate('*', { replace: true });
+  //     return;
+  //   }
+  //   // eslint-disable-next-line
+  // }, [isDataError]);
 
   if (isDataLoading) {
     return (

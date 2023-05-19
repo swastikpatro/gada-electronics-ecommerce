@@ -238,6 +238,14 @@ ul {
   background: var(--green-dark);
   color: var(--white);
 }
+
+.btn-center {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  width: fit-content;
+}
+
 /* alerts */
 .alert {
   padding: 0.375rem 0.75rem;
