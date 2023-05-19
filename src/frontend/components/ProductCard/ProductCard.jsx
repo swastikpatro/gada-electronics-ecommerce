@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
 import { calculateDiscountPercent } from '../../utils/utils';
-import { WishListPage } from '../../pages';
 
 const ProductCard = ({ product }) => {
   // instead of creating State find it from wishlist content, if found show colored, else non-colored
