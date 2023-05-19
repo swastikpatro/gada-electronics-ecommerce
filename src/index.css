@@ -344,6 +344,12 @@ ul {
   animation: rotation 2s linear infinite;
 }
 
+.specs-loader {
+  width: 10rem;
+  height: 10rem;
+  animation: rotation 2s linear infinite;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -359,6 +365,21 @@ ul {
   display: flex;
   justify-content: center;
 }
+
+.text-center {
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.font-size-2 {
+  letter-spacing: var(--letterSpacing);
+  font-size: 2rem;
+}
+
+.primary-color-text {
+  color: var(--primary-600);
+}
+
 /* title */
 
 .container {
