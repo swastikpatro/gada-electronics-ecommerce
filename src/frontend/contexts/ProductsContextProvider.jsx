@@ -8,6 +8,8 @@ const ProductsContext = createContext(null);
 
 export const useAllProductsContext = () => useContext(ProductsContext);
 
+const delayToShowLoader = 1000;
+
 const initialProductsState = {
   isDataLoading: true,
   products: [],
@@ -20,8 +22,6 @@ const ProductsContextProvider = ({ children }) => {
     productsReducer,
     initialProductsState
   );
-
-  const delayToShowLoader = 1000;
 
   const fetchAllProductsAndCategories = async () => {
     dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_BEGIN });

@@ -5,7 +5,7 @@ import styles from './ErrorPage.module.css';
 const ErrorPage = () => {
   return (
     <main className='full-page'>
-      <Title>Error 404</Title>
+      <Title>Error</Title>
 
       <section>
         <div className={styles.imageContainer}>
