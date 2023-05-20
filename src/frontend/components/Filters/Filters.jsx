@@ -1,32 +1,29 @@
 import { FaStar } from 'react-icons/fa';
-import { dataMain } from '../../assets/data';
 import { giveUniqueLabelFOR } from '../../utils/utils';
 import styles from './Filters.module.css';
 import Price from '../Price';
-import { useState } from 'react';
+import { useFiltersContext } from '../../contexts/FiltersContextProvider';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { SortType, ratingsAvailable } from '../../constants/constants';
 
 const Filters = () => {
-  // console.log({ dataMain });
+  const {
+    minPrice: minPriceFromContext,
+    maxPrice: maxPriceFromContext,
+    filters: filtersObjFromContext,
+    updateFilters,
+    updateCategoryFilter,
+    handleClearFilters,
+  } = useFiltersContext();
+  const { products: productsFromProductContext } = useAllProductsContext();
 
   const categoriesList = [
-    ...new Set(dataMain.map((product) => product.category)),
+    ...new Set(productsFromProductContext.map((product) => product.category)),
   ];
   const companiesList = [
-    ...new Set(dataMain.map((product) => product.company)),
+    ...new Set(productsFromProductContext.map((product) => product.company)),
   ];
 
-  const [rangeValue, setRangeValue] = useState(10000);
-
-  const handleClear = () => {
-    console.log('Clear Filters From Context');
-  };
-
-  const handleRange = (e) => {
-    setRangeValue(e.target.value);
-  };
-
-  const ratingsAvailable = [4, 3, 2, 1, 0];
-  const sortingAvailable = ['low to high', 'high to low'];
   return (
     <form
       className={styles.filtersContainer}
@@ -34,7 +31,7 @@ const Filters = () => {
     >
       <header>
         <p>Filters</p>
-        <button className='btn btn-danger' onClick={handleClear}>
+        <button className='btn btn-danger' onClick={handleClearFilters}>
           Clear Filters
         </button>
       </header>
@@ -45,20 +42,24 @@ const Filters = () => {
         placeholder='Search...'
         className='search'
         autoComplete='off'
+        onChange={updateFilters}
+        value={filtersObjFromContext.search}
       />
 
       <fieldset>
         <legend>Category</legend>
-        {categoriesList.map((category, index) => (
+
+        {categoriesList.map((singleCategory, index) => (
           <div key={index}>
             <input
               type='checkbox'
-              name='categories'
-              id={giveUniqueLabelFOR(category, index)}
-              // checked={}
+              name='category'
+              id={giveUniqueLabelFOR(singleCategory, index)}
+              checked={filtersObjFromContext.category[singleCategory] || false}
+              onChange={() => updateCategoryFilter(singleCategory)}
             />{' '}
-            <label htmlFor={giveUniqueLabelFOR(category, index)}>
-              {category}
+            <label htmlFor={giveUniqueLabelFOR(singleCategory, index)}>
+              {singleCategory}
             </label>
           </div>
         ))}
@@ -66,7 +67,8 @@ const Filters = () => {
 
       <fieldset>
         <legend>Company</legend>
-        <select name='companies' onChange={() => console.log('Select changed')}>
+
+        <select name='company' onChange={updateFilters}>
           <option value='all'>All</option>
           {companiesList.map((company, index) => (
             <option key={giveUniqueLabelFOR(company, index)} value={company}>
@@ -78,15 +80,18 @@ const Filters = () => {
 
       <fieldset>
         <legend>Price</legend>
+
         <div>
-          <Price amount={rangeValue} />
+          <Price amount={filtersObjFromContext.price} />
         </div>
+
         <input
+          name='price'
           type='range'
-          min='0'
-          max={'10000'}
-          value={rangeValue}
-          onChange={handleRange}
+          min={minPriceFromContext}
+          max={maxPriceFromContext}
+          value={filtersObjFromContext.price}
+          onChange={updateFilters}
         />
       </fieldset>
 
@@ -98,8 +103,10 @@ const Filters = () => {
             <input
               type='radio'
               name='rating'
-              onChange={() => console.log('Rating Changed')}
+              data-rating={singleRating}
+              onChange={updateFilters}
               id={giveUniqueLabelFOR(`${singleRating} stars`, index)}
+              checked={singleRating === filtersObjFromContext.rating}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(`${singleRating} stars`, index)}>
               {singleRating} <FaStar /> & above
@@ -109,15 +116,17 @@ const Filters = () => {
       </fieldset>
 
       <fieldset>
-        <legend>Sort By Price</legend>
-        {sortingAvailable.map((singleSortValue, index) => (
+        <legend>Sort By</legend>
+
+        {Object.values(SortType).map((singleSortValue, index) => (
           <div key={singleSortValue}>
             <input
               type='radio'
-              name='sorting'
-              onChange={() => console.log('Sort Changed')}
+              name='sortByOption'
+              data-sort={singleSortValue}
+              onChange={updateFilters}
               id={giveUniqueLabelFOR(singleSortValue, index)}
-              // value={}
+              checked={singleSortValue === filtersObjFromContext.sortByOption}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(singleSortValue, index)}>
               {singleSortValue}

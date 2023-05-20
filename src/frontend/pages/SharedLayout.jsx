@@ -5,7 +5,7 @@ import specsSvg from '../assets/specs.svg';
 import { useEffect } from 'react';
 
 const SharedLayout = () => {
-  const { isDataLoading /*isDataError*/ } = useAllProductsContext();
+  const { isDataLoading } = useAllProductsContext();
   // const navigate = useNavigate();
 
   // this didnot work, so commented out,
@@ -21,7 +21,7 @@ const SharedLayout = () => {
   // DOUBT
   // useEffect(() => {
   //   if (isDataError) {
-  //     navigate('*', { replace: true });
+  //     navigate('*');
   //     return;
   //   }
   //   // eslint-disable-next-line

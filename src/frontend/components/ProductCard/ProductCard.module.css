@@ -52,6 +52,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  mix-blend-mode: multiply;
   transition: var(--transition);
 }
 
@@ -63,7 +64,7 @@
   padding: 0.25rem;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid var(--grey-500);
+  border-color: transparent;
   background: var(--white);
   transition: var(--transition);
 }
@@ -165,6 +166,28 @@
   background: var(--primary-900);
 }
 
+/* skeleton card css */
+
+.skeletonCard {
+  height: 15rem;
+}
+
+.skeletonImg {
+  height: 10rem;
+  width: 100%;
+  background: var(--grey-100);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: var(--grey-100);
+  }
+  100% {
+    background-color: var(--grey-200);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .heartContainer:hover {
     background: var(--red-light);
@@ -221,5 +244,14 @@
 
   .disabledProduct::before {
     font-size: 1.5rem;
+  }
+
+  /* skeleton card css */
+  .skeletonCard {
+    height: 24rem;
+  }
+
+  .skeletonImg {
+    height: 15rem;
   }
 }

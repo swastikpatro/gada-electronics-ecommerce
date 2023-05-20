@@ -6,6 +6,7 @@ import './index.css';
 import { makeServer } from './server';
 import {
   AuthContextProvider,
+  FiltersContextProvider,
   ProductsContextProvider,
 } from './frontend/contexts';
 
@@ -18,7 +19,9 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <ProductsContextProvider>
-        <App />
+        <FiltersContextProvider>
+          <App />
+        </FiltersContextProvider>
       </ProductsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

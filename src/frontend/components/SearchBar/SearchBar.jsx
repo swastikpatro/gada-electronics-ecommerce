@@ -4,6 +4,7 @@ import styles from './SearchBar.module.css';
 import Suggestions from './Suggestions';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { lowerizeAndCheckIncludes } from '../../utils/utils';
+import { delayDebouncedMs } from '../../constants/constants';
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
@@ -28,7 +29,7 @@ const SearchBar = () => {
     const timer = setTimeout(() => {
       handleFilter();
       setisLoading(false);
-    }, 200);
+    }, delayDebouncedMs);
 
     return () => {
       clearTimeout(timer);

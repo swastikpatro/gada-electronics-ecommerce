@@ -1,5 +1,4 @@
 .filtersContainer {
-  border: 2px solid black;
   margin: 0 auto;
   width: 300px;
   height: 36.5rem;
@@ -7,7 +6,7 @@
   background: var(--white);
   padding: 1rem 1.5rem;
   border-radius: var(--borderRadius);
-  border: 0.15rem solid var(--primary-600);
+  box-shadow: var(--shadow-2);
 }
 
 .filtersContainer header {

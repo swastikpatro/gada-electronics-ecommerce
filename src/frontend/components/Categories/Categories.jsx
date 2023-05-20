@@ -2,14 +2,18 @@ import { useNavigate } from 'react-router-dom';
 import Title from '../Title/Title';
 import styles from './Categories.module.css';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 
 const Categories = () => {
   const navigate = useNavigate();
 
   const { categories } = useAllProductsContext();
 
-  const handleCategoryClick = () => {
+  const { checkCategoryOnTabClick } = useFiltersContext();
+
+  const handleCategoryClick = (categoryNameClicked) => {
     // check the category in filtersContext
+    checkCategoryOnTabClick(categoryNameClicked);
     // then
     // navigate to products
     navigate('/products');
