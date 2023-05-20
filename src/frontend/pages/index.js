@@ -4,7 +4,7 @@ import ErrorPage from './ErrorPage/ErrorPage';
 import LoginPage from './LoginPage';
 import ProductListingPage from './ProductListingPage/ProductListingPage';
 import SharedLayout from './SharedLayout';
-import SingleProductPage from './SingleProductPage';
+import SingleProductPage from './SingleProductPage/SingleProductPage';
 import WishListPage from './WishlistPage/WishListPage';
 import Profile from './Profile';
 import SignupPage from './SignupPage';

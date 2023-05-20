@@ -47,10 +47,21 @@ export const getAllProductsCategoriesService = async () => {
     productsPromise,
     categoriesPromise,
   ]);
-
-  // console.log({ productsResponse, categoriesResponse });
+  // as this is Promise.all, any one the two promise fails, throws error, and control goes to catch!!
   const { products } = productsResponse.data;
   const { categories } = categoriesResponse.data;
 
   return { products, categories };
+};
+
+export const getSingleProductService = async (productID) => {
+  // console.log({ productsResponse, categoriesResponse });
+  const {
+    status,
+    data: { product },
+  } = await axios.get(`/api/products/${productID}`);
+
+  if (status === 200 || status === 201) {
+    return product;
+  }
 };
