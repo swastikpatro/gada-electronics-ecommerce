@@ -42,3 +42,10 @@ export const wait = (delay) => new Promise((res) => setTimeout(res, delay));
 export const lowerizeAndCheckIncludes = (text, userText) => {
   return text.toLowerCase().includes(userText.toLowerCase());
 };
+
+export const convertArrayToObjectWithPropertyFALSE = (listOfStrings = []) => {
+  return listOfStrings.reduce((acc, curr) => {
+    acc[curr] = false;
+    return acc;
+  }, {});
+};
