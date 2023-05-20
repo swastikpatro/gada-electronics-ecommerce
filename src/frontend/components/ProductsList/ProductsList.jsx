@@ -45,8 +45,8 @@ const ProductsList = () => {
         <p className='primary-color-text font-size-2'>Filtering...</p>
 
         <div className={styles.productsCenter}>
-          {skeletons.map((singleCard) => (
-            <SkeletonProductCard />
+          {skeletons.map((_, index) => (
+            <SkeletonProductCard key={index} />
           ))}
         </div>
       </section>
