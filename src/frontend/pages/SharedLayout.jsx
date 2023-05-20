@@ -3,6 +3,7 @@ import { Footer, Navbar } from '../components';
 import { useAllProductsContext } from '../contexts/ProductsContextProvider';
 import specsSvg from '../assets/specs.svg';
 import { useEffect } from 'react';
+import { SpecsLoader } from '../commonComponents';
 
 const SharedLayout = () => {
   const { isDataLoading } = useAllProductsContext();
@@ -30,12 +31,7 @@ const SharedLayout = () => {
   if (isDataLoading) {
     return (
       <div className='full-page grid-center'>
-        <div>
-          <img src={specsSvg} className='specs-loader' alt='specs' />
-          <p className='text-center font-size-2 primary-color-text'>
-            Loading...
-          </p>
-        </div>
+        <SpecsLoader text='Loading...' />
       </div>
     );
   }

@@ -1,0 +1,130 @@
+.productPageCenter {
+  /* border: 2px solid black; */
+  display: grid;
+  gap: 2rem 0;
+  padding-bottom: 4rem;
+}
+
+.productContent p {
+  margin-bottom: 0.5rem;
+}
+
+.imageContainer {
+  /* border: 2px solid red; */
+  width: 80%;
+  max-width: 25rem;
+  overflow: hidden;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* border: 2px solid yellow; */
+}
+
+.productContent {
+  /* border: 2px solid var(--primary-500); */
+  width: 100%;
+}
+
+.productContent h3 {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.userReview {
+  display: flex;
+  align-items: center;
+  gap: 0 1rem;
+  margin: 1rem 0;
+}
+
+.userReview p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--grey-500);
+  letter-spacing: var(--letterSpacing);
+  text-transform: capitalize;
+}
+
+.rating {
+  composes: rating from '../../components/ProductCard/ProductCard.module.css';
+  background: var(--green-medium);
+  font-size: 1.1rem;
+  width: fit-content;
+}
+
+.price {
+  composes: cardMain from '../../components/ProductCard/ProductCard.module.css';
+  letter-spacing: var(--letterSpacing);
+  gap: 0 1rem;
+}
+
+.price span {
+  font-size: 1.05rem;
+}
+
+.discount {
+  color: var(--green-medium);
+}
+
+.desc {
+  color: var(--grey-500);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0 1rem;
+  margin: 0.5rem 0;
+  text-transform: capitalize;
+}
+
+.row span {
+  font-weight: 600;
+  letter-spacing: var(--letterSpacing);
+  font-size: 1rem;
+}
+
+.row p {
+  margin: 0;
+  letter-spacing: var(--letterSpacing);
+}
+
+.colors {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.colorsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0 0.5rem;
+}
+
+.colorsContainer div {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+}
+
+.productContent hr {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .productPageCenter {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 3rem;
+  }
+  .imageContainer {
+    width: 100%;
+  }
+
+  .desc {
+    font-size: 1.1rem;
+  }
+}

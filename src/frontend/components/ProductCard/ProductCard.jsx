@@ -114,7 +114,7 @@ const ProductCard = ({ product }) => {
           {discountPercent > 0 && (
             <>
               <Price amount={product.originalPrice} />
-              <span> ({discountPercent}% off)</span>
+              <span className={styles.discount}> ({discountPercent}% off)</span>
             </>
           )}
         </main>

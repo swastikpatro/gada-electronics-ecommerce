@@ -129,6 +129,10 @@
   text-decoration: line-through;
 }
 
+.discount {
+  color: var(--green-medium);
+}
+
 .colorsContainer {
   margin-top: 0.5rem;
   margin-bottom: 0.75rem;

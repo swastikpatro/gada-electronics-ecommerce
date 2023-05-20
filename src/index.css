@@ -47,6 +47,7 @@ html {
   --red-dark: #842029;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
+  --green-medium: #109910;
 
   /* fonts  */
   --headingFont: 'Montserrat', sans-serif;
@@ -171,7 +172,8 @@ button {
 button:disabled {
   cursor: not-allowed;
 }
-ul {
+
+.btn ul {
   list-style-type: none;
   padding: 0;
 }
@@ -209,6 +211,11 @@ ul {
   background: var(--primary-700);
   box-shadow: var(--shadow-3);
 }
+
+.btn-activated {
+  background: var(--primary-700);
+}
+
 .btn-hipster {
   color: var(--primary-500);
   background: var(--primary-200);
@@ -217,6 +224,12 @@ ul {
   color: var(--primary-200);
   background: var(--primary-700);
 }
+
+.btn-hipster-activated {
+  color: var(--primary-200);
+  background: var(--primary-700);
+}
+
 .btn-block {
   width: 100%;
 }
@@ -239,10 +252,23 @@ ul {
   color: var(--white);
 }
 
+.btn:disabled {
+  background: var(--grey-300);
+  color: var(--white);
+}
+
 .btn-center {
   display: block;
   margin: 0 auto;
   margin-top: 1rem;
+  width: fit-content;
+}
+
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* border: 2px solid red; */
   width: fit-content;
 }
 
@@ -355,6 +381,7 @@ ul {
 .specs-loader {
   width: 10rem;
   height: 10rem;
+  margin-left: 0.75rem;
   animation: rotation 2s linear infinite;
 }
 
@@ -376,7 +403,6 @@ ul {
 
 .text-center {
   text-align: center;
-  margin-left: 1rem;
 }
 
 .font-size-2 {
