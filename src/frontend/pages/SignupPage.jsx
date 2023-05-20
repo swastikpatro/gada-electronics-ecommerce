@@ -41,7 +41,9 @@ const SignupPage = () => {
     }
 
     const { email, firstName, lastName, passwordMain: password } = userInputs;
+
     setIsSignupFormLoading(true);
+
     try {
       const data = await signupService({
         email,
@@ -69,7 +71,6 @@ const SignupPage = () => {
     }
 
     setIsSignupFormLoading(false);
-    // console.log('Create New Account', { userInputs });
   };
 
   return (
