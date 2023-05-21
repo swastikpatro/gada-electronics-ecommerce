@@ -1,5 +1,5 @@
 .searchBarContainer {
-  width: 30%;
+  width: 40%;
   max-width: 400px;
   margin: 0 auto;
   /* border: 2px solid red; */
@@ -35,6 +35,27 @@
   font-size: 0.85rem;
   /* line-height: 1.1;
   margin-top: 0.5rem; */
+  transition: var(--transition);
+}
+
+.suggestions a:hover {
+  background: var(--grey-100);
+}
+
+.suggestions a p {
+  color: var(--grey-500);
+}
+
+.suggestions a span {
+  color: var(--primary-600);
+}
+
+.suggestions a:hover p {
+  color: var(--grey-800);
+}
+
+.suggestions a:hover span {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

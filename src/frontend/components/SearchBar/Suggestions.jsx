@@ -28,8 +28,8 @@ const Suggestions = ({ filteredList, isLoading, updateTextToEmpty }) => {
       {filteredList.map((item) => (
         <Link
           onClick={updateTextToEmpty}
-          key={item.id}
-          to={`/products/${item.id}`}
+          key={item._id}
+          to={`/products/${item._id}`}
         >
           <p>🔍 {item.name}</p>
           <Price amount={item.price} />

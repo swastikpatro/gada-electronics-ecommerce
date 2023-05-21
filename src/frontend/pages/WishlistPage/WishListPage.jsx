@@ -3,14 +3,14 @@ import { ProductCard, Title } from '../../components';
 import styles from './WishlistPage.module.css';
 
 const WishListPage = () => {
-  const wishlist = dataMain.slice(0, 10);
+  const wishlist = dataMain.slice(0, 0);
   // const wishlist = dataMain.slice(0, 0);
 
   if (wishlist.length < 1) {
     return (
       <main className={`half-page ${styles.wishlistPage}`}>
         <Title>Wishlist</Title>
-        <p>Your wishlist is empty! ☹️</p>
+        <p className='text-center'>Your wishlist is empty! ☹️</p>
       </main>
     );
   }
