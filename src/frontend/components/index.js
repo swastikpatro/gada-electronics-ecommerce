@@ -13,6 +13,7 @@ import ProductsList from './ProductsList/ProductsList';
 import LoginAndSignupLayout from './LoginAndSignupLayout';
 import FormRow from './FormRow';
 import PasswordRow from './PasswordRow/PasswordRow';
+import CartProductCard from './CartProductCard/CartProductCard';
 
 export {
   Navbar,
@@ -30,4 +31,5 @@ export {
   LoginAndSignupLayout,
   FormRow,
   PasswordRow,
+  CartProductCard,
 };

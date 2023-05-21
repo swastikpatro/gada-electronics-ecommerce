@@ -5,6 +5,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   CartPage,
+  Checkout,
   ErrorPage,
   Home,
   LoginPage,
@@ -50,6 +51,8 @@ const App = () => {
             <Route path='products/:productId' element={<SingleProductPage />} />
 
             <Route path='products' element={<ProductListingPage />} />
+
+            <Route path='checkout' element={<Checkout />} />
 
             <Route
               path='cart'
