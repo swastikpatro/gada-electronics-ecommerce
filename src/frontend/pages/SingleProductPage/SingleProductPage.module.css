@@ -43,7 +43,7 @@
 
 .userReview p {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: var(--grey-500);
   letter-spacing: var(--letterSpacing);
   text-transform: capitalize;
@@ -120,11 +120,12 @@
     grid-template-columns: auto 1fr;
     gap: 0 3rem;
   }
-  .imageContainer {
-    width: 100%;
-  }
 
   .desc {
+    font-size: 1.1rem;
+  }
+
+  .userReview p {
     font-size: 1.1rem;
   }
 }

@@ -55,11 +55,29 @@ export const getAllProductsCategoriesService = async () => {
 };
 
 export const getSingleProductService = async (productID) => {
-  // console.log({ productsResponse, categoriesResponse });
   const {
     status,
     data: { product },
   } = await axios.get(`/api/products/${productID}`);
+
+  // if user types - 'localhost/products/xyz', using useParams, I am getting productID and passing it to 'this service'.
+  // then this proudctID is used to 'get' the data from backend.
+  // but in the backend, no product with such '_id' (i.e. xyz) exists.
+  // so backend returns null.
+  /*
+  {
+    status: 200,
+    data: {
+      product: null;
+    }
+  }
+  */
+
+  // to handle that thrown a error, which will give control to catch block and error state becomes true and will show error on screen.
+
+  if (!product) {
+    throw new Error('Error: Product not found!');
+  }
 
   if (status === 200 || status === 201) {
     return product;

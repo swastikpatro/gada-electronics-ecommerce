@@ -1,32 +1,41 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { SpecsLoader } from '../../commonComponents';
+import { Link, useParams } from 'react-router-dom';
+import { Error, SpecsLoader } from '../../commonComponents';
 import { getSingleProductService } from '../../Services/services';
 import styles from './SingleProductPage.module.css';
-import { Price } from '../../components';
+import { Price, Title } from '../../components';
 import { calculateDiscountPercent } from '../../utils/utils';
 import { AiFillStar } from 'react-icons/ai';
+import errorImg from '../../assets/jethalal-error.png';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
 
-  const [isSinglePageLoading, setIsSinglePageLoading] = useState(true);
-
-  const [singleProduct, setSingleProduct] = useState([]);
+  const [singleProductState, setSingleProductState] = useState({
+    isSinglePageLoading: true,
+    singleProduct: [],
+    isSinglePageError: false,
+  });
 
   const fetchSingleProduct = async () => {
-    setIsSinglePageLoading(true);
+    setSingleProductState({ ...singleProductState, isSinglePageLoading: true });
 
     try {
       const product = await getSingleProductService(productId);
 
-      setSingleProduct(product);
-
-      setIsSinglePageLoading(false);
+      setSingleProductState({
+        isSinglePageLoading: false,
+        singleProduct: product,
+        isSinglePageError: false,
+      });
     } catch (error) {
       console.error(error.response);
 
-      setIsSinglePageLoading(false);
+      setSingleProductState({
+        ...singleProductState,
+        isSinglePageLoading: false,
+        isSinglePageError: true,
+      });
     }
   };
 
@@ -35,12 +44,19 @@ const SingleProductPage = () => {
     // eslint-disable-next-line
   }, []);
 
+  const { isSinglePageLoading, singleProduct, isSinglePageError } =
+    singleProductState;
+
   if (isSinglePageLoading) {
     return (
       <main className='half-page grid-center margin-top-2'>
         <SpecsLoader text='Loading Product...' />;
       </main>
     );
+  }
+
+  if (isSinglePageError) {
+    return <Error errorText='Error: Product Not Found' />;
   }
 
   const {
@@ -120,11 +136,14 @@ const SingleProductPage = () => {
         <hr />
         {/* btn-activated & btn-hipster */}
         <div className='btn-container'>
-          <button className='btn' disabled={!inStock}>
+          <button className='btn btn-padding-desktop' disabled={!inStock}>
             Add To Cart {/* Go to Cart */}
           </button>
 
-          <button className='btn btn-hipster' disabled={!inStock}>
+          <button
+            className='btn btn-hipster btn-padding-desktop'
+            disabled={!inStock}
+          >
             Add To Wishlist {/* Go to Wishlist */}
           </button>
         </div>

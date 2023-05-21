@@ -1,0 +1,39 @@
+.error {
+  /* border: 2px solid red; */
+  display: grid;
+  place-items: center;
+}
+
+.error a {
+  align-self: start;
+}
+
+.error h3 {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--red-dark);
+}
+
+.imgContainer {
+  width: 90vw;
+  max-width: fit-content;
+  overflow: hidden;
+  /* border: 2px solid red; */
+  margin-bottom: 1rem auto;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 768px) {
+  .error {
+    gap: 2rem 0;
+  }
+
+  .imgContainer {
+    width: 100%;
+  }
+}

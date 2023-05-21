@@ -1,6 +1,6 @@
 import CartPage from './CartPage';
 import Home from './Home';
-import ErrorPage from './ErrorPage/ErrorPage';
+import ErrorPage from './ErrorPage';
 import LoginPage from './LoginPage';
 import ProductListingPage from './ProductListingPage/ProductListingPage';
 import SharedLayout from './SharedLayout';
@@ -12,7 +12,6 @@ import SignupPage from './SignupPage';
 export {
   CartPage,
   Home,
-  ErrorPage,
   LoginPage,
   ProductListingPage,
   SharedLayout,
@@ -20,4 +19,5 @@ export {
   WishListPage,
   Profile,
   SignupPage,
+  ErrorPage,
 };

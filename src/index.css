@@ -403,6 +403,7 @@ button:disabled {
 
 .text-center {
   text-align: center;
+  margin: auto;
 }
 
 .font-size-2 {
@@ -427,8 +428,14 @@ button:disabled {
 }
 
 .half-page {
-  min-height: calc(100vh - 14rem);
+  min-height: calc(100vh - 13.8rem);
   padding: 2.5rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .half-page {
+    min-height: calc(100vh - 13.75rem);
+  }
 }
 
 .coffee-info {
@@ -506,4 +513,11 @@ button:disabled {
 .error-text {
   color: var(--red-dark);
   letter-spacing: var(--letterSpacing);
+}
+
+@media screen and (min-width: 768px) {
+  .btn-padding-desktop {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+  }
 }
