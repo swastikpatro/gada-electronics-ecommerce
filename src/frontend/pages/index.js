@@ -1,4 +1,4 @@
-import CartPage from './CartPage';
+import CartPage from './CartPage/CartPage';
 import Home from './Home';
 import ErrorPage from './ErrorPage';
 import LoginPage from './LoginPage';
@@ -8,6 +8,7 @@ import SingleProductPage from './SingleProductPage/SingleProductPage';
 import WishListPage from './WishlistPage/WishListPage';
 import Profile from './Profile';
 import SignupPage from './SignupPage';
+import Checkout from './Checkout/Checkout';
 
 export {
   CartPage,
@@ -20,4 +21,5 @@ export {
   Profile,
   SignupPage,
   ErrorPage,
+  Checkout,
 };

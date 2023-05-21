@@ -1,18 +1,14 @@
 import { dataMain } from '../../assets/data';
 import { ProductCard, Title } from '../../components';
+import EmptyList from '../../components/EmptyList/EmptyList';
 import styles from './WishlistPage.module.css';
 
 const WishListPage = () => {
-  const wishlist = dataMain.slice(0, 0);
+  const wishlist = dataMain.slice(0, 10);
   // const wishlist = dataMain.slice(0, 0);
 
   if (wishlist.length < 1) {
-    return (
-      <main className={`half-page ${styles.wishlistPage}`}>
-        <Title>Wishlist</Title>
-        <p className='text-center'>Your wishlist is empty! ☹️</p>
-      </main>
-    );
+    return <EmptyList listName='wishlist' />;
   }
 
   return (
@@ -24,6 +20,11 @@ const WishListPage = () => {
           <ProductCard key={singleWishItem._id} product={singleWishItem} />
         ))}
       </div>
+
+      {/* made a api in wishlist controller for this functionality. */}
+      <button className='btn btn-danger btn-padding-desktop btn-center'>
+        Clear Wishlist
+      </button>
     </main>
   );
 };

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Error, SpecsLoader } from '../../commonComponents';
 import { getSingleProductService } from '../../Services/services';
 import styles from './SingleProductPage.module.css';
-import { Price, Title } from '../../components';
+import { Price } from '../../components';
 import { calculateDiscountPercent } from '../../utils/utils';
 import { AiFillStar } from 'react-icons/ai';
-import errorImg from '../../assets/jethalal-error.png';
 
 const SingleProductPage = () => {
   const { productId } = useParams();

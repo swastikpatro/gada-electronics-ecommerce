@@ -1,0 +1,11 @@
+.emptyText {
+  text-align: center;
+  font-size: 1.25rem;
+  letter-spacing: var(--letterSpacing);
+}
+
+@media screen and (min-width: 768px) {
+  .emptyText {
+    font-size: 1.5rem;
+  }
+}
