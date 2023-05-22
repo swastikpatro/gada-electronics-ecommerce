@@ -62,6 +62,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+
             <Route
               path='wishlist'
               element={
@@ -70,6 +71,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+
             <Route
               path='profile'
               element={

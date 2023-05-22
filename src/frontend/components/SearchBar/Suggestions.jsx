@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
 import Price from '../Price';
 import SuggestionContainer from './SuggestionContainer';
 
-const Suggestions = ({ filteredList, isLoading, updateTextToEmpty }) => {
-  if (isLoading)
+const Suggestions = ({
+  filteredList,
+  isSuggestionsLoading,
+  updateTextOnLinkClick,
+}) => {
+  if (isSuggestionsLoading)
     return (
       <SuggestionContainer>
         <div className='horizontal-center'>
@@ -26,14 +29,15 @@ const Suggestions = ({ filteredList, isLoading, updateTextToEmpty }) => {
   return (
     <SuggestionContainer>
       {filteredList.map((item) => (
-        <Link
-          onClick={updateTextToEmpty}
+        <button
+          type='button'
+          // navigates after onClick
+          onClick={() => updateTextOnLinkClick(item)}
           key={item._id}
-          to={`/products/${item._id}`}
         >
           <p>🔍 {item.name}</p>
           <Price amount={item.price} />
-        </Link>
+        </button>
       ))}
     </SuggestionContainer>
   );

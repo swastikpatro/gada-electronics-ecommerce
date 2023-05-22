@@ -11,8 +11,10 @@
 
 .imageContainer {
   /* border: 2px solid red; */
-  width: 80%;
+  min-width: 80%;
   max-width: 25rem;
+  min-height: 20rem;
+  max-height: 20rem;
   overflow: hidden;
 }
 
@@ -117,7 +119,8 @@
 @media screen and (min-width: 768px) {
   .productPageCenter {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 20rem 1fr;
+    /* align-items: center; */
     gap: 0 3rem;
   }
 

@@ -22,6 +22,7 @@ const SingleProductPage = () => {
     try {
       const product = await getSingleProductService(productId);
 
+      console.log(product);
       setSingleProductState({
         isSinglePageLoading: false,
         singleProduct: product,
@@ -41,7 +42,9 @@ const SingleProductPage = () => {
   useEffect(() => {
     fetchSingleProduct();
     // eslint-disable-next-line
-  }, []);
+  }, [productId]);
+
+  // if the user is in single product page (of oneplus 10R), clicks on the suggestions Link (eg oneplus air 2020), only the productId in the url of singleProductPage changes but as the singleProductPage was already mounted, it doesnot fetch again the new product, so added productId in the dependency list
 
   const { isSinglePageLoading, singleProduct, isSinglePageError } =
     singleProductState;

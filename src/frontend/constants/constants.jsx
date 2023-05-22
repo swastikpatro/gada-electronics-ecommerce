@@ -46,3 +46,5 @@ export const localStorageKeys = {
 export const delayDebouncedMs = 250;
 
 export const totalSkeletonsLength = 10;
+
+export const delayBetnSuggestionLinkClickAndSearchBlur = 150;

@@ -4,6 +4,20 @@
   margin: 0 auto;
   /* border: 2px solid red; */
   position: relative;
+  display: flex;
+}
+
+.searchBtn {
+  border-color: transparent;
+  background: var(--grey-50);
+  margin-right: 1.1rem;
+  cursor: pointer;
+  color: var(--primary-600);
+  transition: var(--transition);
+}
+
+.searchBtn:active {
+  background: var(--primary-200);
 }
 
 .suggestions {
@@ -24,7 +38,9 @@
   margin: 0;
 }
 
-.suggestions a {
+.suggestions button {
+  width: 100%;
+  background: var(--white);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,28 +49,31 @@
   border-top: 1px solid var(--grey-100);
   color: var(--black);
   font-size: 0.85rem;
+  cursor: pointer;
+  border-color: transparent;
+  letter-spacing: var(--letterSpacing);
   /* line-height: 1.1;
   margin-top: 0.5rem; */
   transition: var(--transition);
 }
 
-.suggestions a:hover {
+.suggestions button:hover {
   background: var(--grey-100);
 }
 
-.suggestions a p {
+.suggestions button p {
   color: var(--grey-500);
 }
 
-.suggestions a span {
+.suggestions button span {
   color: var(--primary-600);
 }
 
-.suggestions a:hover p {
+.suggestions button:hover p {
   color: var(--grey-800);
 }
 
-.suggestions a:hover span {
+.suggestions button:hover span {
   font-weight: 600;
 }
 
@@ -65,7 +84,7 @@
     width: 100%;
   }
 
-  .searchBarContainer input:active {
+  /* .searchBarContainer input:active {
     outline-color: var(--primary-600);
-  }
+  } */
 }

@@ -50,6 +50,7 @@ const ProductsContextProvider = ({ children }) => {
     <ProductsContext.Provider
       value={{
         ...productsState,
+        isMainPageLoading: productsState.isDataLoading,
       }}
     >
       {children}

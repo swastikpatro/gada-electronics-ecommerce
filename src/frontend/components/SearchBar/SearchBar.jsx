@@ -1,52 +1,32 @@
-import { useEffect, useState } from 'react';
 import styles from './SearchBar.module.css';
 
 import Suggestions from './Suggestions';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { lowerizeAndCheckIncludes } from '../../utils/utils';
-import { delayDebouncedMs } from '../../constants/constants';
+
+import { BsSearch } from 'react-icons/bs';
+import { useSearchSuggestions } from '../../hooks';
+import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 
 const SearchBar = () => {
-  const [searchText, setSearchText] = useState('');
   // instead of allData, get from product context
   const { products: productsFromContext } = useAllProductsContext();
-  const [filteredList, setFilteredList] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
-  const trimmedSearch = searchText.trim();
+  const { applySearchFilter: applySearchFilterFnFromContext } =
+    useFiltersContext();
 
-  const handleFilter = () => {
-    setFilteredList(
-      productsFromContext.filter(
-        ({ name, company }) =>
-          lowerizeAndCheckIncludes(name, trimmedSearch) ||
-          lowerizeAndCheckIncludes(company, trimmedSearch)
-      )
-    );
-  };
-
-  useEffect(() => {
-    setisLoading(true);
-    const timer = setTimeout(() => {
-      handleFilter();
-      setisLoading(false);
-    }, delayDebouncedMs);
-
-    return () => {
-      clearTimeout(timer);
-    };
-    // eslint-disable-next-line
-  }, [trimmedSearch]);
-
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-  };
-
-  const updateTextToEmpty = () => {
-    setSearchText('');
-  };
+  const {
+    searchText,
+    isSuggestionsVisible,
+    isSuggestionsLoading,
+    filteredList,
+    updateTextOnLinkClick,
+    handleFocus,
+    handleSearchChange,
+    handleSubmit,
+    handleBlur,
+  } = useSearchSuggestions(productsFromContext, applySearchFilterFnFromContext);
 
   return (
-    <div className={styles.searchBarContainer}>
+    <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
       <input
         className='search'
         type='search'
@@ -54,15 +34,22 @@ const SearchBar = () => {
         onChange={handleSearchChange}
         value={searchText}
         autoComplete='off'
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
-      {trimmedSearch && (
+
+      <button className={styles.searchBtn} type='submit'>
+        <BsSearch />
+      </button>
+
+      {isSuggestionsVisible && (
         <Suggestions
           filteredList={filteredList}
-          isLoading={isLoading}
-          updateTextToEmpty={updateTextToEmpty}
+          isSuggestionsLoading={isSuggestionsLoading}
+          updateTextOnLinkClick={updateTextOnLinkClick}
         />
       )}
-    </div>
+    </form>
   );
 };
 
