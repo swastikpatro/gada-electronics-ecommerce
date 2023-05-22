@@ -9,7 +9,8 @@ import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 
 const SearchBar = () => {
   // instead of allData, get from product context
-  const { products: productsFromContext } = useAllProductsContext();
+  const { products: productsFromContext, timedMainPageLoader } =
+    useAllProductsContext();
   const { applySearchFilter: applySearchFilterFnFromContext } =
     useFiltersContext();
 
@@ -23,7 +24,11 @@ const SearchBar = () => {
     handleSearchChange,
     handleSubmit,
     handleBlur,
-  } = useSearchSuggestions(productsFromContext, applySearchFilterFnFromContext);
+  } = useSearchSuggestions(
+    productsFromContext,
+    applySearchFilterFnFromContext,
+    timedMainPageLoader
+  );
 
   return (
     <form onSubmit={handleSubmit} className={styles.searchBarContainer}>

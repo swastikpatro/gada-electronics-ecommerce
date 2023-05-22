@@ -4,11 +4,13 @@ import { lowerizeAndCheckIncludes, wait } from '../utils/utils';
 import {
   delayBetnSuggestionLinkClickAndSearchBlur,
   delayDebouncedMs,
+  delayToShowLoader,
 } from '../constants/constants';
 
 const useSearchSuggestions = (
   productsFromContext,
-  applySearchFilterFnFromContext
+  applySearchFilterFnFromContext,
+  timedMainPageLoader
 ) => {
   const [searchText, setSearchText] = useState('');
 
@@ -48,23 +50,29 @@ const useSearchSuggestions = (
 
   // 1
   const handleFocus = () => {
-    // if user focusses on the input when there is no text, show all the productsFromContext.
-    setIsSuggestionsVisible(true);
+    // if user focusses on the input when there is no text, do nothing.
 
-    if (!searchText) {
-      setFilteredList(productsFromContext);
-    }
+    if (!searchText) return;
+
+    // but if there is text, show suggestions
+    setIsSuggestionsVisible(true);
   };
 
   //2
   const handleSearchChange = (e) => {
+    const userText = e.target.value;
     // onclick of Escape, it clears searchText, this is handled by type='search',
 
     // try writing letters and backspacing after commenting line 66
     // on backspacing suggestions will not visible, so added setIsSuggestionsVisible(true) !
     // while user is writing,
-    setIsSuggestionsVisible(true);
-    setSearchText(e.target.value);
+    setSearchText(userText);
+
+    //  after backspacing when the text is empty, hide suggestions!!
+
+    // coercion - userText -  (!!'') (i.e. false),
+    // userText - (!!'dell') (i.e. true)
+    setIsSuggestionsVisible(!!userText);
   };
 
   //3
@@ -79,6 +87,7 @@ const useSearchSuggestions = (
     // apply Filter on products in productListing Page, so update the searchText
     if (location.pathname === '/products' && !searchText) {
       applySearchFilterFnFromContext('');
+      timedMainPageLoader();
       return;
     }
 
@@ -91,14 +100,16 @@ const useSearchSuggestions = (
     // if user submits the form or clicks ENTER with text, then 'hide suggestions' and update search in FIlter context with the 'searchText here' i.e. (filters: {search: searchText}), then navigate to '/products' then show mainPageLoading for 1 second.
     navigate('/products');
     applySearchFilterFnFromContext(searchText);
+    timedMainPageLoader();
   };
 
   // 4 (Link click)
   const updateTextOnLinkClick = async (item) => {
     // User clicks on any of the suggestion, then 'hide suggestions' and update the input with the 'name of the item' in that LINK
 
-    // setSearchText(item.name);
-    // await wait(1000);
+    setSearchText(item.name);
+    timedMainPageLoader();
+    await wait(delayToShowLoader);
     setSearchText('');
     navigate(`/products/${item._id}`);
     setIsSuggestionsVisible(false);

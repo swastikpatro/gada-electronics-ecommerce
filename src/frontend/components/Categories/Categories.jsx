@@ -7,7 +7,7 @@ import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 const Categories = () => {
   const navigate = useNavigate();
 
-  const { categories } = useAllProductsContext();
+  const { categories: categoriesFromContext } = useAllProductsContext();
 
   const { checkCategoryOnTabClick } = useFiltersContext();
 
@@ -24,7 +24,7 @@ const Categories = () => {
       <Title>Categories</Title>
 
       <div className={`container ${styles.categoryContainer}`}>
-        {categories.map(({ _id, categoryName }) => (
+        {categoriesFromContext.map(({ _id, categoryName }) => (
           <article
             key={_id}
             className={styles.category}

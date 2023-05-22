@@ -3,12 +3,11 @@ import { wait } from '../utils/utils';
 import { getAllProductsCategoriesService } from '../Services/services';
 import { productsReducer } from '../reducers';
 import { PRODUCTS_ACTION } from '../utils/actions';
+import { delayToShowLoader } from '../constants/constants';
 
 const ProductsContext = createContext(null);
 
 export const useAllProductsContext = () => useContext(ProductsContext);
-
-const delayToShowLoader = 1000;
 
 const initialProductsState = {
   isDataLoading: true,
@@ -46,11 +45,28 @@ const ProductsContextProvider = ({ children }) => {
     fetchAllProductsAndCategories();
   }, []);
 
+  const showMainPageLoader = () => {
+    dispatch({ type: PRODUCTS_ACTION.SHOW_LOADER });
+  };
+
+  const hideMainPageLoader = () => {
+    dispatch({ type: PRODUCTS_ACTION.HIDE_LOADER });
+  };
+
+  const timedMainPageLoader = async () => {
+    showMainPageLoader();
+    await wait(delayToShowLoader);
+    hideMainPageLoader();
+  };
+
   return (
     <ProductsContext.Provider
       value={{
         ...productsState,
         isMainPageLoading: productsState.isDataLoading,
+        showMainPageLoader,
+        hideMainPageLoader,
+        timedMainPageLoader,
       }}
     >
       {children}

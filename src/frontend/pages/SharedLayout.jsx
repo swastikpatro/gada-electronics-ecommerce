@@ -41,7 +41,8 @@ const SharedLayout = () => {
 
       <Navbar />
 
-      {isMainPageLoading ? <main className='full-page'></main> : <Outlet />}
+      <Outlet />
+
       <Footer />
     </>
   );

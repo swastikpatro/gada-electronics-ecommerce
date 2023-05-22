@@ -6,9 +6,12 @@ import styles from './SingleProductPage.module.css';
 import { Price } from '../../components';
 import { calculateDiscountPercent } from '../../utils/utils';
 import { AiFillStar } from 'react-icons/ai';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
+
+  const { showMainPageLoader, hideMainPageLoader } = useAllProductsContext();
 
   const [singleProductState, setSingleProductState] = useState({
     isSinglePageLoading: true,
@@ -19,10 +22,12 @@ const SingleProductPage = () => {
   const fetchSingleProduct = async () => {
     setSingleProductState({ ...singleProductState, isSinglePageLoading: true });
 
+    showMainPageLoader();
+
     try {
       const product = await getSingleProductService(productId);
 
-      console.log(product);
+      hideMainPageLoader();
       setSingleProductState({
         isSinglePageLoading: false,
         singleProduct: product,
@@ -30,6 +35,8 @@ const SingleProductPage = () => {
       });
     } catch (error) {
       console.error(error.response);
+
+      hideMainPageLoader();
 
       setSingleProductState({
         ...singleProductState,
@@ -50,11 +57,7 @@ const SingleProductPage = () => {
     singleProductState;
 
   if (isSinglePageLoading) {
-    return (
-      <main className='half-page grid-center margin-top-2'>
-        <SpecsLoader text='Loading Product...' />;
-      </main>
-    );
+    return <main className='full-page'></main>;
   }
 
   if (isSinglePageError) {

@@ -8,6 +8,7 @@ export const productsReducer = (state, action) => {
         isDataLoading: true,
         isDataError: false,
       };
+
     case PRODUCTS_ACTION.GET_ALL_PRODUCTS_FULFILLED:
       return {
         ...state,
@@ -16,11 +17,24 @@ export const productsReducer = (state, action) => {
         categories: [...action.payload.categories],
         isDataError: false,
       };
+
     case PRODUCTS_ACTION.GET_ALL_PRODUCTS_REJECTED:
       return {
         ...state,
         isDataLoading: false,
         isDataError: true,
+      };
+
+    case PRODUCTS_ACTION.SHOW_LOADER:
+      return {
+        ...state,
+        isDataLoading: true,
+      };
+
+    case PRODUCTS_ACTION.HIDE_LOADER:
+      return {
+        ...state,
+        isDataLoading: false,
       };
     default:
       throw new Error(`${action.type} does not exist`);
