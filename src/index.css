@@ -487,12 +487,6 @@ button:disabled {
   letter-spacing: var(--letterSpacing);
 }
 
-@media screen and (min-width: 768px) {
-  .search {
-    outline-color: var(--primary-600);
-  }
-}
-
 .btn-width-100 {
   width: 100%;
 }

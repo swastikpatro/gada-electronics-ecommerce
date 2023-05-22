@@ -1,8 +1,10 @@
 import { toast } from 'react-toastify';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
-  const percent = ((originalPrice - discountPrice) * 100) / originalPrice;
-  return Number.isInteger(percent) ? percent : percent.toFixed(2);
+  const percent = Math.floor(
+    ((originalPrice - discountPrice) * 100) / originalPrice
+  );
+  return percent;
 };
 
 export const giveUniqueLabelFOR = (type, i) => `${type}-${i}`;

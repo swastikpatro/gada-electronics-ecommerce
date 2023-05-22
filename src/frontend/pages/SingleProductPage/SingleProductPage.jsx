@@ -6,9 +6,12 @@ import styles from './SingleProductPage.module.css';
 import { Price } from '../../components';
 import { calculateDiscountPercent } from '../../utils/utils';
 import { AiFillStar } from 'react-icons/ai';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
+
+  const { showMainPageLoader, hideMainPageLoader } = useAllProductsContext();
 
   const [singleProductState, setSingleProductState] = useState({
     isSinglePageLoading: true,
@@ -19,9 +22,12 @@ const SingleProductPage = () => {
   const fetchSingleProduct = async () => {
     setSingleProductState({ ...singleProductState, isSinglePageLoading: true });
 
+    showMainPageLoader();
+
     try {
       const product = await getSingleProductService(productId);
 
+      hideMainPageLoader();
       setSingleProductState({
         isSinglePageLoading: false,
         singleProduct: product,
@@ -29,6 +35,8 @@ const SingleProductPage = () => {
       });
     } catch (error) {
       console.error(error.response);
+
+      hideMainPageLoader();
 
       setSingleProductState({
         ...singleProductState,
@@ -41,17 +49,15 @@ const SingleProductPage = () => {
   useEffect(() => {
     fetchSingleProduct();
     // eslint-disable-next-line
-  }, []);
+  }, [productId]);
+
+  // if the user is in single product page (of oneplus 10R), clicks on the suggestions Link (eg oneplus air 2020), only the productId in the url of singleProductPage changes but as the singleProductPage was already mounted, it doesnot fetch again the new product, so added productId in the dependency list
 
   const { isSinglePageLoading, singleProduct, isSinglePageError } =
     singleProductState;
 
   if (isSinglePageLoading) {
-    return (
-      <main className='half-page grid-center margin-top-2'>
-        <SpecsLoader text='Loading Product...' />;
-      </main>
-    );
+    return <main className='full-page'></main>;
   }
 
   if (isSinglePageError) {

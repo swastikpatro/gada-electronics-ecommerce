@@ -36,16 +36,6 @@ const Filters = () => {
         </button>
       </header>
 
-      <input
-        name='search'
-        type='search'
-        placeholder='Search...'
-        className='search'
-        autoComplete='off'
-        onChange={updateFilters}
-        value={filtersObjFromContext.search}
-      />
-
       <fieldset>
         <legend>Category</legend>
 

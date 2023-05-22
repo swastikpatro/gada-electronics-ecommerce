@@ -9,6 +9,10 @@
   box-shadow: var(--shadow-2);
 }
 
+.filtersContainer input {
+  cursor: pointer;
+}
+
 .filtersContainer header {
   display: flex;
   justify-content: space-between;
@@ -37,15 +41,18 @@
 }
 .filtersContainer label {
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .ratingFieldset label > svg {
   margin-bottom: -0.1rem;
 }
 
-.filtersContainer select {
+.filtersContainer select,
+option {
   padding: 0.25rem;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

@@ -51,6 +51,16 @@ export const filtersReducer = (state, action) => {
         },
       };
 
+    case FILTERS_ACTION.UPDATE_SEARCH_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          search: action.payloadSearch,
+        },
+      };
+
+    // called onchange of filters
     case FILTERS_ACTION.UPDATE_FILTERS:
       return {
         ...state,
@@ -112,15 +122,11 @@ export const filtersReducer = (state, action) => {
       let tempProducts = allProducts;
 
       // search handled here
-      tempProducts = allProducts.filter(
-        ({ name, company: companyProperty }) => {
-          const trimmedSearchText = searchText.trim();
-          return (
-            lowerizeAndCheckIncludes(name, trimmedSearchText) ||
-            lowerizeAndCheckIncludes(companyProperty, trimmedSearchText)
-          );
-        }
-      );
+      // company is not filtered here after submitting!!
+      tempProducts = allProducts.filter(({ name }) => {
+        const trimmedSearchText = searchText.trim();
+        return lowerizeAndCheckIncludes(name, trimmedSearchText);
+      });
 
       // category checkbox handled here
       if (isAnyCheckboxChecked) {

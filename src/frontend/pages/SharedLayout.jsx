@@ -1,12 +1,11 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Footer, Navbar } from '../components';
 import { useAllProductsContext } from '../contexts/ProductsContextProvider';
-import specsSvg from '../assets/specs.svg';
-import { useEffect } from 'react';
-import { SpecsLoader } from '../commonComponents';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const SharedLayout = () => {
-  const { isDataLoading } = useAllProductsContext();
+  const { isMainPageLoading } = useAllProductsContext();
+
   // const navigate = useNavigate();
 
   // this didnot work, so commented out,
@@ -28,16 +27,18 @@ const SharedLayout = () => {
   //   // eslint-disable-next-line
   // }, [isDataError]);
 
-  if (isDataLoading) {
-    return (
-      <div className='full-page grid-center'>
-        <SpecsLoader text='Loading...' />
-      </div>
-    );
-  }
-
   return (
     <>
+      <Backdrop
+        sx={{
+          color: `var(--primary-300)`,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={isMainPageLoading}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
+
       <Navbar />
 
       <Outlet />
