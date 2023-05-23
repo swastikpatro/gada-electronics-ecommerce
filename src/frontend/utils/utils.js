@@ -58,3 +58,6 @@ export const convertArrayToObjectWithPropertyFALSE = (listOfStrings = []) => {
     return acc;
   }, {});
 };
+
+export const isPresent = (itemId, list) =>
+  !!list.find((singleItem) => singleItem._id === itemId);

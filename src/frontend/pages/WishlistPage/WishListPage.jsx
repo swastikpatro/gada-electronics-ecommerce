@@ -1,14 +1,22 @@
 import { ProductCard, Title } from '../../components';
 import EmptyList from '../../components/EmptyList/EmptyList';
+import { ToastType } from '../../constants/constants';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { toastHandler } from '../../utils/utils';
 import styles from './WishlistPage.module.css';
 
 const WishListPage = () => {
-  const { wishlist: wishlistFromContext } = useAllProductsContext();
+  const { wishlist: wishlistFromContext, clearWishlistDispatch } =
+    useAllProductsContext();
 
   if (wishlistFromContext.length < 1) {
     return <EmptyList listName='wishlist' />;
   }
+
+  const handleClearWishlist = () => {
+    clearWishlistDispatch();
+    toastHandler(ToastType.Warn, 'Cleared Wishlist Successfully');
+  };
 
   return (
     <main className={`full-page ${styles.wishlistPage}`}>
@@ -21,7 +29,10 @@ const WishListPage = () => {
       </div>
 
       {/* made a api in wishlist controller for this functionality. */}
-      <button className='btn btn-danger btn-padding-desktop btn-center'>
+      <button
+        className='btn btn-danger btn-padding-desktop btn-center'
+        onClick={handleClearWishlist}
+      >
         Clear Wishlist
       </button>
     </main>

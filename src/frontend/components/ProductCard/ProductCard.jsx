@@ -3,16 +3,16 @@ import { AiFillHeart, AiFillStar, AiOutlineHeart } from 'react-icons/ai';
 import styles from './ProductCard.module.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
-import { LOGIN_TOAST, calculateDiscountPercent } from '../../utils/utils';
+import {
+  LOGIN_TOAST,
+  calculateDiscountPercent,
+  isPresent,
+} from '../../utils/utils';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { useAuthContext } from '../../contexts/AuthContextProvider';
 import { useState } from 'react';
 
-const isPresent = (list, item) =>
-  !!list.find((singleItem) => singleItem._id === item._id);
-
 const ProductCard = ({ product }) => {
-  // instead of creating State find it from wishlist content, if found show colored, else non-colored
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
     wishlist: wishlistFromContext,
     cart: cartFromContext,
     addToCartDispatch,
-    addToCartRemoveFromWishlistDispatch,
+    moveToCartDispatch,
     addToWishlistDispatch,
     removeFromWishlistDispatch,
   } = useAllProductsContext();
@@ -29,9 +29,9 @@ const ProductCard = ({ product }) => {
   const [isCartBtnDisable, setIsCartBtnDisable] = useState(false);
   const [isWishlistBtnDisable, setIsWishlistBtnDisable] = useState(false);
 
-  const isProductInCart = isPresent(cartFromContext, product);
+  const isProductInCart = isPresent(product._id, cartFromContext);
 
-  const isProductInWishlist = isPresent(wishlistFromContext, product);
+  const isProductInWishlist = isPresent(product._id, wishlistFromContext);
 
   const isCardInWishlistPage = location.pathname === '/wishlist';
 
@@ -52,7 +52,6 @@ const ProductCard = ({ product }) => {
     productBtnText = 'add to cart';
   }
 
-  // the above is made for UI purpose
   const discountPercent = calculateDiscountPercent(
     product.price,
     product.originalPrice
@@ -79,19 +78,6 @@ const ProductCard = ({ product }) => {
     await dispatchFunction(product);
     setIsCartBtnDisable(false);
   };
-
-  // const handleRemoveFromWishlistAddToCart = () => {
-  //   //  this will be clicked in wishlist page, so user is authenticated
-
-  //   if (isProductInCart) {
-  //     navigate('/cart');
-  //     return;
-  //   }
-
-  //   // move to cart, i.e. add to cart and remove from wishlist
-  //   addToCartRemoveFromWishlistDispatch(product);
-  //   // console.log('clicked');
-  // };
 
   const handleWishlistBtnClick = async () => {
     if (!user) {
@@ -174,9 +160,7 @@ const ProductCard = ({ product }) => {
             }
             onClick={() =>
               handleCartBtnClick(
-                isCardInWishlistPage
-                  ? addToCartRemoveFromWishlistDispatch
-                  : addToCartDispatch
+                isCardInWishlistPage ? moveToCartDispatch : addToCartDispatch
               )
             }
           >

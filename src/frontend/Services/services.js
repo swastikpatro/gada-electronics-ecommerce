@@ -108,7 +108,7 @@ export const postAddToCartService = async (productToAdd, token) => {
   );
 };
 
-export const deleteFromToCartService = async (productId, token) => {
+export const deleteFromCartService = async (productId, token) => {
   return axios.delete(`/api/user/cart/${productId}`, {
     headers: { authorization: token },
   });

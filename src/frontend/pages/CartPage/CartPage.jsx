@@ -3,13 +3,20 @@ import { CartProductCard, Price, Title } from '../../components';
 import EmptyList from '../../components/EmptyList/EmptyList';
 import styles from './CartPage.module.css';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { toastHandler } from '../../utils/utils';
+import { ToastType } from '../../constants/constants';
 
 const CartPage = () => {
-  const { cart: cartFromContext } = useAllProductsContext();
+  const { cart: cartFromContext, clearCartDispatch } = useAllProductsContext();
 
   if (cartFromContext.length < 1) {
     return <EmptyList listName='cart' />;
   }
+
+  const handleClearCart = () => {
+    clearCartDispatch();
+    toastHandler(ToastType.Warn, 'Cleared Cart Successfully');
+  };
 
   return (
     <main className={`full-page ${styles.cartListPage}`}>
@@ -24,7 +31,10 @@ const CartPage = () => {
             />
           ))}
           {/* made a api in cart controller for this functionality. */}
-          <button className='btn btn-danger btn-padding-desktop btn-center'>
+          <button
+            className='btn btn-danger btn-padding-desktop btn-center'
+            onClick={handleClearCart}
+          >
             Clear Cart
           </button>
         </section>
