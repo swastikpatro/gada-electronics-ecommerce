@@ -1,10 +1,14 @@
 import { FaStar } from 'react-icons/fa';
-import { giveUniqueLabelFOR } from '../../utils/utils';
+import { giveUniqueLabelFOR, toastHandler } from '../../utils/utils';
 import styles from './Filters.module.css';
 import Price from '../Price';
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { SortType, ratingsAvailable } from '../../constants/constants';
+import {
+  SortType,
+  ToastType,
+  ratingsAvailable,
+} from '../../constants/constants';
 
 const Filters = () => {
   const {
@@ -13,7 +17,7 @@ const Filters = () => {
     filters,
     updateFilters,
     updateCategoryFilter,
-    handleClearFilters,
+    clearFilters,
   } = useFiltersContext();
 
   const { products: productsFromProductContext } = useAllProductsContext();
@@ -33,6 +37,11 @@ const Filters = () => {
     ...new Set(productsFromProductContext.map((product) => product.company)),
   ];
 
+  const handleClearFilter = () => {
+    clearFilters();
+    toastHandler(ToastType.Warn, 'Cleared Filters Successfully');
+  };
+
   return (
     <form
       className={styles.filtersContainer}
@@ -40,7 +49,7 @@ const Filters = () => {
     >
       <header>
         <p>Filters</p>
-        <button className='btn btn-danger' onClick={handleClearFilters}>
+        <button className='btn btn-danger' onClick={handleClearFilter}>
           Clear Filters
         </button>
       </header>
