@@ -7,6 +7,7 @@ import {
   deleteWishlistDataService,
   getAllProductsCategoriesService,
   getWishlistAndCartService,
+  incDecItemInCartService,
   postAddToCartService,
   postAddToWishlistService,
 } from '../Services/services';
@@ -137,6 +138,21 @@ const ProductsContextProvider = ({ children }) => {
     }
   };
 
+  const removeFromCartDispatch = async (productId) => {
+    try {
+      const response = await deleteFromCartService(productId, user.token);
+
+      const { cart } = response.data;
+      const { status } = response;
+      if (status === 200 || status === 201) {
+        updateCart(cart);
+        toastHandler(ToastType.Warn, 'Removed From Cart successfully');
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const removeFromWishlistDispatch = async (productId) => {
     try {
       const response = await deleteFromWishlistService(productId, user.token);
@@ -237,6 +253,26 @@ const ProductsContextProvider = ({ children }) => {
     }
   };
 
+  const addOrRemoveQuantityInCart = async (productId, type) => {
+    try {
+      const response = await incDecItemInCartService({
+        productId,
+        type,
+        token: user.token,
+      });
+
+      console.log({ response });
+
+      const { cart } = response.data;
+      const { status } = response;
+      if (status === 200 || status === 201) {
+        updateCart(cart);
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <ProductsContext.Provider
       value={{
@@ -252,6 +288,8 @@ const ProductsContextProvider = ({ children }) => {
         clearCartDispatch,
         moveToCartDispatch,
         moveToWishlistDispatch,
+        removeFromCartDispatch,
+        addOrRemoveQuantityInCart,
         // addToWishlistRemoveFromCartDispatch,
       }}
     >

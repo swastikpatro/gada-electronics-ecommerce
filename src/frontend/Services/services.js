@@ -118,7 +118,7 @@ export const incDecItemInCartService = async ({ productId, token, type }) => {
   return axios.post(
     `/api/user/cart/${productId}`,
     {
-      action: type,
+      action: { type },
     },
     { headers: { authorization: token } }
   );

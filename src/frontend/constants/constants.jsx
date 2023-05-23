@@ -48,6 +48,11 @@ export const userTypeForLogin = {
   RegisterClick: 'registered',
 };
 
+export const cartActionType = {
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement',
+};
+
 export const delayToShowLoader = 500;
 
 export const delayDebouncedMs = 250;
