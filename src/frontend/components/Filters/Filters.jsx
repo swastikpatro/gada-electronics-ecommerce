@@ -10,12 +10,21 @@ const Filters = () => {
   const {
     minPrice: minPriceFromContext,
     maxPrice: maxPriceFromContext,
-    filters: filtersObjFromContext,
+    filters,
     updateFilters,
     updateCategoryFilter,
     handleClearFilters,
   } = useFiltersContext();
+
   const { products: productsFromProductContext } = useAllProductsContext();
+
+  const {
+    category: categoryFromContext,
+    company: companyFromContext,
+    price: priceFromContext,
+    rating: ratingFromContext,
+    sortByOption: sortByOptionFromContext,
+  } = filters;
 
   const categoriesList = [
     ...new Set(productsFromProductContext.map((product) => product.category)),
@@ -45,7 +54,7 @@ const Filters = () => {
               type='checkbox'
               name='category'
               id={giveUniqueLabelFOR(singleCategory, index)}
-              checked={filtersObjFromContext.category[singleCategory] || false}
+              checked={categoryFromContext[singleCategory] || false}
               onChange={() => updateCategoryFilter(singleCategory)}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(singleCategory, index)}>
@@ -58,7 +67,11 @@ const Filters = () => {
       <fieldset>
         <legend>Company</legend>
 
-        <select name='company' onChange={updateFilters}>
+        <select
+          name='company'
+          onChange={updateFilters}
+          value={companyFromContext}
+        >
           <option value='all'>All</option>
           {companiesList.map((company, index) => (
             <option key={giveUniqueLabelFOR(company, index)} value={company}>
@@ -72,7 +85,7 @@ const Filters = () => {
         <legend>Price</legend>
 
         <div>
-          <Price amount={filtersObjFromContext.price} />
+          <Price amount={priceFromContext} />
         </div>
 
         <input
@@ -80,7 +93,7 @@ const Filters = () => {
           type='range'
           min={minPriceFromContext}
           max={maxPriceFromContext}
-          value={filtersObjFromContext.price}
+          value={priceFromContext}
           onChange={updateFilters}
         />
       </fieldset>
@@ -96,7 +109,7 @@ const Filters = () => {
               data-rating={singleRating}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(`${singleRating} stars`, index)}
-              checked={singleRating === filtersObjFromContext.rating}
+              checked={singleRating === ratingFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(`${singleRating} stars`, index)}>
               {singleRating} <FaStar /> & above
@@ -116,7 +129,7 @@ const Filters = () => {
               data-sort={singleSortValue}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(singleSortValue, index)}
-              checked={singleSortValue === filtersObjFromContext.sortByOption}
+              checked={singleSortValue === sortByOptionFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(singleSortValue, index)}>
               {singleSortValue}
