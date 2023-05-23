@@ -1,23 +1,41 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Error, SpecsLoader } from '../../commonComponents';
 import { getSingleProductService } from '../../Services/services';
 import styles from './SingleProductPage.module.css';
 import { Price } from '../../components';
-import { calculateDiscountPercent } from '../../utils/utils';
+import {
+  LOGIN_TOAST,
+  calculateDiscountPercent,
+  isPresent,
+} from '../../utils/utils';
 import { AiFillStar } from 'react-icons/ai';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { useAuthContext } from '../../contexts/AuthContextProvider';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const { showMainPageLoader, hideMainPageLoader } = useAllProductsContext();
+  const {
+    wishlist: wishlistFromContext,
+    cart: cartFromContext,
+    showMainPageLoader,
+    hideMainPageLoader,
+    addToCartDispatch,
+    addToWishlistDispatch,
+  } = useAllProductsContext();
 
   const [singleProductState, setSingleProductState] = useState({
     isSinglePageLoading: true,
-    singleProduct: [],
+    singleProductData: [],
     isSinglePageError: false,
   });
+
+  const [isWishlistBtnDisable, setIsWishlistBtnDisable] = useState(false);
+  const [isCartBtnDisable, setIsCartBtnDisable] = useState(false);
 
   const fetchSingleProduct = async () => {
     setSingleProductState({ ...singleProductState, isSinglePageLoading: true });
@@ -30,7 +48,7 @@ const SingleProductPage = () => {
       hideMainPageLoader();
       setSingleProductState({
         isSinglePageLoading: false,
-        singleProduct: product,
+        singleProductData: product,
         isSinglePageError: false,
       });
     } catch (error) {
@@ -53,7 +71,7 @@ const SingleProductPage = () => {
 
   // if the user is in single product page (of oneplus 10R), clicks on the suggestions Link (eg oneplus air 2020), only the productId in the url of singleProductPage changes but as the singleProductPage was already mounted, it doesnot fetch again the new product, so added productId in the dependency list
 
-  const { isSinglePageLoading, singleProduct, isSinglePageError } =
+  const { isSinglePageLoading, singleProductData, isSinglePageError } =
     singleProductState;
 
   if (isSinglePageLoading) {
@@ -65,7 +83,7 @@ const SingleProductPage = () => {
   }
 
   const {
-    _id,
+    _id: singlePageProductId,
     name,
     price,
     originalPrice,
@@ -78,9 +96,53 @@ const SingleProductPage = () => {
     inStock,
     reviewCount,
     stars,
-  } = singleProduct;
+  } = singleProductData;
 
   const discountPercent = calculateDiscountPercent(price, originalPrice);
+
+  const isSinglePageProductInCart = isPresent(
+    singlePageProductId,
+    cartFromContext
+  );
+
+  const isSinglePageProductInWishlist = isPresent(
+    singlePageProductId,
+    wishlistFromContext
+  );
+
+  const handleCartBtnClick = async () => {
+    if (!user) {
+      LOGIN_TOAST();
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    if (isSinglePageProductInCart) {
+      navigate('/cart');
+      return;
+    }
+
+    setIsCartBtnDisable(true);
+    await addToCartDispatch(singleProductData);
+    setIsCartBtnDisable(false);
+  };
+
+  const handleWishlistBtnClick = async () => {
+    if (!user) {
+      LOGIN_TOAST();
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    if (isSinglePageProductInWishlist) {
+      navigate('/wishlist');
+      return;
+    }
+
+    setIsWishlistBtnDisable(true);
+    await addToWishlistDispatch(singleProductData);
+    setIsWishlistBtnDisable(false);
+  };
 
   return (
     <main className={`container half-page ${styles.productPageCenter}`}>
@@ -141,15 +203,26 @@ const SingleProductPage = () => {
         <hr />
         {/* btn-activated & btn-hipster */}
         <div className='btn-container'>
-          <button className='btn btn-padding-desktop' disabled={!inStock}>
-            Add To Cart {/* Go to Cart */}
+          <button
+            className={`btn btn-padding-desktop ${
+              isSinglePageProductInCart && 'btn-activated'
+            }`}
+            disabled={!inStock || isCartBtnDisable}
+            onClick={handleCartBtnClick}
+          >
+            {isSinglePageProductInCart ? 'Go to Cart' : 'Add To Cart'}
           </button>
 
           <button
-            className='btn btn-hipster btn-padding-desktop'
-            disabled={!inStock}
+            onClick={handleWishlistBtnClick}
+            className={`btn btn-hipster btn-padding-desktop ${
+              isSinglePageProductInWishlist && 'btn-hipster-activated'
+            }`}
+            disabled={!inStock || isWishlistBtnDisable}
           >
-            Add To Wishlist {/* Go to Wishlist */}
+            {isSinglePageProductInWishlist
+              ? 'Go to Wishlist'
+              : 'Add To Wishlist'}
           </button>
         </div>
       </div>

@@ -43,6 +43,16 @@ export const localStorageKeys = {
   User: 'user',
 };
 
+export const userTypeForLogin = {
+  GuestClick: 'guest',
+  RegisterClick: 'registered',
+};
+
+export const cartActionType = {
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement',
+};
+
 export const delayToShowLoader = 500;
 
 export const delayDebouncedMs = 250;
@@ -50,3 +60,5 @@ export const delayDebouncedMs = 250;
 export const totalSkeletonsLength = 10;
 
 export const delayBetnSuggestionLinkClickAndSearchBlur = 150;
+
+export const customToastId = 1;

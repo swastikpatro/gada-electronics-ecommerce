@@ -5,17 +5,17 @@ import {
   PasswordRow,
   Title,
 } from '../components';
-import { ToastType, localStorageKeys, testUser } from '../constants/constants';
+import {
+  ToastType,
+  localStorageKeys,
+  testUser,
+  userTypeForLogin,
+} from '../constants/constants';
 import { useState } from 'react';
 import { loginUserService } from '../Services/services';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
 import { Loader } from '../commonComponents';
 import { useAuthContext } from '../contexts/AuthContextProvider';
-
-const userType = {
-  GuestClick: 'guest',
-  RegisterClick: 'registered',
-};
 
 const LoginPage = () => {
   const { updateUserAuth } = useAuthContext();
@@ -32,9 +32,10 @@ const LoginPage = () => {
     setUserInputs({ ...userInputs, [e.target.name]: e.target.value });
   };
 
+  // used for both the buttons
   const handleSubmit = async (e, clickType) => {
     e.preventDefault();
-    const isGuestClick = clickType === userType.GuestClick;
+    const isGuestClick = clickType === userTypeForLogin.GuestClick;
     if (isGuestClick) {
       setUserInputs(testUser);
     }
@@ -56,7 +57,7 @@ const LoginPage = () => {
       navigate(locationOfLogin?.state?.from ?? '/');
     } catch (error) {
       // console.log(error.response.status);
-      toastHandler(ToastType.Error, error.response.data.errors[0]);
+      toastHandler(ToastType.Error, 'User Not Found, Please Register 🙏');
     }
 
     setIsFormLoading(false);
@@ -66,7 +67,7 @@ const LoginPage = () => {
     <LoginAndSignupLayout>
       <Title>Login</Title>
 
-      <form onSubmit={(e) => handleSubmit(e, userType.RegisterClick)}>
+      <form onSubmit={(e) => handleSubmit(e, userTypeForLogin.RegisterClick)}>
         <FormRow
           text='Email Address'
           type='email'
@@ -95,16 +96,17 @@ const LoginPage = () => {
         >
           <Loader isLoadingState={isFormLoading} text='Login' />
         </button>
+
+        <button
+          disabled={isFormLoading}
+          className='btn btn-block'
+          onClick={(e) => handleSubmit(e, userTypeForLogin.GuestClick)}
+        >
+          <Loader isLoadingState={isFormLoading} text='Login as a guest' />
+        </button>
       </form>
 
       {/* this Guest Login button is out of the form  */}
-      <button
-        disabled={isFormLoading}
-        className='btn btn-block'
-        onClick={(e) => handleSubmit(e, userType.GuestClick)}
-      >
-        <Loader isLoadingState={isFormLoading} text='Login as a guest' />
-      </button>
 
       {/*
         * user journey

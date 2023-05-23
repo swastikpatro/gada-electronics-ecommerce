@@ -1,30 +1,40 @@
 import { Link } from 'react-router-dom';
-import { dataMain } from '../../assets/data';
 import { CartProductCard, Price, Title } from '../../components';
 import EmptyList from '../../components/EmptyList/EmptyList';
 import styles from './CartPage.module.css';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { toastHandler } from '../../utils/utils';
+import { ToastType } from '../../constants/constants';
 
 const CartPage = () => {
-  const cartList = dataMain.slice(0, 10);
+  const { cart: cartFromContext, clearCartDispatch } = useAllProductsContext();
 
-  if (cartList.length < 1) {
+  if (cartFromContext.length < 1) {
     return <EmptyList listName='cart' />;
   }
 
+  const handleClearCart = () => {
+    clearCartDispatch();
+    toastHandler(ToastType.Warn, 'Cleared Cart Successfully');
+  };
+
   return (
     <main className={`full-page ${styles.cartListPage}`}>
-      <Title>Cart ({cartList.length})</Title>
+      <Title>Cart ({cartFromContext.length})</Title>
 
       <div className={`container ${styles.cartCenter}`}>
         <section className={styles.cartListContainer}>
-          {cartList.map((singleCartItem) => (
+          {cartFromContext.map((singleCartItem) => (
             <CartProductCard
               key={singleCartItem._id}
               singleCartItem={singleCartItem}
             />
           ))}
           {/* made a api in cart controller for this functionality. */}
-          <button className='btn btn-danger btn-padding-desktop btn-center'>
+          <button
+            className='btn btn-danger btn-padding-desktop btn-center'
+            onClick={handleClearCart}
+          >
             Clear Cart
           </button>
         </section>

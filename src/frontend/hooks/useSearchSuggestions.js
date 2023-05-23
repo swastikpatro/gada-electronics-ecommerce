@@ -15,6 +15,7 @@ const useSearchSuggestions = (
   const [searchText, setSearchText] = useState('');
 
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const [filteredList, setFilteredList] = useState([]);
@@ -62,16 +63,9 @@ const useSearchSuggestions = (
   const handleSearchChange = (e) => {
     const userText = e.target.value;
     // onclick of Escape, it clears searchText, this is handled by type='search',
-
-    // try writing letters and backspacing after commenting line 66
-    // on backspacing suggestions will not visible, so added setIsSuggestionsVisible(true) !
-    // while user is writing,
     setSearchText(userText);
 
-    //  after backspacing when the text is empty, hide suggestions!!
-
-    // coercion - userText -  (!!'') (i.e. false),
-    // userText - (!!'dell') (i.e. true)
+    // coercion
     setIsSuggestionsVisible(!!userText);
   };
 
@@ -91,13 +85,11 @@ const useSearchSuggestions = (
       return;
     }
 
-    //  for productlisting page with no text handled, so for other pages submitting with no text in search,
-    // results in doing nothing!!
+    //  for productlisting page with no text handled, so for other pages submitting with no text in search, results in doing nothing!!
     if (!searchText) {
       return;
     }
 
-    // if user submits the form or clicks ENTER with text, then 'hide suggestions' and update search in FIlter context with the 'searchText here' i.e. (filters: {search: searchText}), then navigate to '/products' then show mainPageLoading for 1 second.
     navigate('/products');
     applySearchFilterFnFromContext(searchText);
     timedMainPageLoader();
@@ -108,8 +100,7 @@ const useSearchSuggestions = (
     // User clicks on any of the suggestion, then 'hide suggestions' and update the input with the 'name of the item' in that LINK
 
     setSearchText(item.name);
-    timedMainPageLoader();
-    await wait(delayToShowLoader);
+    await timedMainPageLoader();
     setSearchText('');
     navigate(`/products/${item._id}`);
     setIsSuggestionsVisible(false);
@@ -117,13 +108,8 @@ const useSearchSuggestions = (
 
   // 5 Clicks anywhere outside (excluding on input), (handleBlur is called when clicked anywhere in the page, also on clicking submit 🔍 btn, also on any clicking suggestion link )
   const handleBlur = () => {
-    // as on clicking the link, blur was firing first and and stopping the click of suggestionLink i.e. (updateTextOnLinkClick fn), so added delay.
+    // as on clicking the link, blur was firing first and and stopping the click of suggestionLink i.e. (updateTextOnLinkClick fn), so added delay 150ms.
 
-    // delay added, so LINK can redirect before blurring and suggestion getting closed.
-
-    // click anywhere outside the search input, after 150ms, suggestions will not be visible!!
-
-    // try removing, the setTimeout to understand, but for updateTextOnLinkClick to work, keep setTimeout of delay >= 150ms!!
     setTimeout(() => {
       setIsSuggestionsVisible(false);
     }, delayBetnSuggestionLinkClickAndSearchBlur);

@@ -28,8 +28,8 @@
 .row {
   display: flex;
   justify-content: space-between;
-  letter-spacing: var(--letterSpacing);
   margin-bottom: 1rem;
+  font-size: 0.85rem;
 }
 
 .totalPrice {
@@ -51,5 +51,10 @@
     width: 400px;
     position: sticky;
     top: calc(var(--nav-height) + 5rem);
+  }
+
+  .row {
+    font-size: 1.1rem;
+    letter-spacing: var(--letterSpacing);
   }
 }

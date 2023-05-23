@@ -67,29 +67,35 @@
   margin-top: 0.25rem;
 }
 
-.counter svg {
+.counter button svg {
   font-size: 1.25rem;
   transition: var(--transition);
   cursor: pointer;
 }
+.counter button {
+  border-color: transparent;
+  background: transparent;
+}
 
-.counter svg:first-child {
+.counter button:first-child svg {
   color: var(--red-dark);
 }
 
-.counter svg:first-child:hover {
+.counter button:first-child svg:hover {
   color: var(--red-medium);
 }
 
-.counter svg:last-child {
+.counter button:last-child svg {
   color: var(--green-medium);
 }
-.counter svg:last-child:hover {
+.counter button:last-child svg:hover {
   color: var(--green-dark);
 }
 
 .counter div {
   padding: 0 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
 .cartBtnContainer {

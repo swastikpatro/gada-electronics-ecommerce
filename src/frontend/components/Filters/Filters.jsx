@@ -1,21 +1,34 @@
 import { FaStar } from 'react-icons/fa';
-import { giveUniqueLabelFOR } from '../../utils/utils';
+import { giveUniqueLabelFOR, toastHandler } from '../../utils/utils';
 import styles from './Filters.module.css';
 import Price from '../Price';
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { SortType, ratingsAvailable } from '../../constants/constants';
+import {
+  SortType,
+  ToastType,
+  ratingsAvailable,
+} from '../../constants/constants';
 
 const Filters = () => {
   const {
     minPrice: minPriceFromContext,
     maxPrice: maxPriceFromContext,
-    filters: filtersObjFromContext,
+    filters,
     updateFilters,
     updateCategoryFilter,
-    handleClearFilters,
+    clearFilters,
   } = useFiltersContext();
+
   const { products: productsFromProductContext } = useAllProductsContext();
+
+  const {
+    category: categoryFromContext,
+    company: companyFromContext,
+    price: priceFromContext,
+    rating: ratingFromContext,
+    sortByOption: sortByOptionFromContext,
+  } = filters;
 
   const categoriesList = [
     ...new Set(productsFromProductContext.map((product) => product.category)),
@@ -24,6 +37,11 @@ const Filters = () => {
     ...new Set(productsFromProductContext.map((product) => product.company)),
   ];
 
+  const handleClearFilter = () => {
+    clearFilters();
+    toastHandler(ToastType.Warn, 'Cleared Filters Successfully');
+  };
+
   return (
     <form
       className={styles.filtersContainer}
@@ -31,7 +49,7 @@ const Filters = () => {
     >
       <header>
         <p>Filters</p>
-        <button className='btn btn-danger' onClick={handleClearFilters}>
+        <button className='btn btn-danger' onClick={handleClearFilter}>
           Clear Filters
         </button>
       </header>
@@ -45,7 +63,7 @@ const Filters = () => {
               type='checkbox'
               name='category'
               id={giveUniqueLabelFOR(singleCategory, index)}
-              checked={filtersObjFromContext.category[singleCategory] || false}
+              checked={categoryFromContext[singleCategory] || false}
               onChange={() => updateCategoryFilter(singleCategory)}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(singleCategory, index)}>
@@ -58,7 +76,11 @@ const Filters = () => {
       <fieldset>
         <legend>Company</legend>
 
-        <select name='company' onChange={updateFilters}>
+        <select
+          name='company'
+          onChange={updateFilters}
+          value={companyFromContext}
+        >
           <option value='all'>All</option>
           {companiesList.map((company, index) => (
             <option key={giveUniqueLabelFOR(company, index)} value={company}>
@@ -72,7 +94,7 @@ const Filters = () => {
         <legend>Price</legend>
 
         <div>
-          <Price amount={filtersObjFromContext.price} />
+          <Price amount={priceFromContext} />
         </div>
 
         <input
@@ -80,7 +102,7 @@ const Filters = () => {
           type='range'
           min={minPriceFromContext}
           max={maxPriceFromContext}
-          value={filtersObjFromContext.price}
+          value={priceFromContext}
           onChange={updateFilters}
         />
       </fieldset>
@@ -96,7 +118,7 @@ const Filters = () => {
               data-rating={singleRating}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(`${singleRating} stars`, index)}
-              checked={singleRating === filtersObjFromContext.rating}
+              checked={singleRating === ratingFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(`${singleRating} stars`, index)}>
               {singleRating} <FaStar /> & above
@@ -116,7 +138,7 @@ const Filters = () => {
               data-sort={singleSortValue}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(singleSortValue, index)}
-              checked={singleSortValue === filtersObjFromContext.sortByOption}
+              checked={singleSortValue === sortByOptionFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(singleSortValue, index)}>
               {singleSortValue}

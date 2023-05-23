@@ -1,28 +1,38 @@
-import { dataMain } from '../../assets/data';
 import { ProductCard, Title } from '../../components';
 import EmptyList from '../../components/EmptyList/EmptyList';
+import { ToastType } from '../../constants/constants';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { toastHandler } from '../../utils/utils';
 import styles from './WishlistPage.module.css';
 
 const WishListPage = () => {
-  const wishlist = dataMain.slice(0, 10);
-  // const wishlist = dataMain.slice(0, 0);
+  const { wishlist: wishlistFromContext, clearWishlistDispatch } =
+    useAllProductsContext();
 
-  if (wishlist.length < 1) {
+  if (wishlistFromContext.length < 1) {
     return <EmptyList listName='wishlist' />;
   }
 
+  const handleClearWishlist = () => {
+    clearWishlistDispatch();
+    toastHandler(ToastType.Warn, 'Cleared Wishlist Successfully');
+  };
+
   return (
     <main className={`full-page ${styles.wishlistPage}`}>
-      <Title>Wishlist ({wishlist.length})</Title>
+      <Title>Wishlist ({wishlistFromContext.length})</Title>
 
       <div className={`container ${styles.wishlistsContainer}`}>
-        {wishlist.map((singleWishItem) => (
+        {wishlistFromContext.map((singleWishItem) => (
           <ProductCard key={singleWishItem._id} product={singleWishItem} />
         ))}
       </div>
 
       {/* made a api in wishlist controller for this functionality. */}
-      <button className='btn btn-danger btn-padding-desktop btn-center'>
+      <button
+        className='btn btn-danger btn-padding-desktop btn-center'
+        onClick={handleClearWishlist}
+      >
         Clear Wishlist
       </button>
     </main>

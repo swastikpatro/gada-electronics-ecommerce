@@ -3,31 +3,7 @@ import { useAllProductsContext } from './ProductsContextProvider';
 
 import { FILTERS_ACTION } from '../utils/actions';
 import { filtersReducer } from '../reducers';
-
-const initialFiltersState = {
-  allProducts: [],
-  filteredProducts: [],
-  minPrice: 0,
-  maxPrice: Infinity, // will be handled
-  filters: {
-    search: '',
-    category: null,
-    company: 'all',
-    price: 0,
-    rating: -1,
-    sortByOption: '',
-  },
-};
-
-/* 
-  category: {
-    laptop: false,
-    tv: false,
-    earphone: false,
-    smartwatch: false,
-    mobile: false
-  }
-*/
+import { initialFiltersState } from '../reducers/filtersReducer';
 
 const FiltersContext = createContext(null);
 
@@ -95,7 +71,7 @@ const FiltersContextProvider = ({ children }) => {
   };
 
   //  called inside the Filters Component of the ProductListingPage
-  const handleClearFilters = () => {
+  const clearFilters = () => {
     dispatch({ type: FILTERS_ACTION.CLEAR_FILTERS });
   };
 
@@ -130,7 +106,7 @@ const FiltersContextProvider = ({ children }) => {
         ...filtersState,
         updateFilters,
         updateCategoryFilter,
-        handleClearFilters,
+        clearFilters,
         checkCategoryOnTabClick,
         applyFilters,
         applySearchFilter,

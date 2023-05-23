@@ -4,15 +4,16 @@ import styles from './LinksContainer.module.css';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useAuthContext } from '../../contexts/AuthContextProvider';
-
-const ItemCount = ({ count }) => {
-  if (count < 1) return;
-  return <span className={styles.itemCount}>{count}</span>;
-};
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import ItemCount from './ItemCount';
 
 const LinksContainer = () => {
   // from userContext I will get whether its login or not
   const { user } = useAuthContext();
+
+  const { wishlist: wishlistFromContext, cart: cartFromContext } =
+    useAllProductsContext();
+
   const navStyle = ({ isActive }) => {
     const outputClass = styles.link;
     if (isActive) return `${outputClass} ${styles.active}`;
@@ -32,12 +33,12 @@ const LinksContainer = () => {
 
       <NavLink className={navStyle} to='/wishlist'>
         <AiOutlineHeart />
-        <ItemCount count={0} />
+        <ItemCount count={wishlistFromContext.length} />
       </NavLink>
 
       <NavLink className={navStyle} to='/cart'>
         <AiOutlineShoppingCart />
-        <ItemCount count={2} />
+        <ItemCount count={cartFromContext.length} />
       </NavLink>
     </div>
   );

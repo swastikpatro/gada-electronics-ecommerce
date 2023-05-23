@@ -6,27 +6,6 @@ import { Backdrop, CircularProgress } from '@mui/material';
 const SharedLayout = () => {
   const { isMainPageLoading } = useAllProductsContext();
 
-  // const navigate = useNavigate();
-
-  // this didnot work, so commented out,
-
-  // if (isDataError) {
-  //   // console.log({ isDataError });
-  //   navigate('*');
-  //   return;
-  // }
-
-  // Link: used to resolve (https://stackoverflow.com/questions/72160276/warning-cannot-update-a-component-browserrouter-while-rendering-a-different)
-
-  // DOUBT
-  // useEffect(() => {
-  //   if (isDataError) {
-  //     navigate('*');
-  //     return;
-  //   }
-  //   // eslint-disable-next-line
-  // }, [isDataError]);
-
   return (
     <>
       <Backdrop
