@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContextProvider';
+import { LOGIN_TOAST } from '../utils/utils';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuthContext();
@@ -16,6 +17,10 @@ const PrivateRoute = ({ children }) => {
   //  this doesnot provide good UX.
 
   //  so if there is no user data in AuthContext (i.e. user is not logged in) and the route is '/profile', user should come to '/' (home page), so I am passing '/' as state to the Login page.
+
+  if (!user && routeToRedirect !== '/profile') {
+    LOGIN_TOAST();
+  }
 
   if (routeToRedirect === '/profile' && !user) {
     routeToRedirect = '/';
