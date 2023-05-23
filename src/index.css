@@ -464,8 +464,16 @@ button:disabled {
 
 .Toastify__toast {
   text-transform: capitalize;
-  width: 100vw;
+  padding: 0;
+  margin: 0;
+  width: 100%;
   max-width: fit-content;
+}
+
+@media screen and (min-width: 768px) {
+  .Toastify__toast {
+    max-width: fit-content;
+  }
 }
 
 .bg {

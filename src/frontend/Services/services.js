@@ -83,3 +83,69 @@ export const getSingleProductService = async (productID) => {
     return product;
   }
 };
+
+export const getWishlistAndCartService = async (token) => {
+  const objContainingheaders = { headers: { authorization: token } };
+  const wishlistPromise = axios.get('/api/user/wishlist', objContainingheaders);
+  const cartPromise = axios.get('/api/user/cart', objContainingheaders);
+
+  const [wishlistResponse, cartResponse] = await Promise.all([
+    wishlistPromise,
+    cartPromise,
+  ]);
+
+  const { wishlist } = wishlistResponse.data;
+  const { cart } = cartResponse.data;
+
+  return { wishlist, cart };
+};
+
+export const postAddToCartService = async (productToAdd, token) => {
+  return axios.post(
+    '/api/user/cart',
+    { product: productToAdd },
+    { headers: { authorization: token } }
+  );
+};
+
+export const deleteFromToCartService = async (productId, token) => {
+  return axios.delete(`/api/user/cart/${productId}`, {
+    headers: { authorization: token },
+  });
+};
+
+export const incDecItemInCartService = async ({ productId, token, type }) => {
+  return axios.post(
+    `/api/user/cart/${productId}`,
+    {
+      action: type,
+    },
+    { headers: { authorization: token } }
+  );
+};
+
+export const postAddToWishlistService = async (productToAdd, token) => {
+  return axios.post(
+    '/api/user/wishlist',
+    { product: productToAdd },
+    { headers: { authorization: token } }
+  );
+};
+
+export const deleteFromWishlistService = async (productId, token) => {
+  return axios.delete(`/api/user/wishlist/${productId}`, {
+    headers: { authorization: token },
+  });
+};
+
+export const deleteCartDataService = async (token) => {
+  return axios.delete('/api/user/cart', {
+    headers: { authorization: token },
+  });
+};
+
+export const deleteWishlistDataService = async (token) => {
+  return axios.delete('/api/user/wishlist', {
+    headers: { authorization: token },
+  });
+};

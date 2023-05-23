@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom';
-import { dataMain } from '../../assets/data';
 import { CartProductCard, Price, Title } from '../../components';
 import EmptyList from '../../components/EmptyList/EmptyList';
 import styles from './CartPage.module.css';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
 const CartPage = () => {
-  const cartList = dataMain.slice(0, 10);
+  const { cart: cartFromContext } = useAllProductsContext();
 
-  if (cartList.length < 1) {
+  if (cartFromContext.length < 1) {
     return <EmptyList listName='cart' />;
   }
 
   return (
     <main className={`full-page ${styles.cartListPage}`}>
-      <Title>Cart ({cartList.length})</Title>
+      <Title>Cart ({cartFromContext.length})</Title>
 
       <div className={`container ${styles.cartCenter}`}>
         <section className={styles.cartListContainer}>
-          {cartList.map((singleCartItem) => (
+          {cartFromContext.map((singleCartItem) => (
             <CartProductCard
               key={singleCartItem._id}
               singleCartItem={singleCartItem}

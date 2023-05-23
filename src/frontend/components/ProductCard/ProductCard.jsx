@@ -1,70 +1,54 @@
 /* eslint-disable react/prop-types */
 import { AiFillHeart, AiFillStar, AiOutlineHeart } from 'react-icons/ai';
 import styles from './ProductCard.module.css';
-import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
-import { calculateDiscountPercent } from '../../utils/utils';
+import { LOGIN_TOAST, calculateDiscountPercent } from '../../utils/utils';
+import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { useAuthContext } from '../../contexts/AuthContextProvider';
+import { useState } from 'react';
+
+const isPresent = (list, item) =>
+  !!list.find((singleItem) => singleItem._id === item._id);
 
 const ProductCard = ({ product }) => {
   // instead of creating State find it from wishlist content, if found show colored, else non-colored
-  const [isWishlist, setIsWishlist] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(location);
 
-  // functions
-  const handleCart = () => {
-    // find that in cart from cartContext here
-    // add to cart, if that product is not present in the cart
-    // else onClick of the button, navigate('/cart')
-  };
+  const { user } = useAuthContext();
+  const {
+    wishlist: wishlistFromContext,
+    cart: cartFromContext,
+    addToCartDispatch,
+    addToCartRemoveFromWishlistDispatch,
+    addToWishlistDispatch,
+    removeFromWishlistDispatch,
+  } = useAllProductsContext();
 
-  const handleWishlist = () => {
-    // find that in wishlist from wishListContext here
-    // add to cart and remove from wishlist, if that product is not present in the cart
-    // else onClick of the button. navigate('/cart')
-  };
+  const [isCartBtnDisable, setIsCartBtnDisable] = useState(false);
+  const [isWishlistBtnDisable, setIsWishlistBtnDisable] = useState(false);
+
+  const isProductInCart = isPresent(cartFromContext, product);
+
+  const isProductInWishlist = isPresent(wishlistFromContext, product);
 
   const isCardInWishlistPage = location.pathname === '/wishlist';
-
-  // ignore line 34 to 53 // a different way to implement line 55 to 70
-  // const { productBtnText } = [
-  //   {
-  //     condition: isCardInWishlistPage && isInCart,
-  //     productBtnText: 'already in Cart',
-  //   },
-  //   {
-  //     condition: isCardInWishlistPage && !isInCart,
-  //     productBtnText: 'move to cart',
-  //   },
-  //   {
-  //     condition: !isCardInWishlistPage && isInCart,
-  //     productBtnText: 'go to cart',
-  //   },
-  //   {
-  //     condition: !isCardInWishlistPage && !isInCart,
-  //     productBtnText: 'add to cart',
-  //   },
-  // ].find(({ condition }) => condition);
-
-  // console.log({ productBtnText }); // working
 
   let productBtnText = '';
 
   // If card is in wishlist page & product is in cartContext show- "already in cart" else show 'move to cart'
-  if (isCardInWishlistPage && isInCart) {
+  if (isCardInWishlistPage && isProductInCart) {
     productBtnText = 'already in Cart';
   }
-  if (isCardInWishlistPage && !isInCart) {
+  if (isCardInWishlistPage && !isProductInCart) {
     productBtnText = 'move to cart';
   }
   // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
-  if (!isCardInWishlistPage && isInCart) {
+  if (!isCardInWishlistPage && isProductInCart) {
     productBtnText = 'go to cart';
   }
-  if (!isCardInWishlistPage && !isInCart) {
+  if (!isCardInWishlistPage && !isProductInCart) {
     productBtnText = 'add to cart';
   }
 
@@ -74,7 +58,60 @@ const ProductCard = ({ product }) => {
     product.originalPrice
   );
 
-  // console.log({ [product.name]: product.colors });
+  // functions
+
+  // this is accepting dispatch functions on conditonal basis depending on the page
+  const handleCartBtnClick = async (dispatchFunction) => {
+    // for wishlist page, there will be a user always
+
+    if (!user) {
+      LOGIN_TOAST();
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    if (isProductInCart) {
+      navigate('/cart');
+      return;
+    }
+
+    setIsCartBtnDisable(true);
+    await dispatchFunction(product);
+    setIsCartBtnDisable(false);
+  };
+
+  // const handleRemoveFromWishlistAddToCart = () => {
+  //   //  this will be clicked in wishlist page, so user is authenticated
+
+  //   if (isProductInCart) {
+  //     navigate('/cart');
+  //     return;
+  //   }
+
+  //   // move to cart, i.e. add to cart and remove from wishlist
+  //   addToCartRemoveFromWishlistDispatch(product);
+  //   // console.log('clicked');
+  // };
+
+  const handleWishlistBtnClick = async () => {
+    if (!user) {
+      LOGIN_TOAST();
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    setIsWishlistBtnDisable(true);
+
+    if (isProductInWishlist) {
+      // delete from wishlist
+      await removeFromWishlistDispatch(product._id);
+      setIsWishlistBtnDisable(false);
+      return;
+    }
+
+    await addToWishlistDispatch(product);
+    setIsWishlistBtnDisable(false);
+  };
 
   return (
     <article
@@ -91,14 +128,15 @@ const ProductCard = ({ product }) => {
       </div>
 
       <button
-        onClick={() => setIsWishlist(!isWishlist)}
+        onClick={handleWishlistBtnClick}
+        disabled={isWishlistBtnDisable}
         className={
-          isWishlist
+          isProductInWishlist
             ? `${styles.heartContainer} ${styles.coloredHeart}`
             : styles.heartContainer
         }
       >
-        {isWishlist ? <AiFillHeart /> : <AiOutlineHeart />}
+        {isProductInWishlist ? <AiFillHeart /> : <AiOutlineHeart />}
       </button>
 
       <div className={styles.cardInfo}>
@@ -128,12 +166,19 @@ const ProductCard = ({ product }) => {
 
         <footer className={styles.footer}>
           <button
+            disabled={isCartBtnDisable}
             className={
-              isInCart
+              isProductInCart
                 ? `btn ${styles.cardBtn} ${styles.goToCartBtn}`
                 : `btn ${styles.cardBtn}`
             }
-            onClick={isCardInWishlistPage ? handleWishlist : handleCart}
+            onClick={() =>
+              handleCartBtnClick(
+                isCardInWishlistPage
+                  ? addToCartRemoveFromWishlistDispatch
+                  : addToCartDispatch
+              )
+            }
           >
             {productBtnText}
           </button>
