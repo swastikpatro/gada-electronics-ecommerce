@@ -6,7 +6,9 @@ const EmptyList = ({ listName }) => {
   return (
     <main className='half-page'>
       <Title>{listName}</Title>
-      <p className={styles.emptyText}>Your {listName} is empty! ☹️</p>
+      <p className={`text-center ${styles.emptyText}`}>
+        Your {listName} is empty! ☹️
+      </p>
     </main>
   );
 };

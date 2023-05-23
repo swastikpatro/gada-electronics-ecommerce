@@ -1,4 +1,6 @@
 import { toast } from 'react-toastify';
+import { v4 } from 'uuid';
+import { ToastType, customToastId } from '../constants/constants';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
   const percent = Math.floor(
@@ -9,7 +11,7 @@ export const calculateDiscountPercent = (discountPrice, originalPrice) => {
 
 export const giveUniqueLabelFOR = (type, i) => `${type}-${i}`;
 
-export const toastHandler = (type, message) => {
+export const toastHandler = (type, message, toastId = v4()) => {
   const toastStyle = {
     position: 'top-left',
     autoClose: 1000,
@@ -19,12 +21,17 @@ export const toastHandler = (type, message) => {
     draggable: true,
     progress: undefined,
     theme: 'dark',
+    toastId,
   };
 
   const toastFunc = toast[type];
 
   // toast function call
   toastFunc(message, toastStyle);
+};
+
+export const LOGIN_TOAST = () => {
+  toastHandler(ToastType.Warn, 'Please login to continue', customToastId);
 };
 
 export const setIntoLocalStorage = (name, dataObj) => {

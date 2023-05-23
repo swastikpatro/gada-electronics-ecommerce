@@ -5,6 +5,31 @@ import {
   lowerizeAndCheckIncludes,
 } from '../utils/utils';
 
+export const initialFiltersState = {
+  allProducts: [],
+  filteredProducts: [],
+  minPrice: 0,
+  maxPrice: Infinity, // will be handled
+  filters: {
+    search: '',
+    category: null,
+    company: 'all',
+    price: 0,
+    rating: -1,
+    sortByOption: '',
+  },
+};
+
+/* 
+  category: {
+    laptop: false,
+    tv: false,
+    earphone: false,
+    smartwatch: false,
+    mobile: false
+  }
+*/
+
 export const filtersReducer = (state, action) => {
   switch (action.type) {
     case FILTERS_ACTION.GET_PRODUCTS_FROM_PRODUCT_CONTEXT:
