@@ -100,8 +100,7 @@ const useSearchSuggestions = (
     // User clicks on any of the suggestion, then 'hide suggestions' and update the input with the 'name of the item' in that LINK
 
     setSearchText(item.name);
-    timedMainPageLoader();
-    await wait(delayToShowLoader);
+    await timedMainPageLoader();
     setSearchText('');
     navigate(`/products/${item._id}`);
     setIsSuggestionsVisible(false);
