@@ -71,7 +71,7 @@ const FiltersContextProvider = ({ children }) => {
   };
 
   //  called inside the Filters Component of the ProductListingPage
-  const handleClearFilters = () => {
+  const clearFilters = () => {
     dispatch({ type: FILTERS_ACTION.CLEAR_FILTERS });
   };
 
@@ -106,7 +106,7 @@ const FiltersContextProvider = ({ children }) => {
         ...filtersState,
         updateFilters,
         updateCategoryFilter,
-        handleClearFilters,
+        clearFilters,
         checkCategoryOnTabClick,
         applyFilters,
         applySearchFilter,
