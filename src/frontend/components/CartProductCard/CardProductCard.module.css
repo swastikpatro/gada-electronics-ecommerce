@@ -5,10 +5,8 @@
   transition: var(--transition);
   box-shadow: var(--shadow-3);
   background: var(--white);
-  padding: 1.25rem;
+  padding: 1.5rem;
   width: fit-content;
-  margin: auto;
-  margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -26,7 +24,7 @@
 .cartItemMain {
   display: flex;
   gap: 1rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .imgContainer {
@@ -83,11 +81,14 @@
 }
 
 .counter button span {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .counter button:last-child {
   background: var(--green-medium);
+}
+.counter button:last-child span {
+  margin-bottom: 0.15rem;
 }
 .counter button:last-child:hover {
   background: var(--green-dark);
@@ -107,7 +108,8 @@
 
 .cartBtnContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  font-size: 0.85rem;
 }
 
 .colorCircle {
@@ -119,17 +121,52 @@
 
 @media screen and (min-width: 768px) {
   .cartItemMain h3 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .cartItemMain {
+    margin-bottom: 1.25rem;
+  }
+
+  .cardMain {
     margin-bottom: 0.5rem;
   }
 
-  .counter svg {
-    font-size: 1.35rem;
+  .cardMain span {
+    font-size: 1.15rem;
+  }
+
+  .imgContainer {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  .counter {
+    margin-top: 0.5rem;
+  }
+
+  .counter button {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .counter button span {
+    font-size: 1.5rem;
   }
   .counter div {
+    font-size: 1.1rem;
+  }
+
+  .colorCircle {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    margin: 0.35rem 0;
+  }
+
+  .cartBtnContainer {
+    justify-content: center;
     font-size: 1.1rem;
   }
 }

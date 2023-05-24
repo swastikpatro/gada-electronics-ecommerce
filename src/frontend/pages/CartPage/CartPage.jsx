@@ -7,7 +7,11 @@ import { toastHandler } from '../../utils/utils';
 import { ToastType } from '../../constants/constants';
 
 const CartPage = () => {
-  const { cart: cartFromContext, clearCartDispatch } = useAllProductsContext();
+  const {
+    cart: cartFromContext,
+    clearCartDispatch,
+    cartDetails: { totalCount, totalAmount },
+  } = useAllProductsContext();
 
   if (cartFromContext.length < 1) {
     return <EmptyList listName='cart' />;
@@ -15,7 +19,7 @@ const CartPage = () => {
 
   const handleClearCart = () => {
     clearCartDispatch();
-    toastHandler(ToastType.Warn, 'Cleared Cart Successfully');
+    toastHandler(ToastType.Success, 'Cleared Cart Successfully');
   };
 
   return (
@@ -43,27 +47,26 @@ const CartPage = () => {
         <article className={styles.checkout}>
           <h3 className='text-center'>Cart Price Details</h3>
           <hr />
-          <article className={styles.row}>
-            <span>Name Item From Cart (2)</span>
-            <Price amount={110192} />
-          </article>
-          <article className={styles.row}>
-            <span>Name Item From Cart (2)</span>
-            <Price amount={110192} />
-          </article>
-          <article className={styles.row}>
-            <span>Name Item From Cart (2)</span>
-            <Price amount={110192} />
-          </article>
-          <article className={styles.row}>
-            <span>Name Item From Cart (2)</span>
-            <Price amount={110192} />
-          </article>
+          {cartFromContext.map(
+            ({ _id, name, qty, price, colors: [{ color }] }) => (
+              <article key={_id} className={styles.row}>
+                <span>
+                  {name}{' '}
+                  <span
+                    className={styles.colorCircle}
+                    style={{ background: color }}
+                  ></span>
+                  ({qty})
+                </span>
+                <Price amount={price * qty} />
+              </article>
+            )
+          )}
 
           <hr />
           <article className={`${styles.row} ${styles.totalPrice}`}>
-            <span>Total Price:</span>
-            <Price amount={110192} />
+            <span>Total Price ({totalCount}):</span>
+            <Price amount={totalAmount} />
           </article>
 
           <Link to='/checkout' className='btn btn-center'>

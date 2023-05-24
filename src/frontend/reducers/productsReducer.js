@@ -7,6 +7,10 @@ export const initialProductsState = {
   isDataError: false,
   wishlist: [],
   cart: [],
+  cartDetails: {
+    totalAmount: 0,
+    totalCount: 0,
+  },
 };
 
 export const productsReducer = (state, action) => {
@@ -54,9 +58,24 @@ export const productsReducer = (state, action) => {
       };
 
     case PRODUCTS_ACTION.UPDATE_CART:
+      const cart = [...action.payload.cart];
+      const cartDetails = cart.reduce(
+        ({ totalAmount, totalCount }, { qty, price }) => {
+          return {
+            totalCount: totalCount + qty,
+            totalAmount: totalAmount + qty * price,
+          };
+        },
+        {
+          totalAmount: 0,
+          totalCount: 0,
+        }
+      );
+
       return {
         ...state,
-        cart: [...action.payload.cart],
+        cart: cart,
+        cartDetails: cartDetails,
       };
 
     case PRODUCTS_ACTION.UPDATE_WISHLIST:
