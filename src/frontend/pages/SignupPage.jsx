@@ -12,12 +12,14 @@ import { useState } from 'react';
 import { signupService } from '../Services/services';
 import { useAuthContext } from '../contexts/AuthContextProvider';
 import { Loader } from '../commonComponents';
+import useNavigateIfRegistered from '../hooks/useNavigateIfRegistered';
 
 const SignupPage = () => {
   const signupPageLocation = useLocation();
+  const { updateUserAuth, user } = useAuthContext();
 
   const navigate = useNavigate();
-  const { updateUserAuth } = useAuthContext();
+  useNavigateIfRegistered(user);
 
   const { userInputs, handleInputChange } = useFormInput({
     firstName: '',
@@ -72,6 +74,11 @@ const SignupPage = () => {
 
     setIsSignupFormLoading(false);
   };
+
+  //  if user is registered and trying to Signup '/signup' through url, show this and navigate to home using useNavigateIfRegistered().
+  if (!!user) {
+    return <main className='full-page'></main>;
+  }
 
   return (
     <LoginAndSignupLayout>
