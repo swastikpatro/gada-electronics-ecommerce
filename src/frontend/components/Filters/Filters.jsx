@@ -39,7 +39,7 @@ const Filters = () => {
 
   const handleClearFilter = () => {
     clearFilters();
-    toastHandler(ToastType.Warn, 'Cleared Filters Successfully');
+    toastHandler(ToastType.Success, 'Cleared Filters Successfully');
   };
 
   return (

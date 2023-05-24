@@ -123,19 +123,19 @@ const CartProductCard = ({ singleCartItem }) => {
 
       <footer className={`btn-container ${styles.cartBtnContainer}`}>
         <button
-          className='btn btn-danger'
-          disabled={isAllBtnsDisabled}
-          onClick={handleDeleteFromCart}
-        >
-          Remove From Cart
-        </button>
-
-        <button
           className='btn'
           disabled={isAllBtnsDisabled}
           onClick={handleWishlistBtnClick}
         >
           {isProductInWishlist ? 'Already in Wishlist' : 'Move to Wishlist'}
+        </button>
+
+        <button
+          className='btn btn-danger'
+          disabled={isAllBtnsDisabled}
+          onClick={handleDeleteFromCart}
+        >
+          Remove From Cart
         </button>
       </footer>
     </article>
