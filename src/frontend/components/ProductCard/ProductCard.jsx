@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types */
-import { AiFillHeart, AiFillStar, AiOutlineHeart } from 'react-icons/ai';
+import {
+  AiFillCheckCircle,
+  AiFillHeart,
+  AiFillStar,
+  AiOutlineHeart,
+} from 'react-icons/ai';
 import styles from './ProductCard.module.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Price from '../Price';
@@ -15,6 +20,7 @@ import { useState } from 'react';
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const isCardInWishlistPage = location.pathname === '/wishlist';
 
   const { user } = useAuthContext();
   const {
@@ -26,14 +32,26 @@ const ProductCard = ({ product }) => {
     removeFromWishlistDispatch,
   } = useAllProductsContext();
 
-  const [isCartBtnDisable, setIsCartBtnDisable] = useState(false);
-  const [isWishlistBtnDisable, setIsWishlistBtnDisable] = useState(false);
+  const { colors, stock } = product;
+  const inStock = stock > 0;
 
-  const isProductInCart = isPresent(product._id, cartFromContext);
+  const [activeColorObj, setActiveColorObj] = useState(colors[0]);
 
-  const isProductInWishlist = isPresent(product._id, wishlistFromContext);
+  const [isBothDisable, setIsBothBtnDisable] = useState(false);
 
-  const isCardInWishlistPage = location.pathname === '/wishlist';
+  const isProductInCart = isPresent(
+    isCardInWishlistPage
+      ? product._id
+      : `${product._id}${activeColorObj.color}`,
+    cartFromContext
+  );
+
+  const isProductInWishlist = isPresent(
+    isCardInWishlistPage
+      ? product._id
+      : `${product._id}${activeColorObj.color}`,
+    wishlistFromContext
+  );
 
   let productBtnText = '';
 
@@ -74,9 +92,16 @@ const ProductCard = ({ product }) => {
       return;
     }
 
-    setIsCartBtnDisable(true);
-    await dispatchFunction(product);
-    setIsCartBtnDisable(false);
+    setIsBothBtnDisable(true);
+    // dispatch function takes a product
+    await dispatchFunction({
+      ...product,
+      _id: isCardInWishlistPage
+        ? product._id
+        : `${product._id}${activeColorObj.color}`,
+      colors: [activeColorObj],
+    });
+    setIsBothBtnDisable(false);
   };
 
   const handleWishlistBtnClick = async () => {
@@ -86,23 +111,31 @@ const ProductCard = ({ product }) => {
       return;
     }
 
-    setIsWishlistBtnDisable(true);
+    setIsBothBtnDisable(true);
 
     if (isProductInWishlist) {
       // delete from wishlist
-      await removeFromWishlistDispatch(product._id);
-      setIsWishlistBtnDisable(false);
+      await removeFromWishlistDispatch(
+        isCardInWishlistPage
+          ? product._id
+          : `${product._id}${activeColorObj.color}`
+      );
+      setIsBothBtnDisable(false);
       return;
     }
 
-    await addToWishlistDispatch(product);
-    setIsWishlistBtnDisable(false);
+    await addToWishlistDispatch({
+      ...product,
+      _id: `${product._id}${activeColorObj.color}`,
+      colors: [activeColorObj],
+    });
+    setIsBothBtnDisable(false);
   };
 
   return (
     <article
       className={
-        product.inStock
+        inStock
           ? styles.productStyle
           : `${styles.productStyle} ${styles.disabledProduct}`
       }
@@ -115,7 +148,7 @@ const ProductCard = ({ product }) => {
 
       <button
         onClick={handleWishlistBtnClick}
-        disabled={isWishlistBtnDisable}
+        disabled={isBothDisable}
         className={
           isProductInWishlist
             ? `${styles.heartContainer} ${styles.coloredHeart}`
@@ -143,20 +176,35 @@ const ProductCard = ({ product }) => {
           )}
         </main>
 
-        <div className={styles.colorsContainer}>
-          {product.colors.map((color, index) => (
-            <span key={index} style={{ background: color }}></span>
+        <div
+          className={
+            isCardInWishlistPage
+              ? styles.colorsContainerDefault
+              : styles.colorsContainer
+          }
+        >
+          {product.colors.map((colorObj, index) => (
+            <span
+              key={index}
+              style={{ background: colorObj.color }}
+              {...(!isCardInWishlistPage && {
+                onClick: () => setActiveColorObj(colorObj),
+              })}
+            >
+              {colorObj.color === activeColorObj.color &&
+                inStock &&
+                !isCardInWishlistPage && <AiFillCheckCircle />}
+            </span>
           ))}
-          {/* {console.log({ colors: product.colors })} */}
         </div>
 
         <footer className={styles.footer}>
           <button
-            disabled={isCartBtnDisable}
+            disabled={isBothDisable}
             className={
               isProductInCart
-                ? `btn ${styles.cardBtn} ${styles.goToCartBtn}`
-                : `btn ${styles.cardBtn}`
+                ? `btn btn-padding-desktop ${styles.cardBtn} ${styles.goToCartBtn}`
+                : `btn btn-padding-desktop ${styles.cardBtn}`
             }
             onClick={() =>
               handleCartBtnClick(

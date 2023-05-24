@@ -231,6 +231,7 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   const moveToCartDispatch = async (product) => {
+    // this will be called from the wishlist page
     try {
       const addToCartPromise = postAddToCartService(product, user.token);
       const removeFromWishlistPromise = deleteFromWishlistService(
@@ -253,16 +254,16 @@ const ProductsContextProvider = ({ children }) => {
     }
   };
 
-  const addOrRemoveQuantityInCart = async (productId, type) => {
+  const addOrRemoveQuantityInCart = async ({ productId, type, colorBody }) => {
     try {
       const response = await incDecItemInCartService({
         productId,
         type,
         token: user.token,
+        colorBody,
       });
 
-      console.log({ response });
-
+      console.log({ productId, type }, 'in app');
       const { cart } = response.data;
       const { status } = response;
       if (status === 200 || status === 201) {

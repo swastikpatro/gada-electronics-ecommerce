@@ -84,8 +84,15 @@ export const removeItemFromWishlistHandler = function (schema, request) {
       );
     }
     let userWishlist = schema.users.findBy({ _id: userId }).wishlist;
-    const productId = request.params.productId;
-    userWishlist = userWishlist.filter((item) => item._id !== productId);
+    // const productId = request.params.productId;
+    const { url } = request;
+    const urlArr = url.split('/');
+    const productIdAndColor = urlArr[urlArr.length - 1];
+    userWishlist = userWishlist.filter(
+      (item) => item._id !== productIdAndColor
+    );
+
+    console.log({ userWishlist });
     this.db.users.update({ _id: userId }, { wishlist: userWishlist });
     return new Response(200, {}, { wishlist: userWishlist });
   } catch (error) {
