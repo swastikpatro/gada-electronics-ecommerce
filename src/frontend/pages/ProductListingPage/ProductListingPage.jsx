@@ -24,7 +24,9 @@ const ProductListingPage = () => {
       className={`container ${styles.productsAndFilterContainer} full-page`}
     >
       <Filters />
+
       <ProductsList />
+
       <button className={styles.redirectToTopLink} onClick={handleUpClick}>
         <BiUpArrowAlt />
       </button>

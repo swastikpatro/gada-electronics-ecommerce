@@ -7,8 +7,8 @@ const AuthContext = createContext(null);
 export const useAuthContext = () => useContext(AuthContext);
 
 const AuthContextProvider = ({ children }) => {
-  const userInLocalStorage = getFromLocalStorage(localStorageKeys.User) ?? null;
-  const [user, setUser] = useState(userInLocalStorage);
+  const userInLocalStorage = getFromLocalStorage(localStorageKeys.User);
+  const [user, setUser] = useState(userInLocalStorage) ?? null;
 
   const updateUserAuth = (userDataObj) => setUser(userDataObj);
 
