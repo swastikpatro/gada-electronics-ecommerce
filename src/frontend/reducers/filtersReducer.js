@@ -49,7 +49,6 @@ export const filtersReducer = (state, action) => {
         minPrice = Math.min(...allPrices);
       }
 
-      // console.log({ allPrices });
       return {
         ...state,
         allProducts: allProductsCloned,
@@ -96,30 +95,28 @@ export const filtersReducer = (state, action) => {
       };
 
     case FILTERS_ACTION.CHECK_CATEGORY:
-      const allUncheckedCategoryObj = convertArrayToObjectWithPropertyFALSE(
-        Object.keys(state.filters.category)
-      );
-
       return {
         ...state,
         filters: {
           ...state.filters,
           category: {
-            ...allUncheckedCategoryObj,
+            ...state.category,
             [action.payloadCategory]: true,
           },
         },
       };
 
     case FILTERS_ACTION.CLEAR_FILTERS:
+      const { category } = state.filters;
+      const allUncheckedCategoryObj = convertArrayToObjectWithPropertyFALSE(
+        Object.keys(category)
+      );
       return {
         ...state,
         filters: {
           ...state.filters,
           search: '',
-          category: convertArrayToObjectWithPropertyFALSE(
-            Object.keys(state.filters.category)
-          ),
+          category: allUncheckedCategoryObj,
           company: 'all',
           price: state.maxPrice,
           rating: -1,

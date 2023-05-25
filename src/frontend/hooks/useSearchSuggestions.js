@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { lowerizeAndCheckIncludes, wait } from '../utils/utils';
+import { lowerizeAndCheckIncludes } from '../utils/utils';
 import {
   delayBetnSuggestionLinkClickAndSearchBlur,
   delayDebouncedMs,
-  delayToShowLoader,
 } from '../constants/constants';
 
-const useSearchSuggestions = (
+const useSearchSuggestions = ({
   productsFromContext,
   applySearchFilterFnFromContext,
-  timedMainPageLoader
-) => {
+  filtersStateFromContext,
+  timedMainPageLoader,
+}) => {
   const [searchText, setSearchText] = useState('');
 
   const navigate = useNavigate();
@@ -49,6 +49,12 @@ const useSearchSuggestions = (
     // eslint-disable-next-line
   }, [trimmedSearch]);
 
+  useEffect(() => {
+    if (!filtersStateFromContext.search) {
+      setSearchText('');
+    }
+  }, [filtersStateFromContext]);
+
   // 1
   const handleFocus = () => {
     // if user focusses on the input when there is no text, do nothing.
@@ -64,7 +70,6 @@ const useSearchSuggestions = (
     const userText = e.target.value;
     // onclick of Escape, it clears searchText, this is handled by type='search',
     setSearchText(userText);
-
     // coercion
     setIsSuggestionsVisible(!!userText);
   };

@@ -53,6 +53,14 @@ export const cartActionType = {
   DECREMENT: 'decrement',
 };
 
+export const FILTER_INPUT_TYPE = {
+  PRICE: 'price',
+  COMPANY: 'company',
+  SORT: 'sortByOption',
+  RATING: 'rating',
+  CATEGORY: 'category',
+};
+
 export const delayToShowLoader = 500;
 
 export const delayDebouncedMs = 250;

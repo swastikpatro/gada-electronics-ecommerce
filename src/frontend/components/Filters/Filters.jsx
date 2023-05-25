@@ -5,6 +5,7 @@ import Price from '../Price';
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import {
+  FILTER_INPUT_TYPE,
   SortType,
   ToastType,
   ratingsAvailable,
@@ -61,7 +62,7 @@ const Filters = () => {
           <div key={index}>
             <input
               type='checkbox'
-              name='category'
+              name={FILTER_INPUT_TYPE.CATEGORY}
               id={giveUniqueLabelFOR(singleCategory, index)}
               checked={categoryFromContext[singleCategory] || false}
               onChange={() => updateCategoryFilter(singleCategory)}
@@ -77,7 +78,7 @@ const Filters = () => {
         <legend>Company</legend>
 
         <select
-          name='company'
+          name={FILTER_INPUT_TYPE.COMPANY}
           onChange={updateFilters}
           value={companyFromContext}
         >
@@ -98,10 +99,11 @@ const Filters = () => {
         </div>
 
         <input
-          name='price'
+          name={FILTER_INPUT_TYPE.PRICE}
           type='range'
           min={minPriceFromContext}
           max={maxPriceFromContext}
+          step='1000'
           value={priceFromContext}
           onChange={updateFilters}
         />
@@ -114,7 +116,7 @@ const Filters = () => {
           <div key={singleRating}>
             <input
               type='radio'
-              name='rating'
+              name={FILTER_INPUT_TYPE.RATING}
               data-rating={singleRating}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(`${singleRating} stars`, index)}
@@ -134,7 +136,7 @@ const Filters = () => {
           <div key={singleSortValue}>
             <input
               type='radio'
-              name='sortByOption'
+              name={FILTER_INPUT_TYPE.SORT}
               data-sort={singleSortValue}
               onChange={updateFilters}
               id={giveUniqueLabelFOR(singleSortValue, index)}

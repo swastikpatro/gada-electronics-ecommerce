@@ -11,8 +11,10 @@ const SearchBar = () => {
   // instead of allData, get from product context
   const { products: productsFromContext, timedMainPageLoader } =
     useAllProductsContext();
-  const { applySearchFilter: applySearchFilterFnFromContext } =
-    useFiltersContext();
+  const {
+    applySearchFilter: applySearchFilterFnFromContext,
+    filters: filtersStateFromContext,
+  } = useFiltersContext();
 
   const {
     searchText,
@@ -24,11 +26,12 @@ const SearchBar = () => {
     handleSearchChange,
     handleSubmit,
     handleBlur,
-  } = useSearchSuggestions(
+  } = useSearchSuggestions({
     productsFromContext,
     applySearchFilterFnFromContext,
-    timedMainPageLoader
-  );
+    timedMainPageLoader,
+    filtersStateFromContext,
+  });
 
   return (
     <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
@@ -36,6 +39,7 @@ const SearchBar = () => {
         className='search'
         type='search'
         placeholder='Search...'
+        name='search'
         onChange={handleSearchChange}
         value={searchText}
         autoComplete='off'
