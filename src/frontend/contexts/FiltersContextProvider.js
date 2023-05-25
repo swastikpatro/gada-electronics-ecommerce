@@ -4,6 +4,7 @@ import { useAllProductsContext } from './ProductsContextProvider';
 import { FILTERS_ACTION } from '../utils/actions';
 import { filtersReducer } from '../reducers';
 import { initialFiltersState } from '../reducers/filtersReducer';
+import { FILTER_INPUT_TYPE } from '../constants/constants';
 
 const FiltersContext = createContext(null);
 
@@ -49,15 +50,15 @@ const FiltersContextProvider = ({ children }) => {
     const name = targetEle.name;
     let value = targetEle?.value;
 
-    if (name === 'price') {
+    if (name === FILTER_INPUT_TYPE.PRICE) {
       value = Number(value);
     }
 
-    if (name === 'rating') {
+    if (name === FILTER_INPUT_TYPE.RATING) {
       value = Number(targetEle.dataset.rating);
     }
 
-    if (name === 'sortByOption') {
+    if (name === FILTER_INPUT_TYPE.SORT) {
       value = targetEle.dataset.sort;
     }
 
@@ -77,6 +78,8 @@ const FiltersContextProvider = ({ children }) => {
 
   // called in the Category component of the the Home Page
   const checkCategoryOnTabClick = (categoryCard) => {
+    clearFilters();
+
     dispatch({
       type: FILTERS_ACTION.CHECK_CATEGORY,
       payloadCategory: categoryCard,
