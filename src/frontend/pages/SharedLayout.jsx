@@ -1,10 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Footer, Navbar } from '../components';
 import { useAllProductsContext } from '../contexts/ProductsContextProvider';
 import { Backdrop, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
 
 const SharedLayout = () => {
   const { isMainPageLoading } = useAllProductsContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>

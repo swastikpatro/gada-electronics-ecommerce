@@ -15,7 +15,7 @@ const WishListPage = () => {
 
   const handleClearWishlist = () => {
     clearWishlistDispatch();
-    toastHandler(ToastType.Warn, 'Cleared Wishlist Successfully');
+    toastHandler(ToastType.Success, 'Cleared Wishlist Successfully');
   };
 
   return (

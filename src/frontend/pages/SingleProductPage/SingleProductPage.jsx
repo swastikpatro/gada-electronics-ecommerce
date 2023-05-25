@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Error, SpecsLoader } from '../../commonComponents';
+import { Error } from '../../commonComponents';
 import { getSingleProductService } from '../../Services/services';
 import styles from './SingleProductPage.module.css';
 import { Price } from '../../components';
@@ -9,7 +9,7 @@ import {
   calculateDiscountPercent,
   isPresent,
 } from '../../utils/utils';
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillCheckCircle, AiFillStar } from 'react-icons/ai';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { useAuthContext } from '../../contexts/AuthContextProvider';
 
@@ -34,6 +34,7 @@ const SingleProductPage = () => {
     isSinglePageError: false,
   });
 
+  const [activeColorObj, setActiveColorObj] = useState(null);
   const [isWishlistBtnDisable, setIsWishlistBtnDisable] = useState(false);
   const [isCartBtnDisable, setIsCartBtnDisable] = useState(false);
 
@@ -51,6 +52,7 @@ const SingleProductPage = () => {
         singleProductData: product,
         isSinglePageError: false,
       });
+      setActiveColorObj(product?.colors[0]);
     } catch (error) {
       console.error(error.response);
 
@@ -93,20 +95,21 @@ const SingleProductPage = () => {
     description,
     category,
     isShippingAvailable,
-    inStock,
+    stock,
     reviewCount,
     stars,
   } = singleProductData;
 
   const discountPercent = calculateDiscountPercent(price, originalPrice);
+  const inStock = stock > 0;
 
   const isSinglePageProductInCart = isPresent(
-    singlePageProductId,
+    `${singlePageProductId}${activeColorObj?.color}`,
     cartFromContext
   );
 
   const isSinglePageProductInWishlist = isPresent(
-    singlePageProductId,
+    `${singlePageProductId}${activeColorObj?.color}`,
     wishlistFromContext
   );
 
@@ -123,7 +126,11 @@ const SingleProductPage = () => {
     }
 
     setIsCartBtnDisable(true);
-    await addToCartDispatch(singleProductData);
+    await addToCartDispatch({
+      ...singleProductData,
+      _id: `${singleProductData._id}${activeColorObj.color}`,
+      colors: [activeColorObj],
+    });
     setIsCartBtnDisable(false);
   };
 
@@ -140,9 +147,15 @@ const SingleProductPage = () => {
     }
 
     setIsWishlistBtnDisable(true);
-    await addToWishlistDispatch(singleProductData);
+    await addToWishlistDispatch({
+      ...singleProductData,
+      _id: `${singleProductData._id}${activeColorObj.color}`,
+      colors: [activeColorObj],
+    });
     setIsWishlistBtnDisable(false);
   };
+
+  const handleColorClick = (colorData) => setActiveColorObj(colorData);
 
   return (
     <main className={`container half-page ${styles.productPageCenter}`}>
@@ -193,11 +206,31 @@ const SingleProductPage = () => {
 
         <div className={styles.row}>
           <span>Color{colors.length > 1 && 's'}:</span>
-          <div className={styles.colorsContainer}>
-            {colors.map((color, index) => (
-              <div key={index} style={{ background: color }}></div>
+
+          <div
+            className={
+              inStock
+                ? styles.colorsContainer
+                : `${styles.colorsContainer} ${styles.cursorDefault}`
+            }
+          >
+            {colors.map((colorObj, index) => (
+              <div
+                {...(inStock && { onClick: () => handleColorClick(colorObj) })}
+                key={index}
+                style={{ background: colorObj.color }}
+              >
+                {colorObj.color === activeColorObj.color && inStock && (
+                  <AiFillCheckCircle />
+                )}
+              </div>
             ))}
           </div>
+        </div>
+
+        <div className={styles.row}>
+          <span>Color Quantity:</span>
+          <p>{activeColorObj.colorQuantity}</p>
         </div>
 
         <hr />

@@ -1,25 +1,46 @@
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
-import { calculateDiscountPercent } from '../../utils/utils';
+import {
+  calculateDiscountPercent,
+  isPresent,
+  toastHandler,
+} from '../../utils/utils';
 import Price from '../Price';
 import styles from './CardProductCard.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { cartActionType } from '../../constants/constants';
+import { ToastType, cartActionType } from '../../constants/constants';
 
 const CartProductCard = ({ singleCartItem }) => {
+  const navigate = useNavigate();
+
   const {
+    wishlist: wishlistFromContext,
     moveToWishlistDispatch,
     removeFromCartDispatch,
     addOrRemoveQuantityInCart,
   } = useAllProductsContext();
-  const { _id, name, price, originalPrice, image, qty } = singleCartItem;
+
+  const isProductInWishlist = isPresent(
+    singleCartItem._id,
+    wishlistFromContext
+  );
+
+  const { _id, name, price, originalPrice, image, qty, colors } =
+    singleCartItem;
+
+  const { color, colorQuantity } = colors[0];
 
   const discountPercent = calculateDiscountPercent(price, originalPrice);
 
   const [isAllBtnsDisabled, setIsAllBtnsDisabled] = useState(false);
 
-  const handleMoveToWishlist = async () => {
+  const handleWishlistBtnClick = async () => {
+    if (isProductInWishlist) {
+      navigate('/wishlist');
+      return;
+    }
+
     setIsAllBtnsDisabled(true);
     await moveToWishlistDispatch(singleCartItem);
     setIsAllBtnsDisabled(false);
@@ -33,7 +54,11 @@ const CartProductCard = ({ singleCartItem }) => {
 
   const handleQuantityClick = async (type) => {
     setIsAllBtnsDisabled(true);
-    await addOrRemoveQuantityInCart(singleCartItem._id, type);
+    await addOrRemoveQuantityInCart({
+      productId: singleCartItem._id,
+      type,
+      colorBody: color,
+    });
     setIsAllBtnsDisabled(false);
   };
 
@@ -63,6 +88,11 @@ const CartProductCard = ({ singleCartItem }) => {
             )}
           </div>
 
+          <div
+            style={{ background: color }}
+            className={styles.colorCircle}
+          ></div>
+
           <footer className={styles.counter}>
             <button
               onClick={
@@ -72,14 +102,20 @@ const CartProductCard = ({ singleCartItem }) => {
               }
               disabled={isAllBtnsDisabled}
             >
-              <AiFillMinusCircle />
+              <span>-</span>
             </button>
+
             <div>{qty}</div>
+
             <button
-              onClick={() => handleQuantityClick(cartActionType.DECREMENT)}
+              onClick={
+                qty === colorQuantity
+                  ? () => toastHandler(ToastType.Warn, 'Stock Limit exceeded')
+                  : () => handleQuantityClick(cartActionType.INCREMENT)
+              }
               disabled={isAllBtnsDisabled}
             >
-              <AiFillPlusCircle />
+              <span>+</span>
             </button>
           </footer>
         </div>
@@ -87,18 +123,19 @@ const CartProductCard = ({ singleCartItem }) => {
 
       <footer className={`btn-container ${styles.cartBtnContainer}`}>
         <button
+          className='btn'
+          disabled={isAllBtnsDisabled}
+          onClick={handleWishlistBtnClick}
+        >
+          {isProductInWishlist ? 'Already in Wishlist' : 'Move to Wishlist'}
+        </button>
+
+        <button
           className='btn btn-danger'
           disabled={isAllBtnsDisabled}
           onClick={handleDeleteFromCart}
         >
           Remove From Cart
-        </button>
-        <button
-          className='btn'
-          disabled={isAllBtnsDisabled}
-          onClick={handleMoveToWishlist}
-        >
-          Move to Wishlist
         </button>
       </footer>
     </article>

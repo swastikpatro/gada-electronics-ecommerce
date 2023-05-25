@@ -114,11 +114,16 @@ export const deleteFromCartService = async (productId, token) => {
   });
 };
 
-export const incDecItemInCartService = async ({ productId, token, type }) => {
+export const incDecItemInCartService = async ({
+  productId,
+  token,
+  type,
+  colorBody,
+}) => {
   return axios.post(
     `/api/user/cart/${productId}`,
     {
-      action: { type },
+      action: { type, colorBody },
     },
     { headers: { authorization: token } }
   );

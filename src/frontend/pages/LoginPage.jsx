@@ -7,6 +7,7 @@ import {
 } from '../components';
 import {
   ToastType,
+  customToastId,
   localStorageKeys,
   testUser,
   userTypeForLogin,
@@ -16,10 +17,12 @@ import { loginUserService } from '../Services/services';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
 import { Loader } from '../commonComponents';
 import { useAuthContext } from '../contexts/AuthContextProvider';
+import useNavigateIfRegistered from '../hooks/useNavigateIfRegistered';
 
 const LoginPage = () => {
-  const { updateUserAuth } = useAuthContext();
+  const { updateUserAuth, user } = useAuthContext();
   const navigate = useNavigate();
+  useNavigateIfRegistered(user);
   const initialLoginState = {
     email: '',
     password: '',
@@ -62,6 +65,11 @@ const LoginPage = () => {
 
     setIsFormLoading(false);
   };
+
+  //  if user is registered and trying to login through url, show this and navigate to home using useNavigateIfRegistered().
+  if (!!user) {
+    return <main className='full-page'></main>;
+  }
 
   return (
     <LoginAndSignupLayout>

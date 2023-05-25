@@ -253,7 +253,7 @@ button:disabled {
   color: var(--white);
 }
 
-.btn:disabled {
+.btn-padding-desktop:disabled {
   background: var(--grey-300);
   color: var(--white);
 }
