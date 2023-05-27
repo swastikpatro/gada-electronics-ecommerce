@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
-import { ToastType, customToastId } from '../constants/constants';
+import { ToastType, customToastId, itemsPerPage } from '../constants/constants';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
   const percent = Math.floor(
@@ -61,3 +61,14 @@ export const convertArrayToObjectWithPropertyFALSE = (listOfStrings = []) => {
 
 export const isPresent = (itemId, list) =>
   !!list.find((singleItem) => singleItem._id === itemId);
+
+export const givePaginatedList = (list) => {
+  return Array.from({ length: Math.ceil(list.length / itemsPerPage) }, (_, i) =>
+    list.slice(itemsPerPage * i, itemsPerPage * (i + 1))
+  );
+};
+
+export const formatPrice = (price) =>
+  price.toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+  });

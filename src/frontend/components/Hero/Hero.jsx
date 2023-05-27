@@ -2,7 +2,9 @@ import styles from './Hero.module.css';
 
 import jethalalBanner from '../../assets/jethalalBanner.png';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '../../hooks';
 const Hero = () => {
+  const isMobile = useIsMobile();
   return (
     <section className='white-bcg'>
       <div className={`container ${styles.hero}`}>
@@ -19,9 +21,16 @@ const Hero = () => {
             Shop now
           </Link>
         </article>
-        <article className={styles.imageContainer}>
-          <img src={jethalalBanner} alt='jethalal' className='' />
-        </article>
+
+        {!isMobile && (
+          <article className={styles.imageContainer}>
+            <img
+              src={jethalalBanner}
+              alt='jethalal'
+              className={styles.banner}
+            />
+          </article>
+        )}
       </div>
     </section>
   );

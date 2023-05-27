@@ -70,3 +70,5 @@ export const totalSkeletonsLength = 10;
 export const delayBetnSuggestionLinkClickAndSearchBlur = 150;
 
 export const customToastId = 1;
+
+export const itemsPerPage = 9;

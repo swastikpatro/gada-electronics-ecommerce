@@ -5,14 +5,13 @@ import {
   PasswordRow,
   Title,
 } from '../components';
-import { useFormInput } from '../hooks';
+import { useFormInput, useNavigateIfRegistered } from '../hooks';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
 import { ToastType, localStorageKeys } from '../constants/constants';
 import { useState } from 'react';
 import { signupService } from '../Services/services';
 import { useAuthContext } from '../contexts/AuthContextProvider';
 import { Loader } from '../commonComponents';
-import useNavigateIfRegistered from '../hooks/useNavigateIfRegistered';
 
 const SignupPage = () => {
   const signupPageLocation = useLocation();

@@ -11,10 +11,7 @@ const FiltersContext = createContext(null);
 export const useFiltersContext = () => useContext(FiltersContext);
 
 const FiltersContextProvider = ({ children }) => {
-  const [filtersState, dispatch] = useReducer(
-    filtersReducer,
-    initialFiltersState
-  );
+  const [state, dispatch] = useReducer(filtersReducer, initialFiltersState);
 
   const {
     products: productsFromProductsContext,
@@ -103,16 +100,24 @@ const FiltersContextProvider = ({ children }) => {
     });
   };
 
+  const updatePaginatedIndex = (paginateIndex) => {
+    dispatch({
+      type: FILTERS_ACTION.UPDATE_PAGINATION,
+      payloadIndex: paginateIndex,
+    });
+  };
+
   return (
     <FiltersContext.Provider
       value={{
-        ...filtersState,
+        ...state,
         updateFilters,
         updateCategoryFilter,
         clearFilters,
         checkCategoryOnTabClick,
         applyFilters,
         applySearchFilter,
+        updatePaginatedIndex,
       }}
     >
       {children}

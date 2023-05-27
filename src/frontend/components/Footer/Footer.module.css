@@ -26,7 +26,7 @@
   /* border: 2px solid black; */
 }
 
-.footer span {
+.footer span .nameLink {
   color: var(--primary-300);
 }
 

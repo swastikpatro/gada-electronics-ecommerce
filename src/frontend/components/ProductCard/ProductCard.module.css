@@ -95,6 +95,9 @@
   font-size: 0.95rem;
   letter-spacing: var(--letterSpacing);
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rating {

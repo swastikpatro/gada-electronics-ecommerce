@@ -3,15 +3,17 @@ import { Footer, Navbar } from '../components';
 import { useAllProductsContext } from '../contexts/ProductsContextProvider';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useEffect } from 'react';
+import { useFiltersContext } from '../contexts/FiltersContextProvider';
 
 const SharedLayout = () => {
   const { isMainPageLoading } = useAllProductsContext();
+  const { paginateIndex } = useFiltersContext();
 
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [location, paginateIndex]);
 
   return (
     <>

@@ -23,7 +23,7 @@ const Profile = () => {
   };
 
   return (
-    <main className='half-page'>
+    <main className='full-page'>
       <div className='container'>
         <p> Name: {user.username}</p>
         <p> Email: {user.email}</p>

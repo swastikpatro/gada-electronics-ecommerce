@@ -4,6 +4,7 @@ import styles from './Filters.module.css';
 import Price from '../Price';
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
+import { MdClose } from 'react-icons/md';
 import {
   FILTER_INPUT_TYPE,
   SortType,
@@ -11,7 +12,11 @@ import {
   ratingsAvailable,
 } from '../../constants/constants';
 
-const Filters = () => {
+const Filters = ({
+  isFilterContainerVisible,
+  handleFilterToggle,
+  isMobile,
+}) => {
   const {
     minPrice: minPriceFromContext,
     maxPrice: maxPriceFromContext,
@@ -45,9 +50,17 @@ const Filters = () => {
 
   return (
     <form
-      className={styles.filtersContainer}
+      className={`${styles.filtersContainer} ${
+        isFilterContainerVisible && isMobile && styles.showFiltersContainer
+      }`}
       onSubmit={(e) => e.preventDefault()}
     >
+      {isMobile && (
+        <div>
+          <MdClose onClick={handleFilterToggle} />
+        </div>
+      )}
+
       <header>
         <p>Filters</p>
         <button className='btn btn-danger' onClick={handleClearFilter}>
@@ -103,7 +116,7 @@ const Filters = () => {
           type='range'
           min={minPriceFromContext}
           max={maxPriceFromContext}
-          step='1000'
+          step='400'
           value={priceFromContext}
           onChange={updateFilters}
         />

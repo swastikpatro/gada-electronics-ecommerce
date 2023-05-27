@@ -31,11 +31,6 @@
   border: 2px solid black;
 } */
 
-.imageContainer {
-  display: none;
-  /* border: 2px solid red; */
-}
-
 @media screen and (min-width: 768px) {
   .content h1 {
     font-size: 2.25rem;
@@ -50,6 +45,8 @@
     width: 100%;
     margin-left: -1rem;
     margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
   }
 }
 

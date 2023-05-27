@@ -1,4 +1,3 @@
-import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import {
   calculateDiscountPercent,
   isPresent,

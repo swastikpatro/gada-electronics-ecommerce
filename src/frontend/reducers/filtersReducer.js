@@ -2,6 +2,7 @@ import { SortType } from '../constants/constants';
 import { FILTERS_ACTION } from '../utils/actions';
 import {
   convertArrayToObjectWithPropertyFALSE,
+  givePaginatedList,
   lowerizeAndCheckIncludes,
 } from '../utils/utils';
 
@@ -18,6 +19,8 @@ export const initialFiltersState = {
     rating: -1,
     sortByOption: '',
   },
+  paginateIndex: 0,
+  displayableProductsLength: 0,
 };
 
 /* 
@@ -37,6 +40,8 @@ export const filtersReducer = (state, action) => {
 
       const allPrices = allProductsCloned.map(({ price }) => price);
 
+      const filteredProducts = givePaginatedList(allProductsCloned);
+
       const allCategoryNames = action.payload?.categories.map(
         ({ categoryName }) => categoryName
       );
@@ -52,7 +57,7 @@ export const filtersReducer = (state, action) => {
       return {
         ...state,
         allProducts: allProductsCloned,
-        filteredProducts: allProductsCloned,
+        filteredProducts,
         minPrice,
         maxPrice,
         filters: {
@@ -92,6 +97,7 @@ export const filtersReducer = (state, action) => {
           ...state.filters,
           [action.payload.payloadName]: action.payload.payloadValue,
         },
+        paginateIndex: 0,
       };
 
     case FILTERS_ACTION.CHECK_CATEGORY:
@@ -122,6 +128,13 @@ export const filtersReducer = (state, action) => {
           rating: -1,
           sortByOption: '',
         },
+        paginateIndex: 0,
+      };
+
+    case FILTERS_ACTION.UPDATE_PAGINATION:
+      return {
+        ...state,
+        paginateIndex: action.payloadIndex,
       };
 
     case FILTERS_ACTION.APPLY_FILTERS:
@@ -220,10 +233,14 @@ export const filtersReducer = (state, action) => {
         }
       }
 
-      // console.log({ tempProducts });
+      // pagination logic
+      tempProducts = givePaginatedList(tempProducts);
+
       return {
         ...state,
         filteredProducts: tempProducts,
+        displayableProductsLength: tempProducts.flat().length,
+        paginateIndex: 0,
       };
     default:
       throw new Error(`Error: ${action.type} in filtersReducer does not exist`);

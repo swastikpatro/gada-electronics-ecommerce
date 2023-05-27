@@ -7,18 +7,35 @@ import {
   totalSkeletonsLength,
 } from '../../constants/constants';
 import SkeletonProductCard from '../ProductCard/SkeletonProductCard';
-const ProductsList = () => {
+
+const ProductsList = ({
+  handleFilterToggle,
+  isFilterContainerVisible,
+  isMobile,
+}) => {
   // instead of data, will show filteredList coming from FiltersContext
 
   const {
     filteredProducts,
     filters: filtersObjFromContext,
     applyFilters,
+    updatePaginatedIndex,
+    paginateIndex,
+    displayableProductsLength: totalProductsLength,
   } = useFiltersContext();
 
   const [isFilterLoading, setIsFilterLoading] = useState(false);
 
   const filteredProductsLength = filteredProducts.length;
+
+  const showFilterButtonJSXInMobile = isMobile && !isFilterContainerVisible && (
+    <button
+      className={`btn ${styles.showFilterBtn}`}
+      onClick={handleFilterToggle}
+    >
+      Show Filters
+    </button>
+  );
 
   useEffect(() => {
     setIsFilterLoading(true);
@@ -42,12 +59,14 @@ const ProductsList = () => {
 
     return (
       <section className={styles.productListSection}>
-        <p className='primary-color-text font-size-2'>Filtering...</p>
+        <div>
+          <p className='primary-color-text font-size-one-half'>Loading...</p>
 
-        <div className={styles.productsCenter}>
-          {skeletons.map((_, index) => (
-            <SkeletonProductCard key={index} />
-          ))}
+          <div className={styles.productsCenter}>
+            {skeletons.map((_, index) => (
+              <SkeletonProductCard key={index} />
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -55,24 +74,84 @@ const ProductsList = () => {
 
   if (filteredProductsLength < 1) {
     return (
-      <p className='error-text'>
-        No products matched your filters combination ☹️
-      </p>
+      <main className='container'>
+        {isMobile && isFilterContainerVisible && (
+          <div className={styles.overlay} onClick={handleFilterToggle}></div>
+        )}
+
+        <p className='error-text'>
+          No products matched your filters combination ☹️
+        </p>
+
+        {showFilterButtonJSXInMobile}
+      </main>
     );
   }
 
   return (
     <section className={styles.productListSection}>
-      <p className='primary-color-text font-size-2'>
-        {filteredProductsLength} Product{filteredProductsLength !== 1 && 's'}{' '}
-        found
-      </p>
+      {isMobile && isFilterContainerVisible && (
+        <div className={styles.overlay} onClick={handleFilterToggle}></div>
+      )}
+
+      <header className={styles.listHeader}>
+        <p className='primary-color-text font-size-one-half'>
+          {totalProductsLength} Product
+          {totalProductsLength !== 1 && 's'} Found
+        </p>
+
+        <p className={styles.pageCount}>
+          Page {paginateIndex + 1} of {filteredProductsLength}
+        </p>
+
+        {showFilterButtonJSXInMobile}
+      </header>
 
       <div className={styles.productsCenter}>
-        {filteredProducts.map((singleProduct) => (
+        {filteredProducts[paginateIndex].map((singleProduct) => (
           <ProductCard key={singleProduct._id} product={singleProduct} />
         ))}
       </div>
+
+      {filteredProductsLength > 1 && (
+        <div className={styles.paginateBtnContainer}>
+          <button
+            className='btn btn-activated'
+            onClick={() =>
+              updatePaginatedIndex(
+                paginateIndex === 0
+                  ? filteredProductsLength - 1
+                  : paginateIndex - 1
+              )
+            }
+          >
+            prev
+          </button>
+
+          {/*  this should not be index, but a key */}
+          {filteredProducts.map((_, index) => (
+            <button
+              className={paginateIndex === index ? 'btn' : 'btn btn-hipster'}
+              onClick={() => updatePaginatedIndex(index)}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            className='btn btn-activated'
+            onClick={() =>
+              updatePaginatedIndex(
+                paginateIndex === filteredProductsLength - 1
+                  ? 0
+                  : paginateIndex + 1
+              )
+            }
+          >
+            next
+          </button>
+        </div>
+      )}
     </section>
   );
 };

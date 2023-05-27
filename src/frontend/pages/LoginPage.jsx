@@ -7,7 +7,6 @@ import {
 } from '../components';
 import {
   ToastType,
-  customToastId,
   localStorageKeys,
   testUser,
   userTypeForLogin,
@@ -17,7 +16,7 @@ import { loginUserService } from '../Services/services';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
 import { Loader } from '../commonComponents';
 import { useAuthContext } from '../contexts/AuthContextProvider';
-import useNavigateIfRegistered from '../hooks/useNavigateIfRegistered';
+import { useNavigateIfRegistered } from '../hooks';
 
 const LoginPage = () => {
   const { updateUserAuth, user } = useAuthContext();

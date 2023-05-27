@@ -14,7 +14,16 @@ const Footer = () => {
         ))}
       </div>
       <p>
-        © {presentYear} <span>Gada Elec. </span>
+        © {presentYear}{' '}
+        <span>
+          <Link
+            className={styles.nameLink}
+            to={footerLinks[0].url}
+            target='_blank'
+          >
+            Jethala Gada.{' '}
+          </Link>
+        </span>
         All rights reserved
       </p>
     </section>

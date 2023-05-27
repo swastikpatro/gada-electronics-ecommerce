@@ -1,12 +1,40 @@
 .filtersContainer {
-  margin: 0 auto;
-  width: 300px;
-  height: 36.5rem;
+  /* margin: 0 auto; */
+  width: 250px;
+  height: calc(100vh - var(--nav-height) + 1rem);
   overflow-y: auto;
   background: var(--white);
   padding: 1rem 1.5rem;
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
+  position: fixed;
+  top: 6rem;
+  left: -31rem;
+  transition: var(--transition);
+  z-index: 100;
+  padding-bottom: 3rem;
+}
+
+.filtersContainer div:first-child {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.filtersContainer div:first-child svg {
+  color: var(--red-dark);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filtersContainer div:first-child svg:hover {
+  transform: scale(1.2);
+  color: var(--red-medium);
+}
+
+.filtersContainer.showFiltersContainer {
+  left: 0rem;
 }
 
 .filtersContainer input {
@@ -58,8 +86,19 @@ option {
 @media screen and (min-width: 768px) {
   .filtersContainer {
     position: sticky;
-    top: 6rem;
-    width: 250px;
+    top: calc(var(--nav-height) - 1rem);
+    width: 350px;
     margin-left: -2rem;
+  }
+
+  /* .filtersContainer div:first-child {
+    display: none;
+  } */
+}
+
+@media screen and (min-width: 1280px) {
+  .filtersContainer {
+    width: 310px;
+    margin-left: -4rem;
   }
 }
