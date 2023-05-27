@@ -148,7 +148,7 @@ const ProductCard = ({ product }) => {
 
       <button
         onClick={handleWishlistBtnClick}
-        disabled={isBothDisable}
+        disabled={isBothDisable || !inStock}
         className={
           isProductInWishlist
             ? `${styles.heartContainer} ${styles.coloredHeart}`
@@ -187,9 +187,10 @@ const ProductCard = ({ product }) => {
             <span
               key={index}
               style={{ background: colorObj.color }}
-              {...(!isCardInWishlistPage && {
-                onClick: () => setActiveColorObj(colorObj),
-              })}
+              {...(!isCardInWishlistPage &&
+                inStock && {
+                  onClick: () => setActiveColorObj(colorObj),
+                })}
             >
               {colorObj.color === activeColorObj.color &&
                 inStock &&
@@ -200,7 +201,7 @@ const ProductCard = ({ product }) => {
 
         <footer className={styles.footer}>
           <button
-            disabled={isBothDisable}
+            disabled={isBothDisable || !inStock}
             className={
               isProductInCart
                 ? `btn btn-padding-desktop ${styles.cardBtn} ${styles.goToCartBtn}`
