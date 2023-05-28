@@ -3,8 +3,10 @@ import styles from './Hero.module.css';
 import jethalalBanner from '../../assets/jethalalBanner.png';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../../hooks';
+
 const Hero = () => {
   const isMobile = useIsMobile();
+
   return (
     <section className='white-bcg'>
       <div className={`container ${styles.hero}`}>
@@ -17,6 +19,7 @@ const Hero = () => {
             elevate your everyday with Gada Electronics. Explore the
             extraordinary today.
           </p>
+
           <Link to='/products' className={`btn ${styles.btnHero}`}>
             Shop now
           </Link>

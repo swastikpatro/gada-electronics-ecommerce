@@ -37,6 +37,10 @@ const ProductsList = ({
     </button>
   );
 
+  const overlayJSXInMobile = isMobile && isFilterContainerVisible && (
+    <div className={styles.overlay} onClick={handleFilterToggle}></div>
+  );
+
   useEffect(() => {
     setIsFilterLoading(true);
 
@@ -60,6 +64,8 @@ const ProductsList = ({
     return (
       <section className={styles.productListSection}>
         <div>
+          {overlayJSXInMobile}
+
           <p className='primary-color-text font-size-one-half'>Loading...</p>
 
           <div className={styles.productsCenter}>
@@ -74,25 +80,21 @@ const ProductsList = ({
 
   if (filteredProductsLength < 1) {
     return (
-      <main className='container'>
-        {isMobile && isFilterContainerVisible && (
-          <div className={styles.overlay} onClick={handleFilterToggle}></div>
-        )}
+      <section className='container'>
+        {overlayJSXInMobile}
 
         <p className='error-text'>
           No products matched your filters combination ☹️
         </p>
 
         {showFilterButtonJSXInMobile}
-      </main>
+      </section>
     );
   }
 
   return (
     <section className={styles.productListSection}>
-      {isMobile && isFilterContainerVisible && (
-        <div className={styles.overlay} onClick={handleFilterToggle}></div>
-      )}
+      {overlayJSXInMobile}
 
       <header className={styles.listHeader}>
         <p className='primary-color-text font-size-one-half'>

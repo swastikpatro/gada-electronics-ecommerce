@@ -8,17 +8,20 @@ import { useFiltersContext } from '../contexts/FiltersContextProvider';
 const Profile = () => {
   const navigate = useNavigate();
   const { updateUserAuth, user } = useAuthContext();
-  const { clearWishlistDispatch, clearCartDispatch } = useAllProductsContext();
+  const { clearWishlistDispatch, clearCartDispatch, timedMainPageLoader } =
+    useAllProductsContext();
 
   const { clearFilters } = useFiltersContext();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await timedMainPageLoader();
     updateUserAuth(null);
     removeLocalStorage(localStorageKeys.User);
 
     clearWishlistDispatch();
     clearCartDispatch();
     clearFilters();
+
     navigate('/');
   };
 
