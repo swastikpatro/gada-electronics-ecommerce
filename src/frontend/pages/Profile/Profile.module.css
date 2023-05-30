@@ -1,0 +1,26 @@
+.profile {
+  padding: 2rem;
+  padding-top: 1rem;
+}
+
+.row {
+  font-size: 0.85rem;
+  color: var(--grey-600);
+}
+
+.row span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+  .row {
+    font-size: 1rem;
+    color: var(--grey-500);
+  }
+
+  .row span {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}

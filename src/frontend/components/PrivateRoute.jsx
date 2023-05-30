@@ -26,8 +26,17 @@ const PrivateRoute = ({ children }) => {
     routeToRedirect = '/';
   }
 
+  // onclicking any private route
+  // 'Navigate' was put into outlet, which has no height, so footer was visible at the top.
+  // added this full-page, which has height, so on clicking private route, footer is not visible!!
+
   if (!user) {
-    return <Navigate to='/login' state={{ from: routeToRedirect }}></Navigate>;
+    return (
+      <>
+        <Navigate to='/login' state={{ from: routeToRedirect }}></Navigate>
+        <main className='full-page'></main>
+      </>
+    );
   }
 
   return children;

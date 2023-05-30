@@ -14,6 +14,9 @@ import LoginAndSignupLayout from './LoginAndSignupLayout';
 import FormRow from './FormRow';
 import PasswordRow from './PasswordRow/PasswordRow';
 import CartProductCard from './CartProductCard/CartProductCard';
+import AddressForm from './AddressForm/AddressForm';
+import AddressCard from './AddressCard/AddressCard';
+import AddAddressBtn from './AddressCard/AddAddressBtn';
 
 export {
   Navbar,
@@ -32,4 +35,7 @@ export {
   FormRow,
   PasswordRow,
   CartProductCard,
+  AddressForm,
+  AddressCard,
+  AddAddressBtn,
 };
