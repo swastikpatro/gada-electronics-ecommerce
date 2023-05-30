@@ -84,6 +84,7 @@ const ProductsContextProvider = ({ children }) => {
     fetchWishlistAndCart();
   }, [user]);
 
+  // x
   // user changes from null to [{email, username, token}]
 
   const timedMainPageLoader = async () => {
@@ -263,7 +264,6 @@ const ProductsContextProvider = ({ children }) => {
         colorBody,
       });
 
-      console.log({ productId, type }, 'in app');
       const { cart } = response.data;
       const { status } = response;
       if (status === 200 || status === 201) {
@@ -272,6 +272,40 @@ const ProductsContextProvider = ({ children }) => {
     } catch (error) {
       console.log(error.response);
     }
+  };
+
+  // address
+
+  const addAddressDispatch = (addressObj) => {
+    dispatch({
+      type: PRODUCTS_ACTION.ADD_ADDRESS,
+      payload: {
+        address: addressObj,
+      },
+    });
+  };
+
+  const editAddressDispatch = (addressObj) => {
+    dispatch({
+      type: PRODUCTS_ACTION.EDIT_ADDRESS,
+      payload: {
+        address: addressObj,
+      },
+    });
+  };
+
+  const deleteAddressDispatch = (addressId) => {
+    dispatch({
+      type: PRODUCTS_ACTION.DELETE_ADDRESS,
+      payloadId: addressId,
+    });
+  };
+
+  const selectAddressDispatch = (addressId) => {
+    dispatch({
+      type: PRODUCTS_ACTION.SELECT_ADDRESS,
+      payloadId: addressId,
+    });
   };
 
   return (
@@ -291,7 +325,10 @@ const ProductsContextProvider = ({ children }) => {
         moveToWishlistDispatch,
         removeFromCartDispatch,
         addOrRemoveQuantityInCart,
-        // addToWishlistRemoveFromCartDispatch,
+        addAddressDispatch,
+        editAddressDispatch,
+        deleteAddressDispatch,
+        selectAddressDispatch,
       }}
     >
       {children}

@@ -18,7 +18,7 @@
   color: var(--primary-500);
 }
 
-.link {
+.linkCSS {
   color: var(--black);
   font-size: 1.35rem;
   display: block;
@@ -39,7 +39,7 @@
   place-content: center;
 }
 
-.link.active {
+.linkCSS.active {
   color: var(--primary-500);
 }
 
@@ -61,7 +61,7 @@
     margin-left: -1.5rem;
   }
 
-  .link {
+  .linkCSS {
     font-size: 1.25rem;
   }
 

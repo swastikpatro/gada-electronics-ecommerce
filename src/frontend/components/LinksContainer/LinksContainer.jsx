@@ -15,7 +15,7 @@ const LinksContainer = () => {
     useAllProductsContext();
 
   const navStyle = ({ isActive }) => {
-    const outputClass = styles.link;
+    const outputClass = styles.linkCSS;
     if (isActive) return `${outputClass} ${styles.active}`;
     return outputClass;
   };
@@ -27,7 +27,7 @@ const LinksContainer = () => {
         Explore
       </NavLink>
 
-      <NavLink className={navStyle} to={'/profile'}>
+      <NavLink className={navStyle} to='/profile'>
         {user ? <FaRegUserCircle /> : <div className={styles.login}>Login</div>}
       </NavLink>
 

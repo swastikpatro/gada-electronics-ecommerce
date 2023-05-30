@@ -6,9 +6,11 @@ import ProductListingPage from './ProductListingPage/ProductListingPage';
 import SharedLayout from './SharedLayout';
 import SingleProductPage from './SingleProductPage/SingleProductPage';
 import WishListPage from './WishlistPage/WishListPage';
-import Profile from './Profile';
+
 import SignupPage from './SignupPage';
 import Checkout from './Checkout/Checkout';
+import Profile from './Profile/Profile';
+import SharedProfileLayout from './SharedProfileLayout/SharedProfileLayout';
 
 export {
   CartPage,
@@ -22,4 +24,5 @@ export {
   SignupPage,
   ErrorPage,
   Checkout,
+  SharedProfileLayout,
 };

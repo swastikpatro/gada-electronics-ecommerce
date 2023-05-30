@@ -12,6 +12,7 @@ import {
   ProductListingPage,
   Profile,
   SharedLayout,
+  SharedProfileLayout,
   SignupPage,
   SingleProductPage,
   WishListPage,
@@ -22,6 +23,7 @@ import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './frontend/components/PrivateRoute';
+import Address from './frontend/pages/Address/Address';
 
 const App = () => {
   return (
@@ -76,10 +78,13 @@ const App = () => {
               path='profile'
               element={
                 <PrivateRoute>
-                  <Profile />
+                  <SharedProfileLayout />
                 </PrivateRoute>
               }
-            />
+            >
+              <Route index element={<Profile />} />
+              <Route path='address' element={<Address />} />
+            </Route>
             {/* requires auth */}
           </Route>
 

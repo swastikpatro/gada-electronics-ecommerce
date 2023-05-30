@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { v4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { ToastType, customToastId, itemsPerPage } from '../constants/constants';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
@@ -11,7 +11,7 @@ export const calculateDiscountPercent = (discountPrice, originalPrice) => {
 
 export const giveUniqueLabelFOR = (type, i) => `${type}-${i}`;
 
-export const toastHandler = (type, message, toastId = v4()) => {
+export const toastHandler = (type, message, toastId = uuid()) => {
   const toastStyle = {
     position: 'top-left',
     autoClose: 1000,

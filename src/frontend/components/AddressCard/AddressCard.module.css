@@ -1,0 +1,63 @@
+.addAddressBtn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0 1rem;
+  background: var(--white);
+  border-color: var(--primary-500);
+  padding: 1rem;
+  border-radius: var(--borderRadius);
+  letter-spacing: var(--letterSpacing);
+  font-size: 0.85rem;
+  color: var(--grey-500);
+  cursor: pointer;
+  width: calc(100% - 4rem);
+  margin: 2rem auto;
+}
+
+.addAddressBtn svg {
+  font-size: 1.75rem;
+  color: var(--primary-500);
+  transition: var(--transition);
+}
+
+/* address card css*/
+
+.addressCard {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border: 2px dotted var(--primary-500);
+  border-radius: var(--borderRadius);
+}
+
+.addressCard > h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.addressCard > p {
+  margin: 0.5rem 0;
+  color: var(--grey-500);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  max-width: 12rem;
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .addAddressBtn {
+    justify-content: flex-start;
+    padding: 1.5rem;
+    font-size: 1.15rem;
+  }
+
+  .addAddressBtn svg {
+    font-size: 2rem;
+  }
+  .addAddressBtn svg:hover {
+    color: var(--primary-700);
+  }
+}
