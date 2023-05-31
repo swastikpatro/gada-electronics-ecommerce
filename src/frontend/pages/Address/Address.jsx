@@ -5,7 +5,8 @@ import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
 const Address = () => {
   const [isAddingAddress, setIsAddingAddress] = useState(false);
-  const { addressList: addressListFromContext } = useAllProductsContext();
+  const { addressList: addressListFromContext, deleteAllAddressDispatch } =
+    useAllProductsContext();
 
   const isAddressListEmpty = addressListFromContext.length > 0;
 
@@ -24,12 +25,21 @@ const Address = () => {
       {/* this addressList is coming from context */}
       <div className={styles.listContainer}>
         {isAddressListEmpty ? (
-          addressListFromContext.map((singleAddress) => (
-            <AddressCard
-              key={singleAddress.addressId}
-              singleAddress={singleAddress}
-            />
-          ))
+          <>
+            {addressListFromContext.map((singleAddress) => (
+              <AddressCard
+                key={singleAddress.addressId}
+                singleAddress={singleAddress}
+              />
+            ))}
+
+            <button
+              onClick={deleteAllAddressDispatch}
+              className={`btn btn-danger btn-center ${styles.btnClear}`}
+            >
+              Clear All Address
+            </button>
+          </>
         ) : (
           <p>No address to display</p>
         )}

@@ -1,0 +1,115 @@
+.checkout {
+  composes: checkout from '../../pages/CartPage/CartPage.module.css';
+}
+
+.row {
+  composes: row from '../../pages/CartPage/CartPage.module.css';
+}
+
+.totalPrice {
+  composes: totalPrice from '../../pages/CartPage/CartPage.module.css';
+}
+
+.searchCoupons {
+  display: flex;
+  align-items: center;
+  gap: 0 0.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.searchCoupons > div {
+  display: flex;
+  width: 100%;
+}
+
+.searchCoupons svg {
+  font-size: 1.5rem;
+  color: var(--primary-500);
+}
+
+.couponSuggestion {
+  position: absolute;
+  left: 1rem;
+  top: 2.5rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--grey-100);
+  background: var(--white);
+  box-shadow: var(--shadow-3);
+  border-radius: var(--borderRadius);
+}
+
+.couponSuggestion > button {
+  background: var(--white);
+  color: var(--black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: none;
+  position: relative;
+}
+
+.couponSuggestion > button:hover {
+  background: none;
+}
+
+.couponSuggestion > button:disabled {
+  background: var(--grey-100);
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  top: 0.25rem;
+  left: 25%;
+  background: var(--white);
+  padding: 0.5rem;
+  z-index: 3;
+  border: 2px solid var(--primary-700);
+  font-size: 0.75rem;
+  border-radius: var(--borderRadius);
+}
+
+.couponSuggestion > button:disabled:hover .tooltip {
+  visibility: visible;
+}
+
+.closeBtn {
+  color: var(--red-dark);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  article.checkout {
+    min-width: 25rem;
+  }
+  .couponSuggestion > button:hover:not(button:disabled) {
+    background: var(--primary-100);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  article.checkout {
+    min-width: 30rem;
+  }
+}
+
+.couponSuggestion div {
+  border: 2px dashed var(--primary-500);
+  padding: 0.25rem;
+}
+
+.couponApplied {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-500);
+  font-weight: 600;
+  cursor: default;
+}
+
+.couponText {
+  margin: 0;
+}

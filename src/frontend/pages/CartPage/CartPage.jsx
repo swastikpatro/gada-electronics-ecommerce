@@ -69,7 +69,7 @@ const CartPage = () => {
             <Price amount={totalAmount} />
           </article>
 
-          <Link to='/checkout' className='btn btn-center'>
+          <Link to='/checkout' className='btn text-center btn-width-100'>
             Checkout
           </Link>
         </article>

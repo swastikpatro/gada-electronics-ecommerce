@@ -277,6 +277,7 @@ const ProductsContextProvider = ({ children }) => {
   // address
 
   const addAddressDispatch = (addressObj) => {
+    toastHandler(ToastType.Success, 'Added Address Successfully');
     dispatch({
       type: PRODUCTS_ACTION.ADD_ADDRESS,
       payload: {
@@ -286,6 +287,7 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   const editAddressDispatch = (addressObj) => {
+    toastHandler(ToastType.Success, 'Updated Address Successfully');
     dispatch({
       type: PRODUCTS_ACTION.EDIT_ADDRESS,
       payload: {
@@ -295,16 +297,18 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   const deleteAddressDispatch = (addressId) => {
+    toastHandler(ToastType.Success, 'Deleted Address Successfully');
     dispatch({
       type: PRODUCTS_ACTION.DELETE_ADDRESS,
       payloadId: addressId,
     });
   };
 
-  const selectAddressDispatch = (addressId) => {
+  const deleteAllAddressDispatch = async () => {
+    await timedMainPageLoader();
+    toastHandler(ToastType.Success, 'Deleted All Address Successfully');
     dispatch({
-      type: PRODUCTS_ACTION.SELECT_ADDRESS,
-      payloadId: addressId,
+      type: PRODUCTS_ACTION.DELETE_ALL_ADDRESS,
     });
   };
 
@@ -328,7 +332,7 @@ const ProductsContextProvider = ({ children }) => {
         addAddressDispatch,
         editAddressDispatch,
         deleteAddressDispatch,
-        selectAddressDispatch,
+        deleteAllAddressDispatch,
       }}
     >
       {children}

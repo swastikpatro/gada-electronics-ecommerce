@@ -505,6 +505,13 @@ button:disabled {
   width: 100%;
 }
 
+@media screen and (min-width: 768px) {
+  .btn-width-100 {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+}
+
 .grid-center {
   display: grid;
   place-items: center;
@@ -535,4 +542,8 @@ button:disabled {
 
 .border2 {
   border: 2px solid red;
+}
+
+.bold {
+  font-weight: 600;
 }

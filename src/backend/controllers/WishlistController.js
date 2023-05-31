@@ -92,7 +92,6 @@ export const removeItemFromWishlistHandler = function (schema, request) {
       (item) => item._id !== productIdAndColor
     );
 
-    console.log({ userWishlist });
     this.db.users.update({ _id: userId }, { wishlist: userWishlist });
     return new Response(200, {}, { wishlist: userWishlist });
   } catch (error) {

@@ -8,9 +8,10 @@ import SingleProductPage from './SingleProductPage/SingleProductPage';
 import WishListPage from './WishlistPage/WishListPage';
 
 import SignupPage from './SignupPage';
-import Checkout from './Checkout/Checkout';
 import Profile from './Profile/Profile';
 import SharedProfileLayout from './SharedProfileLayout/SharedProfileLayout';
+import Checkout from './Checkout/Checkout';
+import Address from './Address/Address';
 
 export {
   CartPage,
@@ -23,6 +24,7 @@ export {
   Profile,
   SignupPage,
   ErrorPage,
-  Checkout,
   SharedProfileLayout,
+  Checkout,
+  Address,
 };

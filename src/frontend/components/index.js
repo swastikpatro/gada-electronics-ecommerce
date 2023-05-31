@@ -17,6 +17,8 @@ import CartProductCard from './CartProductCard/CartProductCard';
 import AddressForm from './AddressForm/AddressForm';
 import AddressCard from './AddressCard/AddressCard';
 import AddAddressBtn from './AddressCard/AddAddressBtn';
+import PrivateRoute from './PrivateRoute';
+import CheckoutDetails from './CheckoutDetails/CheckoutDetails';
 
 export {
   Navbar,
@@ -38,4 +40,6 @@ export {
   AddressForm,
   AddressCard,
   AddAddressBtn,
+  PrivateRoute,
+  CheckoutDetails,
 };

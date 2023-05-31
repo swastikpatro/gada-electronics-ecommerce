@@ -1,3 +1,4 @@
+import { CHARGE_AND_DISCOUNT } from '../constants/constants';
 import { PRODUCTS_ACTION } from '../utils/actions';
 
 export const initialProductsState = {
@@ -10,8 +11,43 @@ export const initialProductsState = {
   cartDetails: {
     totalAmount: 0,
     totalCount: 0,
+    totalDiscountedAmount: 0,
   },
-  addressList: [],
+  addressList: [
+    {
+      addressId: 'abc',
+      username: 'Swastik Patro',
+      mobile: 9082931945,
+      alternate: 9082931945,
+      city: 'kalyan',
+      state: 'Maharashtra',
+      pincode: 421306,
+      addressInfo: 'Ganesh kripa chawl',
+      isSelected: false,
+    },
+    {
+      addressId: 'xyz',
+      username: 'Sanskruti Patro',
+      mobile: 9867241485,
+      alternate: 1234,
+      city: 'kalyan',
+      state: 'Maharashtra',
+      pincode: 421306,
+      addressInfo: 'Ganesh kripa chawl',
+      isSelected: false,
+    },
+    {
+      addressId: 'lmn',
+      username: 'Tali Patro',
+      mobile: 8693086455,
+      alternate: '',
+      city: 'kalyan',
+      state: 'Maharashtra',
+      pincode: 421306,
+      addressInfo: 'Ganesh kripa chawl',
+      isSelected: false,
+    },
+  ],
 };
 
 export const productsReducer = (state, action) => {
@@ -80,10 +116,18 @@ export const productsReducer = (state, action) => {
         }
       );
 
+      const sumOfDiscountAndCharges =
+        CHARGE_AND_DISCOUNT.deliveryCharge + CHARGE_AND_DISCOUNT.discount;
+
+      const totalDiscountedAmount =
+        cartDetails.totalAmount >= sumOfDiscountAndCharges
+          ? cartDetails.totalAmount + sumOfDiscountAndCharges
+          : 0;
+
       return {
         ...state,
         cart: cart,
-        cartDetails: cartDetails,
+        cartDetails: { ...cartDetails, totalDiscountedAmount },
       };
     }
 
@@ -132,20 +176,10 @@ export const productsReducer = (state, action) => {
       };
     }
 
-    case PRODUCTS_ACTION.SELECT_ADDRESS: {
-      const { addressList } = state;
-
-      const updatedAddressList = addressList.map((singleAddress) => {
-        if (singleAddress.addressId === action.payloadId) {
-          return { ...singleAddress, isSelected: true };
-        } else {
-          return { ...singleAddress, isSelected: false };
-        }
-      });
-
+    case PRODUCTS_ACTION.DELETE_ALL_ADDRESS: {
       return {
         ...state,
-        addressList: updatedAddressList,
+        addressList: [],
       };
     }
 

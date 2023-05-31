@@ -1,0 +1,47 @@
+.addressCard {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: flex-start;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
+  background: var(--white);
+  /* border: 2px solid red; */
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-2);
+  letter-spacing: var(--letterSpacing);
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.addressCard p {
+  margin-bottom: 0.75rem;
+}
+
+.addressCard.selected {
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.addressCard label {
+  cursor: pointer;
+  width: 100%;
+}
+
+.addressCard input {
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .addressCard {
+    padding: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .addressCard:hover {
+    box-shadow: var(--shadow-4);
+  }
+}
