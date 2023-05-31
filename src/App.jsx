@@ -1,9 +1,6 @@
-// import { useState } from 'react';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+  Address,
   CartPage,
   Checkout,
   ErrorPage,
@@ -22,8 +19,7 @@ import Mockman from 'mockman-js';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
-import PrivateRoute from './frontend/components/PrivateRoute';
-import Address from './frontend/pages/Address/Address';
+import { PrivateRoute } from './frontend/components';
 
 const App = () => {
   return (
@@ -54,8 +50,6 @@ const App = () => {
 
             <Route path='products' element={<ProductListingPage />} />
 
-            <Route path='checkout' element={<Checkout />} />
-
             <Route
               path='cart'
               element={
@@ -75,6 +69,15 @@ const App = () => {
             />
 
             <Route
+              path='checkout'
+              element={
+                <PrivateRoute>
+                  <Checkout />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path='profile'
               element={
                 <PrivateRoute>
@@ -85,7 +88,6 @@ const App = () => {
               <Route index element={<Profile />} />
               <Route path='address' element={<Address />} />
             </Route>
-            {/* requires auth */}
           </Route>
 
           <Route path='/login' element={<LoginPage />} />

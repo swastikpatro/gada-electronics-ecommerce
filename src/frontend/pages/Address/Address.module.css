@@ -5,3 +5,7 @@
   text-align: center;
   letter-spacing: var(--letterSpacing);
 }
+
+.btnClear {
+  margin: 1.5rem auto;
+}

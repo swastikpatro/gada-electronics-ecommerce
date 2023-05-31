@@ -30,7 +30,6 @@ const AddressCard = ({ singleAddress }) => {
   };
 
   if (isEditingAddress) {
-    console.log('here');
     return (
       <AddressForm
         isEditingAndData={singleAddress}

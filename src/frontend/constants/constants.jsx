@@ -1,4 +1,5 @@
 import { AiFillGithub, AiFillLinkedin, AiOutlineTwitter } from 'react-icons/ai';
+import { v4 as uuid } from 'uuid';
 
 export const footerLinks = [
   {
@@ -110,3 +111,39 @@ export const ALL_STATES = [
   'Delhi',
   'Puducherry',
 ];
+
+export const COUPONS = [
+  {
+    id: uuid(),
+    couponCode: 'DAYA01',
+    text: '30% Off',
+    discountPercent: 30,
+    minCartPriceRequired: 150000,
+  },
+  {
+    id: uuid(),
+    couponCode: 'BABITA02',
+    text: '20% Off',
+    discountPercent: 20,
+    minCartPriceRequired: 100000,
+  },
+  {
+    id: uuid(),
+    couponCode: 'TAPU03',
+    text: '10% Off',
+    discountPercent: 10,
+    minCartPriceRequired: 50000,
+  },
+  {
+    id: uuid(),
+    couponCode: 'BAPUJI04',
+    text: '5% Off',
+    discountPercent: 5,
+    minCartPriceRequired: 20000,
+  },
+];
+
+export const CHARGE_AND_DISCOUNT = {
+  deliveryCharge: 100,
+  discount: -200,
+};

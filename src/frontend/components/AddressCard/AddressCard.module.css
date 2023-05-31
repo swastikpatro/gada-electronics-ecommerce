@@ -11,6 +11,7 @@
   font-size: 0.85rem;
   color: var(--grey-500);
   cursor: pointer;
+  min-width: 300px;
   width: calc(100% - 4rem);
   margin: 2rem auto;
 }
@@ -45,6 +46,7 @@
   justify-content: space-between;
   max-width: 12rem;
   margin-bottom: 0.5rem;
+  gap: 0 0.5rem;
 }
 
 @media screen and (min-width: 768px) {
