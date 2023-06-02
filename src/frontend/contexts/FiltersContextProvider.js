@@ -29,8 +29,6 @@ const FiltersContextProvider = ({ children }) => {
   }, [categoriesFromProductsContext, productsFromProductsContext]);
   // earlier they were products& categories were loading so [], [], after loading they will be filled with data, so when there value change useEffect is called!!
 
-  // console.log({ filtersState });
-
   // called due to the onChange of category checkbox in the Filters component!
   const updateCategoryFilter = (categoryClicked) => {
     dispatch({

@@ -13,8 +13,6 @@ const ProductsList = ({
   isFilterContainerVisible,
   isMobile,
 }) => {
-  // instead of data, will show filteredList coming from FiltersContext
-
   const {
     filteredProducts,
     filters: filtersObjFromContext,
@@ -130,9 +128,9 @@ const ProductsList = ({
             prev
           </button>
 
-          {/*  this should not be index, but a key */}
           {filteredProducts.map((_, index) => (
             <button
+              key={index}
               className={paginateIndex === index ? 'btn' : 'btn btn-hipster'}
               onClick={() => updatePaginatedIndex(index)}
             >

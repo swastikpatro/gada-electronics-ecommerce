@@ -6,8 +6,6 @@ import styles from './Navbar.module.css';
 const Navbar = () => {
   const location = useLocation();
 
-  // console.log(location);
-
   const isNavInLoginOrSignupPage =
     location.pathname === '/login' || location.pathname === '/signup';
 

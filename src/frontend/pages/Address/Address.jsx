@@ -35,7 +35,7 @@ const Address = () => {
 
             <button
               onClick={deleteAllAddressDispatch}
-              className={`btn btn-danger btn-center ${styles.btnClear}`}
+              className='btn btn-danger btn-center'
             >
               Clear All Address
             </button>

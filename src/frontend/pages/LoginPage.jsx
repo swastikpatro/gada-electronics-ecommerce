@@ -62,7 +62,6 @@ const LoginPage = () => {
       // if non-registered user comes from typing '/login' at the url, after success redirect it to '/'
       navigate(locationOfLogin?.state?.from ?? '/');
     } catch (error) {
-      // console.log(error.response.status);
       toastHandler(ToastType.Error, 'User Not Found, Please Register 🙏');
     }
 

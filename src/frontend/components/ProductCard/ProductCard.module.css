@@ -38,15 +38,12 @@
 
 .imgContainer {
   height: 10rem;
-  border-top: 1px solid var(--black);
-  border-bottom: 1px solid var(--black);
   width: 100%;
   border-radius: var(--borderRadius) var(--borderRadius) 0 0;
   overflow: hidden;
-  /* border: 2px solid black; */
+  border-bottom: 2px solid var(--grey-100);
   cursor: pointer;
   opacity: 0.9;
-  /* width: 15rem; */
 }
 
 .imgContainer img {

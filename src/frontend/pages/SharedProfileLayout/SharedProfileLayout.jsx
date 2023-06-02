@@ -4,7 +4,7 @@ import styles from './SharedProfileLayout.module.css';
 const SharedProfileLayout = () => {
   const isProfileActive = useMatch('/profile');
   const isAddressActive = useMatch('/profile/address');
-  const isOrdersActive = useMatch('/profile/order');
+  // const isOrdersActive = useMatch('/profile/order');
 
   const showActiveCSS = (isPageActive) => {
     return isPageActive ? styles.activeLinkCSS : styles.notActiveLinkCSS;
@@ -24,9 +24,9 @@ const SharedProfileLayout = () => {
             Address
           </Link>
 
-          <Link className={showActiveCSS(isOrdersActive)} to='/profile/order'>
+          {/* <Link className={showActiveCSS(isOrdersActive)} to='/profile/order'>
             Orders
-          </Link>
+          </Link> */}
         </header>
         <hr />
 

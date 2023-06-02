@@ -10,7 +10,8 @@ import styles from './CheckoutDetails.module.css';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { AiFillTag } from 'react-icons/ai';
 import Price from '../Price';
-import { toastHandler } from '../../utils/utils';
+import { formatPrice, toastHandler } from '../../utils/utils';
+import { useIsMobile } from '../../hooks';
 
 const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
   const [isCouponsSuggestionVisible, setIsCouponsSuggestionVisible] =
@@ -19,6 +20,8 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
   const {
     cartDetails: { totalAmount: totalAmountFromContext },
   } = useAllProductsContext();
+
+  const isMobile = useIsMobile();
 
   const handleSearchFocus = () => {
     setIsCouponsSuggestionVisible(true);
@@ -31,6 +34,20 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
   };
 
   const handleCouponClick = (couponClicked) => {
+    //  for mobile, there is no tooltip and buttons not disabled for the following condition
+    if (
+      isMobile &&
+      totalAmountFromContext < couponClicked.minCartPriceRequired
+    ) {
+      toastHandler(
+        ToastType.Info,
+        `Shop above ₹${formatPrice(
+          couponClicked.minCartPriceRequired
+        )} to avail`
+      );
+      return;
+    }
+
     setCouponSearchInput(couponClicked.couponCode);
 
     // if activeCoupon and the couponClicked in suggestion is same do nothing
@@ -111,24 +128,34 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
 
       {isCouponsSuggestionVisible && (
         <div className={styles.couponSuggestion}>
-          {COUPONS.map((singleCoupon) => (
-            <button
-              type='button'
-              key={singleCoupon.id}
-              onClick={() => handleCouponClick(singleCoupon)}
-              className='btn'
-              disabled={
-                totalAmountFromContext < singleCoupon.minCartPriceRequired
-              }
-            >
-              {singleCoupon.text}
-              <div>{singleCoupon.couponCode}</div>
-              <span className={styles.tooltip}>
-                Shop above <Price amount={singleCoupon.minCartPriceRequired} />{' '}
-                to avail
-              </span>
-            </button>
-          ))}
+          {COUPONS.map((singleCoupon) => {
+            const isButtonDisabled =
+              totalAmountFromContext < singleCoupon.minCartPriceRequired;
+
+            return (
+              <button
+                type='button'
+                key={singleCoupon.id}
+                onClick={() => handleCouponClick(singleCoupon)}
+                className={
+                  isButtonDisabled ? `btn ${styles.btnDisableMobile}` : 'btn'
+                }
+                disabled={!isMobile && isButtonDisabled}
+              >
+                {singleCoupon.text}
+
+                <div>{singleCoupon.couponCode}</div>
+
+                {!isMobile && (
+                  <span className={styles.tooltip}>
+                    Shop above{' '}
+                    <Price amount={singleCoupon.minCartPriceRequired} /> to
+                    avail
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
     </form>

@@ -21,10 +21,10 @@ export const initialProductsState = {
       city: 'kalyan',
       state: 'Maharashtra',
       pincode: 421306,
-      addressInfo: 'Ganesh kripa chawl',
+      addressInfo: 'Ganesh krupa chawl-1/6, Kolsewadi',
     },
   ],
-  orderDetails: [],
+  // orderDetails: [],
 };
 
 export const productsReducer = (state, action) => {
@@ -100,12 +100,9 @@ export const productsReducer = (state, action) => {
     }
 
     case PRODUCTS_ACTION.ADD_ADDRESS: {
-      const listwithNewAddress = {
-        ...action.payload.address,
-      };
       return {
         ...state,
-        addressList: [...state.addressList, listwithNewAddress],
+        addressList: [...state.addressList, action.payload.address],
       };
     }
 
@@ -143,12 +140,12 @@ export const productsReducer = (state, action) => {
       };
     }
 
-    case PRODUCTS_ACTION.ADD_ORDER: {
-      return {
-        ...state,
-        orderDetails: state.orderDetails.concat(action.payload.order),
-      };
-    }
+    // case PRODUCTS_ACTION.ADD_ORDER: {
+    //   return {
+    //     ...state,
+    //     orderDetails: state.orderDetails.concat(action.payload.order),
+    //   };
+    // }
 
     default:
       throw new Error(`${action.type} does not exist`);

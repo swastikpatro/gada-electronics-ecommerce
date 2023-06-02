@@ -16,7 +16,6 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   const isEditing = !!isEditingAndData;
 
   const defaultState = {
-    // addressId: 1234,
     username: '',
     mobile: '',
     alternate: '',
@@ -68,7 +67,11 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmitForm}>
+    <form
+      onClick={(e) => e.stopPropagation()}
+      className={styles.form}
+      onSubmit={handleSubmitForm}
+    >
       <FormRow
         text='Name'
         type='text'

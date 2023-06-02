@@ -260,8 +260,7 @@ button:disabled {
 
 .btn-center {
   display: block;
-  margin: 0 auto;
-  margin-top: 1rem;
+  margin: 1rem auto;
   width: fit-content;
 }
 
@@ -468,23 +467,24 @@ button:disabled {
   }
 }
 
+.Toastify__toast-container {
+  width: fit-content;
+}
+
 .Toastify__toast {
   text-transform: capitalize;
-  padding: 0;
   margin: 0;
-  width: 100%;
+  width: fit-content !important;
   max-width: fit-content;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  border-radius: var(--borderRadius);
 }
 
 @media screen and (min-width: 768px) {
   .Toastify__toast {
-    max-width: fit-content;
+    font-size: 1rem;
   }
-}
-
-.bg {
-  height: 50rem;
-  background: var(--primary-300);
 }
 
 .search {
@@ -535,10 +535,14 @@ button:disabled {
 
 .success-text {
   color: var(--green-medium);
-  font-size: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
+  .success-text {
+    font-size: 2rem;
+  }
   .btn-padding-desktop {
     font-size: 1.1rem;
     padding: 0.75rem 1rem;
