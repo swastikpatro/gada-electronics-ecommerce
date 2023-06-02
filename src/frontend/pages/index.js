@@ -12,6 +12,7 @@ import Profile from './Profile/Profile';
 import SharedProfileLayout from './SharedProfileLayout/SharedProfileLayout';
 import Checkout from './Checkout/Checkout';
 import Address from './Address/Address';
+import Order from './OrderPage/OrderPage';
 
 export {
   CartPage,
@@ -27,4 +28,5 @@ export {
   SharedProfileLayout,
   Checkout,
   Address,
+  Order,
 };

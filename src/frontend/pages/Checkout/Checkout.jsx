@@ -11,6 +11,7 @@ const Checkout = () => {
     useAllProductsContext();
 
   const [activeAddressId, setActiveAddressId] = useState('');
+  const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
 
   const isCartEmpty = cartFromContext.length < 1;
 
@@ -23,6 +24,17 @@ const Checkout = () => {
   const handleSelect = (addressIdClicked) => {
     setActiveAddressId(addressIdClicked);
   };
+
+  const updateCheckoutStatus = ({ showSuccessMsg }) => {
+    setIsCheckoutSuccess(showSuccessMsg);
+  };
+
+  if (isCheckoutSuccess)
+    return (
+      <main className='half-page container center-div'>
+        <p className='success-text'>Your order has successfully placed</p>
+      </main>
+    );
 
   return (
     <main className={`full-page container`}>
@@ -47,7 +59,10 @@ const Checkout = () => {
           )}
         </section>
 
-        <CheckoutDetails activeAddressId={activeAddressId} />
+        <CheckoutDetails
+          activeAddressId={activeAddressId}
+          updateCheckoutStatus={updateCheckoutStatus}
+        />
       </div>
     </main>
   );

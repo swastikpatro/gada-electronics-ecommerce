@@ -6,25 +6,39 @@ import { VscChromeClose } from 'react-icons/vsc';
 
 import { CHARGE_AND_DISCOUNT, ToastType } from '../../constants/constants';
 import CouponSearch from './CouponSearch';
-import { toastHandler } from '../../utils/utils';
+import { toastHandler, wait, Popper } from '../../utils/utils';
 
-const CheckoutDetails = ({ activeAddressId: activeAddressIdFromProps }) => {
+import { useAuthContext } from '../../contexts/AuthContextProvider';
+import { useNavigate } from 'react-router-dom';
+
+const CheckoutDetails = ({
+  activeAddressId: activeAddressIdFromProps,
+  updateCheckoutStatus,
+}) => {
   const {
     cartDetails: {
       totalAmount: totalAmountFromContext,
       totalCount: totalCountFromContext,
-      totalDiscountedAmount,
     },
     addressList: addressListFromContext,
+    cart: cartFromContext,
+    clearCartDispatch,
+    addOrderDispatch,
   } = useAllProductsContext();
 
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
   const [activeCoupon, setActiveCoupon] = useState(null);
 
-  const discountedPriceUsingCoupon = activeCoupon
+  const priceAfterCouponApplied = activeCoupon
     ? -Math.floor((totalAmountFromContext * activeCoupon.discountPercent) / 100)
     : 0;
 
-  const finalPriceToPay = totalDiscountedAmount + discountedPriceUsingCoupon;
+  const finalPriceToPay =
+    totalAmountFromContext +
+    CHARGE_AND_DISCOUNT.deliveryCharge +
+    CHARGE_AND_DISCOUNT.discount +
+    priceAfterCouponApplied;
 
   const updateActiveCoupon = (couponObjClicked) => {
     setActiveCoupon(couponObjClicked);
@@ -34,6 +48,78 @@ const CheckoutDetails = ({ activeAddressId: activeAddressIdFromProps }) => {
   const cancelCoupon = () => {
     setActiveCoupon(null);
     toastHandler(ToastType.Warn, 'Coupon Removed');
+  };
+
+  const loadScript = async (url) => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = url;
+
+      script.onload = () => {
+        resolve(true);
+      };
+
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  const displayRazorpay = async () => {
+    try {
+      const res = await loadScript(
+        'https://checkout.razorpay.com/v1/checkout.js'
+      );
+
+      if (!res) {
+        toastHandler(
+          ToastType.Error,
+          'Razorpay SDK failed to load, check you connection'
+        );
+        return;
+      }
+
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount: finalPriceToPay * 100,
+        currency: 'INR',
+        name: 'Gada Electronics',
+        description: 'Thank you for shopping with us',
+        image:
+          'https://res.cloudinary.com/dtbd1y4en/image/upload/v1685641105/apple-touch-icon_edbdny.png',
+
+        handler: async (response) => {
+          const tempObj = {
+            products: [...cartFromContext],
+            amount: finalPriceToPay,
+            paymentId: response.razorpay_payment_id,
+          };
+          updateCheckoutStatus({ showSuccessMsg: true });
+          Popper();
+          toastHandler(ToastType.Success, 'Payment succesfull');
+          addOrderDispatch(tempObj);
+
+          await wait(3000);
+          await clearCartDispatch();
+          updateCheckoutStatus({ showSuccessMsg: false });
+          navigate('/profile/order');
+        },
+        prefill: {
+          name: user.username,
+          email: user.email,
+          contact: '9082931946',
+        },
+        theme: {
+          color: 'var(--primary-500)',
+        },
+      };
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handlePlaceOrder = () => {
@@ -46,8 +132,7 @@ const CheckoutDetails = ({ activeAddressId: activeAddressIdFromProps }) => {
       return;
     }
 
-    // setActiveCoupon(null);
-    console.log({ finalPriceToPay, addressToDeliver });
+    displayRazorpay();
   };
 
   return (
@@ -85,7 +170,7 @@ const CheckoutDetails = ({ activeAddressId: activeAddressIdFromProps }) => {
               Coupon {activeCoupon.couponCode} applied
             </p>
           </div>
-          <Price amount={discountedPriceUsingCoupon} />
+          <Price amount={priceAfterCouponApplied} />
         </div>
       )}
 
