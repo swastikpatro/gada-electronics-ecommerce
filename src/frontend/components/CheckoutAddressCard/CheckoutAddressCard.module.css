@@ -3,6 +3,7 @@
   /* justify-content: space-between; */
   align-items: center;
   background: var(--white);
+  gap: 0.5rem;
   /* border: 2px solid red; */
   margin-bottom: 1rem;
   box-shadow: var(--shadow-2);
@@ -23,9 +24,15 @@
 
 .addressCard label {
   cursor: pointer;
-  width: 100%;
   padding: 1rem;
   padding-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.addressCard h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .addressCard input {
@@ -42,5 +49,9 @@
 
   .addressCard:hover {
     box-shadow: var(--shadow-4);
+  }
+
+  .addressCard label {
+    width: 100%;
   }
 }
