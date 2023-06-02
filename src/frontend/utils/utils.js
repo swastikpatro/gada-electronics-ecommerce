@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
 import { ToastType, customToastId, itemsPerPage } from '../constants/constants';
+import confetti from 'canvas-confetti';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
   const percent = Math.floor(
@@ -72,3 +73,30 @@ export const formatPrice = (price) =>
   price.toLocaleString('en-IN', {
     maximumFractionDigits: 2,
   });
+
+export const Popper = () => {
+  const end = Date.now() + 3 * 1000;
+  // go Buckeyes!
+  const colors = ['#392f5a', '#9583cf'];
+
+  (function frame() {
+    confetti({
+      particleCount: 2,
+      angle: 40,
+      spread: 55,
+      origin: { x: 0 },
+      colors: colors,
+    });
+    confetti({
+      particleCount: 2,
+      angle: 140,
+      spread: 55,
+      origin: { x: 1 },
+      colors: colors,
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+};

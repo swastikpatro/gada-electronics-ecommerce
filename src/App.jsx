@@ -6,6 +6,7 @@ import {
   ErrorPage,
   Home,
   LoginPage,
+  Order,
   ProductListingPage,
   Profile,
   SharedLayout,
@@ -87,6 +88,7 @@ const App = () => {
             >
               <Route index element={<Profile />} />
               <Route path='address' element={<Address />} />
+              <Route path='order' element={<Order />} />
             </Route>
           </Route>
 

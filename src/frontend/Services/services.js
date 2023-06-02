@@ -7,15 +7,10 @@ export const loginUserService = async (userData) => {
   });
 
   if (response.status === 200 || response.status === 201) {
-    const { firstName, lastName, email } = response.data.foundUser;
-    const { encodedToken } = response.data;
-
-    // console.log({ userData });
-    // console.log(response);
+    const { encodedToken, foundUser } = response.data;
 
     return {
-      username: `${firstName} ${lastName}`,
-      email,
+      user: foundUser,
       token: encodedToken,
     };
   }
@@ -28,12 +23,10 @@ export const signupService = async (userData) => {
   });
 
   if (response.status === 200 || response.status === 201) {
-    const { firstName, lastName, email } = response.data.createdUser;
-    const { encodedToken } = response.data;
+    const { encodedToken, createdUser } = response.data;
 
     return {
-      username: `${firstName} ${lastName}`,
-      email,
+      user: createdUser,
       token: encodedToken,
     };
   }
@@ -84,34 +77,31 @@ export const getSingleProductService = async (productID) => {
   }
 };
 
-export const getWishlistAndCartService = async (token) => {
-  const objContainingheaders = { headers: { authorization: token } };
-  const wishlistPromise = axios.get('/api/user/wishlist', objContainingheaders);
-  const cartPromise = axios.get('/api/user/cart', objContainingheaders);
-
-  const [wishlistResponse, cartResponse] = await Promise.all([
-    wishlistPromise,
-    cartPromise,
-  ]);
-
-  const { wishlist } = wishlistResponse.data;
-  const { cart } = cartResponse.data;
-
-  return { wishlist, cart };
-};
-
 export const postAddToCartService = async (productToAdd, token) => {
-  return axios.post(
+  const response = await axios.post(
     '/api/user/cart',
     { product: productToAdd },
     { headers: { authorization: token } }
   );
+
+  const { cart } = response.data;
+  const { status } = response;
+  console.log({ response });
+  if (status === 200 || status === 201) {
+    return cart;
+  }
 };
 
 export const deleteFromCartService = async (productId, token) => {
-  return axios.delete(`/api/user/cart/${productId}`, {
+  const response = await axios.delete(`/api/user/cart/${productId}`, {
     headers: { authorization: token },
   });
+
+  const { cart } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return cart;
+  }
 };
 
 export const incDecItemInCartService = async ({
@@ -120,37 +110,66 @@ export const incDecItemInCartService = async ({
   type,
   colorBody,
 }) => {
-  return axios.post(
+  const response = await axios.post(
     `/api/user/cart/${productId}`,
     {
       action: { type, colorBody },
     },
     { headers: { authorization: token } }
   );
+
+  const { cart } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return cart;
+  }
 };
 
 export const postAddToWishlistService = async (productToAdd, token) => {
-  return axios.post(
+  const response = await axios.post(
     '/api/user/wishlist',
     { product: productToAdd },
     { headers: { authorization: token } }
   );
+  const { wishlist } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return wishlist;
+  }
 };
 
 export const deleteFromWishlistService = async (productId, token) => {
-  return axios.delete(`/api/user/wishlist/${productId}`, {
+  const response = await axios.delete(`/api/user/wishlist/${productId}`, {
     headers: { authorization: token },
   });
+
+  const { wishlist } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return wishlist;
+  }
 };
 
 export const deleteCartDataService = async (token) => {
-  return axios.delete('/api/user/cart', {
+  const response = await axios.delete('/api/user/cart', {
     headers: { authorization: token },
   });
+
+  const { cart } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return cart;
+  }
 };
 
 export const deleteWishlistDataService = async (token) => {
-  return axios.delete('/api/user/wishlist', {
+  const response = await axios.delete('/api/user/wishlist', {
     headers: { authorization: token },
   });
+
+  const { wishlist } = response.data;
+  const { status } = response;
+  if (status === 200 || status === 201) {
+    return wishlist;
+  }
 };

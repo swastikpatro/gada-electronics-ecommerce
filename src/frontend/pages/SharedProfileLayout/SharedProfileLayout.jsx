@@ -4,27 +4,28 @@ import styles from './SharedProfileLayout.module.css';
 const SharedProfileLayout = () => {
   const isProfileActive = useMatch('/profile');
   const isAddressActive = useMatch('/profile/address');
+  const isOrdersActive = useMatch('/profile/order');
 
+  const showActiveCSS = (isPageActive) => {
+    return isPageActive ? styles.activeLinkCSS : styles.notActiveLinkCSS;
+  };
   return (
     <section className={`half-page ${styles.pageCenter}`}>
       <main>
         <header>
-          <Link
-            className={
-              isProfileActive ? styles.activeLinkCSS : styles.notActiveLinkCSS
-            }
-            to='/profile'
-          >
+          <Link className={showActiveCSS(isProfileActive)} to='/profile'>
             Profile
           </Link>
 
           <Link
-            className={
-              isAddressActive ? styles.activeLinkCSS : styles.notActiveLinkCSS
-            }
+            className={showActiveCSS(isAddressActive)}
             to='/profile/address'
           >
             Address
+          </Link>
+
+          <Link className={showActiveCSS(isOrdersActive)} to='/profile/order'>
+            Orders
           </Link>
         </header>
         <hr />

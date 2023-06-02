@@ -8,19 +8,23 @@ import styles from './Profile.module.css';
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { updateUserAuth, user } = useAuthContext();
-  const { clearWishlistDispatch, clearCartDispatch, timedMainPageLoader } =
+  const {
+    updateUserAuth,
+    user: { firstName, lastName, email },
+  } = useAuthContext();
+  const { clearCartInContext, clearWishlistInContext, timedMainPageLoader } =
     useAllProductsContext();
 
   const { clearFilters } = useFiltersContext();
 
   const handleLogout = async () => {
     await timedMainPageLoader();
-    updateUserAuth(null);
+    updateUserAuth({ user: null, token: null });
     removeLocalStorage(localStorageKeys.User);
+    removeLocalStorage(localStorageKeys.Token);
 
-    clearWishlistDispatch();
-    clearCartDispatch();
+    clearCartInContext();
+    clearWishlistInContext();
     clearFilters();
 
     navigate('/');
@@ -29,11 +33,11 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <p className={styles.row}>
-        <span>Name:</span> {user.username}
+        <span>Name:</span> {`${firstName} ${lastName}`}
       </p>
 
       <p className={styles.row}>
-        <span>Email:</span> {user.email}
+        <span>Email:</span> {email}
       </p>
 
       <button className='btn btn-danger' onClick={handleLogout}>

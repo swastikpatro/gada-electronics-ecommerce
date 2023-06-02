@@ -1,4 +1,3 @@
-import { CHARGE_AND_DISCOUNT } from '../constants/constants';
 import { PRODUCTS_ACTION } from '../utils/actions';
 
 export const initialProductsState = {
@@ -23,31 +22,9 @@ export const initialProductsState = {
       state: 'Maharashtra',
       pincode: 421306,
       addressInfo: 'Ganesh kripa chawl',
-      isSelected: false,
-    },
-    {
-      addressId: 'xyz',
-      username: 'Sanskruti Patro',
-      mobile: 9867241485,
-      alternate: 1234,
-      city: 'kalyan',
-      state: 'Maharashtra',
-      pincode: 421306,
-      addressInfo: 'Ganesh kripa chawl',
-      isSelected: false,
-    },
-    {
-      addressId: 'lmn',
-      username: 'Tali Patro',
-      mobile: 8693086455,
-      alternate: '',
-      city: 'kalyan',
-      state: 'Maharashtra',
-      pincode: 421306,
-      addressInfo: 'Ganesh kripa chawl',
-      isSelected: false,
     },
   ],
+  orderDetails: [],
 };
 
 export const productsReducer = (state, action) => {
@@ -92,14 +69,6 @@ export const productsReducer = (state, action) => {
       };
     }
 
-    case PRODUCTS_ACTION.GET_WISHLIST_CART_FULFILLED: {
-      return {
-        ...state,
-        wishlist: [...action.payload.wishlist],
-        cart: [...action.payload.cart],
-      };
-    }
-
     case PRODUCTS_ACTION.UPDATE_CART: {
       const cart = [...action.payload.cart];
 
@@ -116,18 +85,10 @@ export const productsReducer = (state, action) => {
         }
       );
 
-      const sumOfDiscountAndCharges =
-        CHARGE_AND_DISCOUNT.deliveryCharge + CHARGE_AND_DISCOUNT.discount;
-
-      const totalDiscountedAmount =
-        cartDetails.totalAmount >= sumOfDiscountAndCharges
-          ? cartDetails.totalAmount + sumOfDiscountAndCharges
-          : 0;
-
       return {
         ...state,
         cart: cart,
-        cartDetails: { ...cartDetails, totalDiscountedAmount },
+        cartDetails: cartDetails,
       };
     }
 
@@ -141,7 +102,6 @@ export const productsReducer = (state, action) => {
     case PRODUCTS_ACTION.ADD_ADDRESS: {
       const listwithNewAddress = {
         ...action.payload.address,
-        isSelected: false,
       };
       return {
         ...state,
@@ -180,6 +140,13 @@ export const productsReducer = (state, action) => {
       return {
         ...state,
         addressList: [],
+      };
+    }
+
+    case PRODUCTS_ACTION.ADD_ORDER: {
+      return {
+        ...state,
+        orderDetails: state.orderDetails.concat(action.payload.order),
       };
     }
 
