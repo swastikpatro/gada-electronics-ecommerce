@@ -260,14 +260,14 @@ const ProductsContextProvider = ({ children }) => {
     });
   };
 
-  const addOrderDispatch = async (orderObj) => {
-    dispatch({
-      type: PRODUCTS_ACTION.ADD_ORDER,
-      payload: {
-        order: orderObj,
-      },
-    });
-  };
+  // const addOrderDispatch = async (orderObj) => {
+  //   dispatch({
+  //     type: PRODUCTS_ACTION.ADD_ORDER,
+  //     payload: {
+  //       order: orderObj,
+  //     },
+  //   });
+  // };
 
   return (
     <ProductsContext.Provider
@@ -290,7 +290,7 @@ const ProductsContextProvider = ({ children }) => {
         editAddressDispatch,
         deleteAddressDispatch,
         deleteAllAddressDispatch,
-        addOrderDispatch,
+        // addOrderDispatch,
         clearCartInContext,
         clearWishlistInContext,
       }}
