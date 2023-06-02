@@ -52,28 +52,34 @@
 }
 
 .couponSuggestion > button:hover {
-  background: none;
+  background: var(--primary-100);
 }
 
 .couponSuggestion > button:disabled {
   background: var(--grey-100);
 }
 
+.couponSuggestion > .btnDisableMobile {
+  /* border: 2px solid red; */
+  background: var(--grey-100);
+  cursor: not-allowed;
+}
+
+.couponSuggestion > .btnDisableMobile:hover {
+  background: var(--grey-100);
+}
+
 .tooltip {
   visibility: hidden;
   position: absolute;
-  top: 0.25rem;
-  left: 25%;
+  top: -1.5rem;
+  left: 0;
   background: var(--white);
   padding: 0.5rem;
   z-index: 3;
   border: 2px solid var(--primary-700);
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   border-radius: var(--borderRadius);
-}
-
-.couponSuggestion > button:disabled:hover .tooltip {
-  visibility: visible;
 }
 
 .closeBtn {
@@ -82,6 +88,16 @@
 }
 
 @media screen and (min-width: 768px) {
+  .tooltip {
+    font-size: 0.75rem;
+    left: 25%;
+    top: 10%;
+  }
+
+  .couponSuggestion > button:disabled:hover .tooltip {
+    visibility: visible;
+  }
+
   article.checkout {
     min-width: 25rem;
   }

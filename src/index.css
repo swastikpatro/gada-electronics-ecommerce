@@ -467,23 +467,27 @@ button:disabled {
   }
 }
 
+.Toastify__toast-container {
+  width: 100%;
+}
+
 .Toastify__toast {
   text-transform: capitalize;
-  padding: 0;
   margin: 0;
-  width: 100%;
+  width: fit-content !important;
   max-width: fit-content;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  border-radius: var(--borderRadius);
 }
 
 @media screen and (min-width: 768px) {
-  .Toastify__toast {
-    max-width: fit-content;
+  .Toastify__toast-container {
+    width: 100%;
   }
-}
-
-.bg {
-  height: 50rem;
-  background: var(--primary-300);
+  .Toastify__toast {
+    font-size: 1rem;
+  }
 }
 
 .search {

@@ -21,7 +21,7 @@ export const toastHandler = (type, message, toastId = uuid()) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'dark',
+    theme: 'light',
     toastId,
   };
 
