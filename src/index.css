@@ -309,7 +309,7 @@ button:disabled {
 .form-label {
   display: block;
   font-size: var(--smallText);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
@@ -337,7 +337,7 @@ button:disabled {
 }
 
 .form-textarea {
-  height: 7rem;
+  height: 5rem;
 }
 ::placeholder {
   font-family: inherit;
