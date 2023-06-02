@@ -23,10 +23,12 @@ const CheckoutDetails = ({
     addressList: addressListFromContext,
     cart: cartFromContext,
     clearCartDispatch,
-    addOrderDispatch,
+    // addOrderDispatch,
   } = useAllProductsContext();
 
-  const { user } = useAuthContext();
+  const {
+    user: { firstName, lastName, email },
+  } = useAuthContext();
   const navigate = useNavigate();
   const [activeCoupon, setActiveCoupon] = useState(null);
 
@@ -99,16 +101,17 @@ const CheckoutDetails = ({
           updateCheckoutStatus({ showSuccessMsg: true });
           Popper();
           toastHandler(ToastType.Success, 'Payment succesfull');
-          addOrderDispatch(tempObj);
+
+          // addOrderDispatch(tempObj);
 
           await wait(3000);
           await clearCartDispatch();
           updateCheckoutStatus({ showSuccessMsg: false });
-          navigate('/profile/order');
+          navigate('/');
         },
         prefill: {
-          name: user.username,
-          email: user.email,
+          name: `${firstName} ${lastName}`,
+          email: email,
           contact: '9082931946',
         },
         theme: {

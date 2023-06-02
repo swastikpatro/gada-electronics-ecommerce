@@ -6,7 +6,7 @@ import {
   ErrorPage,
   Home,
   LoginPage,
-  Order,
+  // Order,
   ProductListingPage,
   Profile,
   SharedLayout,
@@ -16,7 +16,6 @@ import {
   WishListPage,
 } from './frontend/pages';
 
-import Mockman from 'mockman-js';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -41,6 +40,10 @@ const App = () => {
 
         <Routes>
           <Route path='*' element={<ErrorPage />} />
+
+          <Route path='/login' element={<LoginPage />} />
+
+          <Route path='/signup' element={<SignupPage />} />
 
           <Route path='/' element={<SharedLayout />}>
             <Route index element={<Home />} />
@@ -88,13 +91,9 @@ const App = () => {
             >
               <Route index element={<Profile />} />
               <Route path='address' element={<Address />} />
-              <Route path='order' element={<Order />} />
+              {/* <Route path='order' element={<Order />} /> */}
             </Route>
           </Route>
-
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignupPage />} />
-          <Route path='/mockman' element={<Mockman />} />
         </Routes>
       </main>
     </BrowserRouter>
