@@ -86,7 +86,6 @@ export const postAddToCartService = async (productToAdd, token) => {
 
   const { cart } = response.data;
   const { status } = response;
-  console.log({ response });
   if (status === 200 || status === 201) {
     return cart;
   }
