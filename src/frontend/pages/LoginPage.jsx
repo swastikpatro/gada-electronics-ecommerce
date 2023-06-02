@@ -45,16 +45,20 @@ const LoginPage = () => {
     const userInfo = isGuestClick ? testUser : userInputs;
 
     try {
-      const data = await loginUserService(userInfo);
+      const { user, token } = await loginUserService(userInfo);
 
       // update AuthContext with data
-      updateUserAuth(data);
+      updateUserAuth({ user, token });
 
       // store this data in localStorage
-      setIntoLocalStorage(localStorageKeys.User, data);
+      setIntoLocalStorage(localStorageKeys.User, user);
+      setIntoLocalStorage(localStorageKeys.Token, token);
 
       // show success toast
-      toastHandler(ToastType.Success, `Welcome ${data.username} 😎`);
+      toastHandler(
+        ToastType.Success,
+        `Welcome ${user.firstName} ${user.lastName} 😎`
+      );
       // if non-registered user comes from typing '/login' at the url, after success redirect it to '/'
       navigate(locationOfLogin?.state?.from ?? '/');
     } catch (error) {

@@ -6,11 +6,11 @@ import {
   deleteFromWishlistService,
   deleteWishlistDataService,
   getAllProductsCategoriesService,
-  getWishlistAndCartService,
   incDecItemInCartService,
   postAddToCartService,
   postAddToWishlistService,
 } from '../Services/services';
+
 import { productsReducer } from '../reducers';
 import { PRODUCTS_ACTION } from '../utils/actions';
 import { ToastType, delayToShowLoader } from '../constants/constants';
@@ -27,7 +27,7 @@ const ProductsContextProvider = ({ children }) => {
     initialProductsState
   );
 
-  const { user } = useAuthContext();
+  const { user, token: tokenFromContext } = useAuthContext();
 
   // fns
   const showMainPageLoader = () => {
@@ -37,55 +37,6 @@ const ProductsContextProvider = ({ children }) => {
   const hideMainPageLoader = () => {
     dispatch({ type: PRODUCTS_ACTION.HIDE_LOADER });
   };
-
-  const fetchAllProductsAndCategories = async () => {
-    dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_BEGIN });
-    // as the response was quick, used wait (check utils) to show Loader for 1000s
-    await wait(delayToShowLoader);
-
-    try {
-      const { products, categories } = await getAllProductsCategoriesService();
-
-      dispatch({
-        type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_FULFILLED,
-        payload: { products, categories },
-      });
-    } catch (error) {
-      dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_REJECTED });
-
-      console.error(error);
-    }
-  };
-
-  const fetchWishlistAndCart = async () => {
-    showMainPageLoader();
-    try {
-      const { wishlist, cart } = await getWishlistAndCartService(user?.token);
-
-      dispatch({
-        type: PRODUCTS_ACTION.GET_WISHLIST_CART_FULFILLED,
-        payload: { wishlist, cart },
-      });
-
-      hideMainPageLoader();
-    } catch (error) {
-      console.log(error.response);
-      hideMainPageLoader();
-    }
-  };
-
-  // useEffects
-  useEffect(() => {
-    fetchAllProductsAndCategories();
-  }, []);
-
-  useEffect(() => {
-    if (!user) return;
-    fetchWishlistAndCart();
-  }, [user]);
-
-  // x
-  // user changes from null to [{email, username, token}]
 
   const timedMainPageLoader = async () => {
     showMainPageLoader();
@@ -107,33 +58,67 @@ const ProductsContextProvider = ({ children }) => {
     });
   };
 
+  const clearCartInContext = () => {
+    updateCart([]);
+  };
+
+  const clearWishlistInContext = () => {
+    updateWishlist([]);
+  };
+
+  const fetchAllProductsAndCategories = async () => {
+    dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_BEGIN });
+    // as the response was quick, used wait (check utils) to show Loader for 1000s
+    await wait(delayToShowLoader);
+
+    try {
+      const { products, categories } = await getAllProductsCategoriesService();
+
+      dispatch({
+        type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_FULFILLED,
+        payload: { products, categories },
+      });
+    } catch (error) {
+      dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_REJECTED });
+
+      console.error(error);
+    }
+  };
+
+  // useEffects
+  useEffect(() => {
+    fetchAllProductsAndCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    updateCart(user.cart);
+    updateWishlist(user.wishlist);
+  }, [user]);
+
+  // fns to get data from services and update state
   const addToCartDispatch = async (productToAdd) => {
     try {
-      const response = await postAddToCartService(productToAdd, user.token);
-
-      const { cart } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateCart(cart);
-
-        toastHandler(ToastType.Success, 'Successfully Added To Cart');
-      }
+      const cart = await postAddToCartService(productToAdd, tokenFromContext);
+      updateCart(cart);
+      toastHandler(ToastType.Success, 'Successfully Added To Cart');
     } catch (error) {
       console.log(error.response);
+      toastHandler(ToastType.Success, 'Error in fetching data');
     }
   };
 
   const addToWishlistDispatch = async (productToAdd) => {
     try {
-      const response = await postAddToWishlistService(productToAdd, user.token);
+      const wishlist = await postAddToWishlistService(
+        productToAdd,
+        tokenFromContext
+      );
 
-      const { wishlist } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateWishlist(wishlist);
+      updateWishlist(wishlist);
 
-        toastHandler(ToastType.Success, 'Successfully Added To Wishlist');
-      }
+      toastHandler(ToastType.Success, 'Successfully Added To Wishlist');
     } catch (error) {
       console.log(error.response);
     }
@@ -141,14 +126,10 @@ const ProductsContextProvider = ({ children }) => {
 
   const removeFromCartDispatch = async (productId) => {
     try {
-      const response = await deleteFromCartService(productId, user.token);
+      const cart = await deleteFromCartService(productId, tokenFromContext);
 
-      const { cart } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateCart(cart);
-        toastHandler(ToastType.Warn, 'Removed From Cart successfully');
-      }
+      updateCart(cart);
+      toastHandler(ToastType.Warn, 'Removed From Cart successfully');
     } catch (error) {
       console.log(error.response);
     }
@@ -156,14 +137,13 @@ const ProductsContextProvider = ({ children }) => {
 
   const removeFromWishlistDispatch = async (productId) => {
     try {
-      const response = await deleteFromWishlistService(productId, user.token);
+      const wishlist = await deleteFromWishlistService(
+        productId,
+        tokenFromContext
+      );
 
-      const { wishlist } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateWishlist(wishlist);
-        toastHandler(ToastType.Warn, 'Removed From Wishlist successfully');
-      }
+      updateWishlist(wishlist);
+      toastHandler(ToastType.Warn, 'Removed From Wishlist successfully');
     } catch (error) {
       console.log(error.response);
     }
@@ -172,13 +152,9 @@ const ProductsContextProvider = ({ children }) => {
   const clearWishlistDispatch = async () => {
     showMainPageLoader();
     try {
-      const response = await deleteWishlistDataService(user.token);
+      const wishlist = await deleteWishlistDataService(tokenFromContext);
 
-      const { wishlist } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateWishlist(wishlist);
-      }
+      updateWishlist(wishlist);
       hideMainPageLoader();
     } catch (error) {
       console.log(error.response);
@@ -189,13 +165,10 @@ const ProductsContextProvider = ({ children }) => {
   const clearCartDispatch = async () => {
     showMainPageLoader();
     try {
-      const response = await deleteCartDataService(user.token);
+      const cart = await deleteCartDataService(tokenFromContext);
 
-      const { cart } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateCart(cart);
-      }
+      updateCart(cart);
+
       hideMainPageLoader();
     } catch (error) {
       console.log(error.response);
@@ -205,26 +178,13 @@ const ProductsContextProvider = ({ children }) => {
 
   const moveToWishlistDispatch = async (product) => {
     try {
-      const addToWishlistPromise = postAddToWishlistService(
-        product,
-        user.token
-      );
-      const removeFromCartPromise = deleteFromCartService(
-        product._id,
-        user.token
-      );
-
-      const [wishlistResponse, cartResponse] = await Promise.all([
-        addToWishlistPromise,
-        removeFromCartPromise,
+      const [wishlist, cart] = await Promise.all([
+        postAddToWishlistService(product, tokenFromContext),
+        deleteFromCartService(product._id, tokenFromContext),
       ]);
-
-      const { cart } = cartResponse.data;
-      const { wishlist } = wishlistResponse.data;
 
       updateCart(cart);
       updateWishlist(wishlist);
-
       toastHandler(ToastType.Success, 'Moved to Wishlist successfully');
     } catch (error) {
       console.log(error.response);
@@ -234,22 +194,14 @@ const ProductsContextProvider = ({ children }) => {
   const moveToCartDispatch = async (product) => {
     // this will be called from the wishlist page
     try {
-      const addToCartPromise = postAddToCartService(product, user.token);
-      const removeFromWishlistPromise = deleteFromWishlistService(
-        product._id,
-        user.token
-      );
-
-      const [cartResponse, wishlistResponse] = await Promise.all([
-        addToCartPromise,
-        removeFromWishlistPromise,
+      const [cart, wishlist] = await Promise.all([
+        postAddToCartService(product, tokenFromContext),
+        deleteFromWishlistService(product._id, tokenFromContext),
       ]);
-
-      const { cart } = cartResponse.data;
-      const { wishlist } = wishlistResponse.data;
 
       updateCart(cart);
       updateWishlist(wishlist);
+      toastHandler(ToastType.Success, 'Moved to Cart successfully');
     } catch (error) {
       console.log(error.response);
     }
@@ -257,18 +209,14 @@ const ProductsContextProvider = ({ children }) => {
 
   const addOrRemoveQuantityInCart = async ({ productId, type, colorBody }) => {
     try {
-      const response = await incDecItemInCartService({
+      const cart = await incDecItemInCartService({
         productId,
         type,
-        token: user.token,
+        token: tokenFromContext,
         colorBody,
       });
 
-      const { cart } = response.data;
-      const { status } = response;
-      if (status === 200 || status === 201) {
-        updateCart(cart);
-      }
+      updateCart(cart);
     } catch (error) {
       console.log(error.response);
     }
@@ -312,6 +260,15 @@ const ProductsContextProvider = ({ children }) => {
     });
   };
 
+  const addOrderDispatch = async (orderObj) => {
+    dispatch({
+      type: PRODUCTS_ACTION.ADD_ORDER,
+      payload: {
+        order: orderObj,
+      },
+    });
+  };
+
   return (
     <ProductsContext.Provider
       value={{
@@ -333,6 +290,9 @@ const ProductsContextProvider = ({ children }) => {
         editAddressDispatch,
         deleteAddressDispatch,
         deleteAllAddressDispatch,
+        addOrderDispatch,
+        clearCartInContext,
+        clearWishlistInContext,
       }}
     >
       {children}

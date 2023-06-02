@@ -46,7 +46,7 @@ const SignupPage = () => {
     setIsSignupFormLoading(true);
 
     try {
-      const data = await signupService({
+      const { user, token } = await signupService({
         email,
         password,
         firstName,
@@ -54,10 +54,11 @@ const SignupPage = () => {
       });
 
       // update AuthContext with data
-      updateUserAuth(data);
+      updateUserAuth({ user, token });
 
       // store this data in localStorage
-      setIntoLocalStorage(localStorageKeys.User, data);
+      setIntoLocalStorage(localStorageKeys.User, user);
+      setIntoLocalStorage(localStorageKeys.Token, token);
 
       // show success toast
       toastHandler(ToastType.Success, `Sign up successful`);

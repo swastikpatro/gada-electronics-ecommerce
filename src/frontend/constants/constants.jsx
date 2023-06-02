@@ -42,6 +42,7 @@ export const testUser = {
 
 export const localStorageKeys = {
   User: 'user',
+  Token: 'token',
 };
 
 export const userTypeForLogin = {

@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from 'react';
-import { getFromLocalStorage } from '../utils/utils';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getFromLocalStorage, setIntoLocalStorage } from '../utils/utils';
 import { localStorageKeys } from '../constants/constants';
 
 const AuthContext = createContext(null);
@@ -7,13 +7,30 @@ const AuthContext = createContext(null);
 export const useAuthContext = () => useContext(AuthContext);
 
 const AuthContextProvider = ({ children }) => {
-  const userInLocalStorage = getFromLocalStorage(localStorageKeys.User);
-  const [user, setUser] = useState(userInLocalStorage) ?? null;
+  const [user, setUser] = useState(getFromLocalStorage(localStorageKeys.User));
+  const [token, setToken] = useState(
+    getFromLocalStorage(localStorageKeys.Token)
+  );
 
-  const updateUserAuth = (userDataObj) => setUser(userDataObj);
+  const updateUserAuth = ({ user, token }) => {
+    setUser(user);
+    setToken(token);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setUser((prev) => ({ ...prev, cart: [], wishlist: [] }));
+
+      setIntoLocalStorage(localStorageKeys.User, {
+        ...user,
+        cart: [],
+        wishlist: [],
+      });
+    }
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, updateUserAuth }}>
+    <AuthContext.Provider value={{ user, token, updateUserAuth }}>
       {children}
     </AuthContext.Provider>
   );
