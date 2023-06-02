@@ -75,7 +75,7 @@ export const formatPrice = (price) =>
   });
 
 export const Popper = () => {
-  const end = Date.now() + 3 * 1000;
+  const end = Date.now() + 1 * 1000;
   // go Buckeyes!
   const colors = ['#392f5a', '#9583cf'];
 

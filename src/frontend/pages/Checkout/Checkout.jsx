@@ -32,7 +32,7 @@ const Checkout = () => {
   if (isCheckoutSuccess)
     return (
       <main className='half-page container center-div'>
-        <p className='success-text'>Your order has successfully placed</p>
+        <p className='success-text'>Your order has successfully placed 🎉</p>
       </main>
     );
 

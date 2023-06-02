@@ -468,7 +468,7 @@ button:disabled {
 }
 
 .Toastify__toast-container {
-  width: 100%;
+  width: fit-content;
 }
 
 .Toastify__toast {
@@ -482,9 +482,6 @@ button:disabled {
 }
 
 @media screen and (min-width: 768px) {
-  .Toastify__toast-container {
-    width: 100%;
-  }
   .Toastify__toast {
     font-size: 1rem;
   }
@@ -538,10 +535,14 @@ button:disabled {
 
 .success-text {
   color: var(--green-medium);
-  font-size: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
+  .success-text {
+    font-size: 2rem;
+  }
   .btn-padding-desktop {
     font-size: 1.1rem;
     padding: 0.75rem 1rem;

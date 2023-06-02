@@ -40,7 +40,7 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
       totalAmountFromContext < couponClicked.minCartPriceRequired
     ) {
       toastHandler(
-        ToastType.Error,
+        ToastType.Info,
         `Shop above ₹${formatPrice(
           couponClicked.minCartPriceRequired
         )} to avail`
