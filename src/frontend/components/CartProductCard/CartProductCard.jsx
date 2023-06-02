@@ -126,7 +126,7 @@ const CartProductCard = ({ singleCartItem }) => {
           disabled={isAllBtnsDisabled}
           onClick={handleWishlistBtnClick}
         >
-          {isProductInWishlist ? 'Already in Wishlist' : 'Move to Wishlist'}
+          {isProductInWishlist ? 'Go to Wishlist' : 'Move to Wishlist'}
         </button>
 
         <button

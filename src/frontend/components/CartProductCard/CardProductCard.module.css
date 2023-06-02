@@ -67,48 +67,37 @@
 
 .counter button {
   /* border: 2px solid red; */
-  width: fit-content;
-  height: 1.25rem;
-  width: 1.25rem;
+  /* width: fit-content; */
+  height: 1.1rem;
+  width: 1.1rem;
   border-radius: 50%;
   border-color: transparent;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--white);
+  background: transparent;
+  color: var(--black);
   transition: var(--transition);
+  margin-bottom: 0.25rem;
 }
 
 .counter button span {
-  font-size: 1.25rem;
+  font-size: 2rem;
 }
 
-.counter button:last-child {
-  background: var(--green-medium);
-}
 .counter button:last-child span {
-  margin-bottom: 0.15rem;
-}
-.counter button:last-child:hover {
-  background: var(--green-dark);
-}
-.counter button:first-child {
-  background: var(--red-medium);
-}
-.counter button:first-child:hover {
-  background: var(--red-dark);
+  margin-bottom: 0.25rem;
 }
 
 .counter div {
-  padding: 0 0.5rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
 .cartBtnContainer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   font-size: 0.85rem;
 }
 
@@ -152,10 +141,10 @@
   }
 
   .counter button span {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
   .counter div {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   .colorCircle {

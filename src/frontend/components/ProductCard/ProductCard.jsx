@@ -55,19 +55,17 @@ const ProductCard = ({ product }) => {
 
   let productBtnText = '';
 
-  // If card is in wishlist page & product is in cartContext show- "already in cart" else show 'move to cart'
-  if (isCardInWishlistPage && isProductInCart) {
-    productBtnText = 'already in Cart';
-  }
-  if (isCardInWishlistPage && !isProductInCart) {
+  // If card is in wishlist page & product is in cartContext show- "go to cart" else show 'move to cart'
+  if (isCardInWishlistPage) {
     productBtnText = 'move to cart';
   }
   // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
-  if (!isCardInWishlistPage && isProductInCart) {
-    productBtnText = 'go to cart';
-  }
-  if (!isCardInWishlistPage && !isProductInCart) {
+  if (!isCardInWishlistPage) {
     productBtnText = 'add to cart';
+  }
+
+  if (isProductInCart) {
+    productBtnText = 'go to cart';
   }
 
   const discountPercent = calculateDiscountPercent(

@@ -260,8 +260,7 @@ button:disabled {
 
 .btn-center {
   display: block;
-  margin: 0 auto;
-  margin-top: 1rem;
+  margin: 1rem auto;
   width: fit-content;
 }
 
