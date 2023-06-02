@@ -1,6 +1,8 @@
 .form {
-  /* background: red; */
-  padding: 2rem;
+  background: var(--white);
+  padding: 1rem 2rem;
+  border-radius: var(--borderRadius);
+  box-shadow: var(-shadow-2);
 }
 
 .form div {
