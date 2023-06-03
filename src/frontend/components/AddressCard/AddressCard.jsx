@@ -1,9 +1,10 @@
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import AddressForm from '../AddressForm/AddressForm';
-import { useState } from 'react';
 import styles from './AddressCard.module.css';
 
-const AddressCard = ({ singleAddress }) => {
+const AddressCard = ({
+  singleAddress,
+  updateActiveFormId: updateActiveFormIdProp,
+}) => {
   const {
     addressId,
     username,
@@ -18,25 +19,10 @@ const AddressCard = ({ singleAddress }) => {
   const { deleteAddressDispatch, timedMainPageLoader } =
     useAllProductsContext();
 
-  const [isEditingAddress, setIsEditingAddress] = useState(false);
-
   const handleDelete = async () => {
     await timedMainPageLoader();
     deleteAddressDispatch(addressId);
   };
-
-  const toggleEditingForm = () => {
-    setIsEditingAddress(!isEditingAddress);
-  };
-
-  if (isEditingAddress) {
-    return (
-      <AddressForm
-        isEditingAndData={singleAddress}
-        closeForm={toggleEditingForm}
-      />
-    );
-  }
 
   return (
     <article className={styles.addressCard}>
@@ -55,7 +41,10 @@ const AddressCard = ({ singleAddress }) => {
       </div>
 
       <div className='btn-container'>
-        <button className='btn btn-success' onClick={toggleEditingForm}>
+        <button
+          className='btn btn-success'
+          onClick={() => updateActiveFormIdProp(addressId)}
+        >
           Edit
         </button>
         <button onClick={handleDelete} className='btn btn-danger'>
