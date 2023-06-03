@@ -469,14 +469,14 @@ button:disabled {
 
 .Toastify__toast-container {
   width: fit-content;
+  margin: 0.5rem 0 0 0.5rem;
 }
 
 .Toastify__toast {
   text-transform: capitalize;
-  margin: 0;
   width: fit-content !important;
   max-width: fit-content;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
   font-size: 0.85rem;
   border-radius: var(--borderRadius);
 }
