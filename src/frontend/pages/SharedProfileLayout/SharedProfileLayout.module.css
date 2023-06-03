@@ -18,7 +18,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 0rem;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   padding-bottom: 0.5rem;
 }
 
@@ -33,5 +33,9 @@
   font-size: 1.15rem;
 }
 
-/* @media screen and (min-width: 768px) {
-} */
+@media screen and (min-width: 768px) {
+  .pageCenter header {
+    padding: 2rem;
+    padding-bottom: 0.5rem;
+  }
+}

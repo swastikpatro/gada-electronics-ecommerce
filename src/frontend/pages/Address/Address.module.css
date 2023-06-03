@@ -5,3 +5,7 @@
   text-align: center;
   letter-spacing: var(--letterSpacing);
 }
+
+.listContainer {
+  padding: 1rem;
+}
