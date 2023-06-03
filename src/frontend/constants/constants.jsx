@@ -15,7 +15,7 @@ export const footerLinks = [
   {
     id: 3,
     icon: <AiFillGithub />,
-    url: 'https://www.linkedin.com/in/swastik-patro-2a54bb19b/',
+    url: 'https://github.com/swastikpatro',
   },
 ];
 
@@ -69,7 +69,7 @@ export const delayDebouncedMs = 250;
 
 export const totalSkeletonsLength = 10;
 
-export const delayBetnSuggestionLinkClickAndSearchBlur = 150;
+export const delayBetnSuggestionLinkClickAndSearchBlur = 250;
 
 export const customToastId = 1;
 

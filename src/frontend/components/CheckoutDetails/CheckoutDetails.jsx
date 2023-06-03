@@ -98,14 +98,14 @@ const CheckoutDetails = ({
             amount: finalPriceToPay,
             paymentId: response.razorpay_payment_id,
           };
+
+          await clearCartDispatch();
+
           updateCheckoutStatus({ showSuccessMsg: true });
           Popper();
-          toastHandler(ToastType.Success, 'Payment succesfull');
-
+          toastHandler(ToastType.Success, 'Payment successful');
           // addOrderDispatch(tempObj);
-
           await wait(3000);
-          await clearCartDispatch();
           updateCheckoutStatus({ showSuccessMsg: false });
           navigate('/');
         },

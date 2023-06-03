@@ -10,7 +10,7 @@ import styles from './CheckoutDetails.module.css';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { AiFillTag } from 'react-icons/ai';
 import Price from '../Price';
-import { formatPrice, toastHandler } from '../../utils/utils';
+import { formatPrice, toastHandler, wait } from '../../utils/utils';
 import { useIsMobile } from '../../hooks';
 
 const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
@@ -27,10 +27,9 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
     setIsCouponsSuggestionVisible(true);
   };
 
-  const handleSearchBlur = () => {
-    setTimeout(() => {
-      setIsCouponsSuggestionVisible(false);
-    }, delayBetnSuggestionLinkClickAndSearchBlur);
+  const handleSearchBlur = async () => {
+    await wait(delayBetnSuggestionLinkClickAndSearchBlur);
+    setIsCouponsSuggestionVisible(false);
   };
 
   const handleCouponClick = (couponClicked) => {
