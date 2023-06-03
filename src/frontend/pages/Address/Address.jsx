@@ -4,34 +4,56 @@ import { AddAddressBtn, AddressCard, AddressForm } from '../../components';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
 const Address = () => {
-  const [isAddingAddress, setIsAddingAddress] = useState(false);
   const { addressList: addressListFromContext, deleteAllAddressDispatch } =
     useAllProductsContext();
 
+  // lifted the state up, so only one form can open at a time.
+  // when all forms are inactive, activeFormId is -1, (no form wlll be visible)
+  // if user is opening a form by clicking 'AddAddressbutton', activeFormId is 0;
+  // for every single address, the activeFormId will be there respective addressId
+  const [activeFormId, setActiveFormId] = useState(-1);
+
   const isAddressListEmpty = addressListFromContext.length > 0;
 
-  const toggleAddingAddress = () => {
-    setIsAddingAddress(!isAddingAddress);
+  const closeAllForm = () => {
+    setActiveFormId(-1);
+  };
+
+  const openAddingForm = () => {
+    setActiveFormId(0);
+  };
+
+  const updateActiveFormId = (idOfAddressClickedToEdit) => {
+    setActiveFormId(idOfAddressClickedToEdit);
   };
 
   return (
     <section>
-      {isAddingAddress ? (
-        <AddressForm closeForm={toggleAddingAddress} isAdding />
+      {activeFormId === 0 ? (
+        <AddressForm closeForm={closeAllForm} isAdding />
       ) : (
-        <AddAddressBtn openForm={toggleAddingAddress} />
+        <AddAddressBtn openForm={openAddingForm} />
       )}
 
       {/* this addressList is coming from context */}
       <div className={styles.listContainer}>
         {isAddressListEmpty ? (
           <>
-            {addressListFromContext.map((singleAddress) => (
-              <AddressCard
-                key={singleAddress.addressId}
-                singleAddress={singleAddress}
-              />
-            ))}
+            {addressListFromContext.map((singleAddress) =>
+              singleAddress.addressId === activeFormId ? (
+                <AddressForm
+                  isEditingAndData={singleAddress}
+                  closeForm={closeAllForm}
+                  key={singleAddress.addressId}
+                />
+              ) : (
+                <AddressCard
+                  key={singleAddress.addressId}
+                  singleAddress={singleAddress}
+                  updateActiveFormId={updateActiveFormId}
+                />
+              )
+            )}
 
             <button
               onClick={deleteAllAddressDispatch}

@@ -1,5 +1,5 @@
 .profile {
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   padding-top: 1rem;
 }
 
@@ -22,5 +22,10 @@
   .row span {
     font-size: 1.1rem;
     font-weight: 600;
+  }
+
+  .profile {
+    padding: 2rem;
+    padding-top: 1rem;
   }
 }
