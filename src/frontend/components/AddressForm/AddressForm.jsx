@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import FormRow from '../FormRow';
 
 import styles from './AddressForm.module.css';
+import { giveRandomData } from '../../utils/utils';
 
 const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   const { addAddressDispatch, timedMainPageLoader, editAddressDispatch } =
@@ -66,6 +67,11 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
     setInputs(defaultState);
   };
 
+  const handleRandomData = () => {
+    setInputs(giveRandomData());
+  };
+
+  //  stop propagation as this form will be inside modal, on clicking form the modal should not close.
   return (
     <form
       onClick={(e) => e.stopPropagation()}
@@ -167,6 +173,10 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
 
         <button onClick={handleReset} type='button' className='btn btn-hipster'>
           Reset
+        </button>
+
+        <button onClick={handleRandomData} type='button' className='btn'>
+          Random Data
         </button>
 
         <button type='button' className='btn btn-danger' onClick={closeForm}>

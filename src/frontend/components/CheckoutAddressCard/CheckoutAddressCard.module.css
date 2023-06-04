@@ -1,10 +1,9 @@
 .addressCard {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   background: var(--white);
   gap: 0.5rem;
-  /* border: 2px solid red; */
+
   margin-bottom: 1rem;
   box-shadow: var(--shadow-2);
   letter-spacing: var(--letterSpacing);

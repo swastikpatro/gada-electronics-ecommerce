@@ -1,7 +1,13 @@
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
-import { ToastType, customToastId, itemsPerPage } from '../constants/constants';
+import {
+  ALL_STATES,
+  ToastType,
+  customToastId,
+  itemsPerPage,
+} from '../constants/constants';
 import confetti from 'canvas-confetti';
+import { faker } from '@faker-js/faker';
 
 export const calculateDiscountPercent = (discountPrice, originalPrice) => {
   const percent = Math.floor(
@@ -99,4 +105,20 @@ export const Popper = () => {
       requestAnimationFrame(frame);
     }
   })();
+};
+
+export const giveRandomData = () => {
+  return {
+    username: faker.person.fullName(),
+    pincode: faker.location.zipCode('######'),
+    mobile: faker.phone.number('##########'),
+    alternate: faker.phone.number('##########'),
+    addressInfo: faker.location.streetAddress(true),
+    city: faker.location.city(),
+    state: ALL_STATES[Math.floor(Math.random() * ALL_STATES.length)],
+  };
+};
+
+export const midValue = (value1, value2) => {
+  return Math.floor((value1 + value2) / 2);
 };

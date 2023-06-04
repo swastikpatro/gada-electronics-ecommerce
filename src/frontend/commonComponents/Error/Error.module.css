@@ -1,5 +1,4 @@
 .error {
-  /* border: 2px solid red; */
   display: grid;
   place-items: center;
 }
@@ -18,7 +17,7 @@
   width: 90vw;
   max-width: fit-content;
   overflow: hidden;
-  /* border: 2px solid red; */
+
   margin-bottom: 1rem auto;
 }
 

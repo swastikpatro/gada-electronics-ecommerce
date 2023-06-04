@@ -2,7 +2,6 @@
   min-height: calc(100vh - 5rem);
   display: grid;
   padding: 0;
-  /* position: relative; */
   transition: var(--transition);
 }
 

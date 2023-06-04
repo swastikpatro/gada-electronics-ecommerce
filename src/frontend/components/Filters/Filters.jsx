@@ -1,7 +1,7 @@
 import { FaStar } from 'react-icons/fa';
-import { giveUniqueLabelFOR, toastHandler } from '../../utils/utils';
+import { giveUniqueLabelFOR, midValue, toastHandler } from '../../utils/utils';
 import styles from './Filters.module.css';
-import Price from '../Price';
+
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { MdClose } from 'react-icons/md';
@@ -11,6 +11,7 @@ import {
   ToastType,
   ratingsAvailable,
 } from '../../constants/constants';
+import { Slider } from '@mui/material';
 
 const Filters = ({
   isFilterContainerVisible,
@@ -22,6 +23,7 @@ const Filters = ({
     maxPrice: maxPriceFromContext,
     filters,
     updateFilters,
+    updatePriceFilter,
     updateCategoryFilter,
     clearFilters,
   } = useFiltersContext();
@@ -69,6 +71,33 @@ const Filters = ({
       </header>
 
       <fieldset>
+        <legend>Price Range</legend>
+
+        <Slider
+          name={FILTER_INPUT_TYPE.PRICE}
+          getAriaLabel={() => 'Minimum distance'}
+          valueLabelDisplay='auto'
+          min={minPriceFromContext}
+          max={maxPriceFromContext}
+          value={priceFromContext}
+          onChange={updatePriceFilter}
+          step={400}
+          disableSwap
+          style={{
+            color: 'var(--primary-500)',
+            width: '80%',
+            margin: 'auto -1rem auto 1rem',
+          }}
+        />
+
+        <div className={styles.flexSpaceBtwn}>
+          <span>{minPriceFromContext}</span>
+          <span>{midValue(minPriceFromContext, maxPriceFromContext)}</span>
+          <span>{maxPriceFromContext}</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
         <legend>Category</legend>
 
         {categoriesList.map((singleCategory, index) => (
@@ -102,24 +131,6 @@ const Filters = ({
             </option>
           ))}
         </select>
-      </fieldset>
-
-      <fieldset>
-        <legend>Price</legend>
-
-        <div>
-          <Price amount={priceFromContext} />
-        </div>
-
-        <input
-          name={FILTER_INPUT_TYPE.PRICE}
-          type='range'
-          min={minPriceFromContext}
-          max={maxPriceFromContext}
-          step='400'
-          value={priceFromContext}
-          onChange={updateFilters}
-        />
       </fieldset>
 
       <fieldset className={styles.ratingFieldset}>

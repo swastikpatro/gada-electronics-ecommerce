@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContextProvider';
-import { removeLocalStorage } from '../../utils/utils';
-import { localStorageKeys } from '../../constants/constants';
+import { removeLocalStorage, toastHandler } from '../../utils/utils';
+import { ToastType, localStorageKeys } from '../../constants/constants';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import styles from './Profile.module.css';
@@ -26,6 +26,7 @@ const Profile = () => {
     clearCartInContext();
     clearWishlistInContext();
     clearFilters();
+    toastHandler(ToastType.Success, 'Logged out sucessfully');
 
     navigate('/');
   };

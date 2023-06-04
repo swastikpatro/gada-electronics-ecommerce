@@ -50,6 +50,10 @@
   box-shadow: none;
   position: relative;
   border-radius: 0;
+  border-color: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 0.35rem;
 }
 
 .couponSuggestion > button:hover {
@@ -61,7 +65,6 @@
 }
 
 .couponSuggestion > .btnDisableMobile {
-  /* border: 2px solid red; */
   background: var(--grey-100);
   cursor: not-allowed;
 }

@@ -6,7 +6,7 @@
 .linksContainer {
   color: var(--white);
   margin: 0 auto;
-  /* border: 2px solid red; */
+
   display: flex;
   justify-content: center;
   margin-bottom: 0.5rem;
@@ -23,7 +23,6 @@
   color: var(--white);
   text-align: center;
   margin: 0 auto;
-  /* border: 2px solid black; */
 }
 
 .footer span .nameLink {

@@ -15,7 +15,7 @@ export const initialFiltersState = {
     search: '',
     category: null,
     company: 'all',
-    price: 0,
+    price: [0, 0],
     rating: -1,
     sortByOption: '',
   },
@@ -63,7 +63,7 @@ export const filtersReducer = (state, action) => {
         filters: {
           ...state.filters,
           category: convertArrayToObjectWithPropertyFALSE(allCategoryNames),
-          price: maxPrice,
+          price: [minPrice, maxPrice],
         },
       };
 
@@ -124,7 +124,7 @@ export const filtersReducer = (state, action) => {
           search: '',
           category: allUncheckedCategoryObj,
           company: 'all',
-          price: state.maxPrice,
+          price: [state.minPrice, state.maxPrice],
           rating: -1,
           sortByOption: '',
         },
@@ -181,8 +181,13 @@ export const filtersReducer = (state, action) => {
 
       // price handled here, no (if) condition, this will run always!!
       tempProducts = tempProducts.filter(
-        ({ price: pricePropertyOfProduct }) =>
-          pricePropertyOfProduct <= priceInState
+        ({ price: pricePropertyOfProduct }) => {
+          const [currMinPriceRange, currMaxPriceRange] = priceInState;
+          return (
+            pricePropertyOfProduct >= currMinPriceRange &&
+            pricePropertyOfProduct <= currMaxPriceRange
+          );
+        }
       );
 
       // ratings handled here, no (if) condition, this will run always!!

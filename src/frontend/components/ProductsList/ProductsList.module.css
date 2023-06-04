@@ -22,7 +22,6 @@
   padding: 0 3rem;
   margin: 1rem 0;
   gap: 1rem;
-  /* border: 2px solid red; */
 }
 
 .listHeader p {
@@ -51,7 +50,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* border: 2px solid red; */
+
   gap: 1rem;
 }
 
@@ -61,8 +60,26 @@
 }
 
 .showFilterBtn {
+  height: 3rem;
+  width: 3rem;
   font-size: 0.85rem;
-  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  border-color: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  position: fixed;
+  top: 9.5rem;
+  right: 1rem;
+  z-index: 5;
+}
+
+.showFilterBtn:active {
+  transform: scale(0.8);
 }
 
 @media screen and (min-width: 768px) {
@@ -73,9 +90,6 @@
     padding: 0;
   }
 
-  /* button.showFilterBtn {
-    display: none;
-  } */
   .productListSection > p {
     margin-top: 0;
     text-align: left;

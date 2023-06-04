@@ -1,5 +1,4 @@
 .filtersContainer {
-  /* margin: 0 auto; */
   width: 250px;
   height: calc(100vh - var(--nav-height) + 1rem);
   overflow-y: auto;
@@ -83,6 +82,14 @@ option {
   cursor: pointer;
 }
 
+.flexSpaceBtwn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0;
+  color: var(--grey-500);
+}
+
 @media screen and (min-width: 768px) {
   .filtersContainer {
     position: sticky;
@@ -90,10 +97,6 @@ option {
     width: 350px;
     margin-left: -2rem;
   }
-
-  /* .filtersContainer div:first-child {
-    display: none;
-  } */
 }
 
 @media screen and (min-width: 1280px) {

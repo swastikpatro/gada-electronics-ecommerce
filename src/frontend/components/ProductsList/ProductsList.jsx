@@ -7,6 +7,7 @@ import {
   totalSkeletonsLength,
 } from '../../constants/constants';
 import SkeletonProductCard from '../ProductCard/SkeletonProductCard';
+import { RiFilter2Fill } from 'react-icons/ri';
 
 const ProductsList = ({
   handleFilterToggle,
@@ -26,12 +27,12 @@ const ProductsList = ({
 
   const filteredProductsLength = filteredProducts.length;
 
-  const showFilterButtonJSXInMobile = isMobile && !isFilterContainerVisible && (
+  const showFilterButtonJSXInMobile = isMobile && (
     <button
-      className={`btn ${styles.showFilterBtn}`}
+      className={`${styles.showFilterBtn} center-div`}
       onClick={handleFilterToggle}
     >
-      Show Filters
+      <RiFilter2Fill />
     </button>
   );
 
@@ -64,7 +65,9 @@ const ProductsList = ({
         <div>
           {overlayJSXInMobile}
 
-          <p className='primary-color-text font-size-one-half'>Loading...</p>
+          <header className={styles.listHeader}>
+            <p className='primary-color-text font-size-one-half'>Loading...</p>
+          </header>
 
           <div className={styles.productsCenter}>
             {skeletons.map((_, index) => (
@@ -94,6 +97,8 @@ const ProductsList = ({
     <section className={styles.productListSection}>
       {overlayJSXInMobile}
 
+      {showFilterButtonJSXInMobile}
+
       <header className={styles.listHeader}>
         <p className='primary-color-text font-size-one-half'>
           {totalProductsLength} Product
@@ -103,8 +108,6 @@ const ProductsList = ({
         <p className={styles.pageCount}>
           Page {paginateIndex + 1} of {filteredProductsLength}
         </p>
-
-        {showFilterButtonJSXInMobile}
       </header>
 
       <div className={styles.productsCenter}>

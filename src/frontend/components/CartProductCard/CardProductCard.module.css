@@ -1,6 +1,5 @@
 .cartItem {
   height: fit-content;
-  /* border: 2px solid black; */
   border-radius: var(--borderRadius);
   transition: var(--transition);
   box-shadow: var(--shadow-3);
@@ -66,8 +65,6 @@
 }
 
 .counter button {
-  /* border: 2px solid red; */
-  /* width: fit-content; */
   height: 1.1rem;
   width: 1.1rem;
   border-radius: 50%;

@@ -234,7 +234,7 @@ const SingleProductPage = () => {
         </div>
 
         <hr />
-        {/* btn-activated & btn-hipster */}
+
         <div className='btn-container'>
           <button
             className={`btn btn-padding-desktop ${

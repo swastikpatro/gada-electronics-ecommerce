@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  /* background: red; */
 }
 .category {
   display: grid;
