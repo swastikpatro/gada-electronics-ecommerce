@@ -24,7 +24,7 @@ const Checkout = () => {
   const isCartEmpty = cartFromContext.length < 1;
 
   useEffect(() => {
-    if (isCartEmpty) {
+    if (isCartEmpty && !isCheckoutSuccess) {
       navigate('/products');
     }
   }, [isCartEmpty]);

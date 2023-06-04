@@ -60,8 +60,26 @@
 }
 
 .showFilterBtn {
+  height: 3rem;
+  width: 3rem;
   font-size: 0.85rem;
-  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  border-color: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  position: fixed;
+  top: 9.5rem;
+  right: 1rem;
+  z-index: 5;
+}
+
+.showFilterBtn:active {
+  transform: scale(0.8);
 }
 
 @media screen and (min-width: 768px) {

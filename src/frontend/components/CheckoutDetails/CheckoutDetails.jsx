@@ -100,11 +100,9 @@ const CheckoutDetails = ({
           };
 
           await clearCartDispatch();
-
           updateCheckoutStatus({ showSuccessMsg: true });
           Popper();
           toastHandler(ToastType.Success, 'Payment successful');
-          // addOrderDispatch(tempObj);
           await wait(3000);
           updateCheckoutStatus({ showSuccessMsg: false });
           navigate('/');
@@ -112,7 +110,7 @@ const CheckoutDetails = ({
         prefill: {
           name: `${firstName} ${lastName}`,
           email: email,
-          contact: '9082931946',
+          contact: '9082931945',
         },
         theme: {
           color: 'var(--primary-500)',

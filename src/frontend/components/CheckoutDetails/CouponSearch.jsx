@@ -136,9 +136,7 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
                 type='button'
                 key={singleCoupon.id}
                 onClick={() => handleCouponClick(singleCoupon)}
-                className={
-                  isButtonDisabled ? `btn ${styles.btnDisableMobile}` : 'btn'
-                }
+                className={isButtonDisabled ? styles.btnDisableMobile : ''}
                 disabled={!isMobile && isButtonDisabled}
               >
                 {singleCoupon.text}

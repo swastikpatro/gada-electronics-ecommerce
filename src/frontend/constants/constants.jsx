@@ -85,6 +85,7 @@ export const ALL_STATES = [
   'Gujarat',
   'Haryana',
   'Himachal Pradesh',
+  'Jammu and Kashmir',
   'Jharkhand',
   'Karnataka',
   'Kerala',
@@ -101,15 +102,15 @@ export const ALL_STATES = [
   'Tamil Nadu',
   'Telangana',
   'Tripura',
-  'Uttar Pradesh',
   'Uttarakhand',
+  'Uttar Pradesh',
   'West Bengal',
   'Andaman and Nicobar Islands',
   'Chandigarh',
   'Dadra and Nagar Haveli',
   'Daman and Diu',
-  'Lakshadweep',
   'Delhi',
+  'Lakshadweep',
   'Puducherry',
 ];
 
@@ -148,3 +149,5 @@ export const CHARGE_AND_DISCOUNT = {
   deliveryCharge: 100,
   discount: -200,
 };
+
+export const minDistanceBtwnPriceRange = 1000;
