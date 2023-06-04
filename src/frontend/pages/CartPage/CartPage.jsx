@@ -36,7 +36,7 @@ const CartPage = () => {
           ))}
           {/* made a api in cart controller for this functionality. */}
           <button
-            className='btn btn-danger btn-padding-desktop btn-center'
+            className='btn btn-danger btn-padding-desktop btn-center mt-2'
             onClick={handleClearCart}
           >
             Clear Cart
