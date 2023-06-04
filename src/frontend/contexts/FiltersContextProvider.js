@@ -4,7 +4,10 @@ import { useAllProductsContext } from './ProductsContextProvider';
 import { FILTERS_ACTION } from '../utils/actions';
 import { filtersReducer } from '../reducers';
 import { initialFiltersState } from '../reducers/filtersReducer';
-import { FILTER_INPUT_TYPE } from '../constants/constants';
+import {
+  FILTER_INPUT_TYPE,
+  minDistanceBtwnPriceRange,
+} from '../constants/constants';
 
 const FiltersContext = createContext(null);
 
@@ -37,6 +40,31 @@ const FiltersContextProvider = ({ children }) => {
     });
   };
 
+  const updatePriceFilter = (e, newValue, activeThumb) => {
+    const { name } = e.target;
+
+    let value;
+
+    value =
+      activeThumb === 0
+        ? [
+            Math.min(newValue[0], newValue[1] - minDistanceBtwnPriceRange),
+            newValue[1],
+          ]
+        : [
+            newValue[0],
+            Math.max(newValue[1], newValue[0] + minDistanceBtwnPriceRange),
+          ];
+
+    dispatch({
+      type: FILTERS_ACTION.UPDATE_FILTERS,
+      payload: {
+        payloadName: name,
+        payloadValue: value,
+      },
+    });
+  };
+
   // called due to the onChange of all input (excluding category checkbox) in the Filters component!
   const updateFilters = (e) => {
     const targetEle = e.target;
@@ -44,10 +72,6 @@ const FiltersContextProvider = ({ children }) => {
     // also handles company
     const name = targetEle.name;
     let value = targetEle?.value;
-
-    if (name === FILTER_INPUT_TYPE.PRICE) {
-      value = Number(value);
-    }
 
     if (name === FILTER_INPUT_TYPE.RATING) {
       value = Number(targetEle.dataset.rating);
@@ -116,11 +140,11 @@ const FiltersContextProvider = ({ children }) => {
         applyFilters,
         applySearchFilter,
         updatePaginatedIndex,
+        updatePriceFilter,
       }}
     >
       {children}
     </FiltersContext.Provider>
   );
 };
-
 export default FiltersContextProvider;

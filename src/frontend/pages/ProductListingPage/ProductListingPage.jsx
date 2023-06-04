@@ -8,7 +8,7 @@ const ProductListingPage = () => {
   const { products: productsFromContext } = useAllProductsContext();
 
   const [isFilterContainerVisible, setIsFilterContainerVisible] =
-    useState(true);
+    useState(false);
   const isMobile = useIsMobile();
 
   //  on hard refresh on productListing page, when there is no products in productsContext, show this!!
