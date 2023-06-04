@@ -22,7 +22,6 @@
   padding: 0 3rem;
   margin: 1rem 0;
   gap: 1rem;
-  /* border: 2px solid red; */
 }
 
 .listHeader p {
@@ -51,7 +50,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* border: 2px solid red; */
+
   gap: 1rem;
 }
 
@@ -73,9 +72,6 @@
     padding: 0;
   }
 
-  /* button.showFilterBtn {
-    display: none;
-  } */
   .productListSection > p {
     margin-top: 0;
     text-align: left;

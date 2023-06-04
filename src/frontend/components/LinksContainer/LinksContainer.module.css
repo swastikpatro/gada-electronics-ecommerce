@@ -1,5 +1,4 @@
 .linksContainer {
-  /* border: 2px solid red; */
   width: 30%;
   max-width: 18rem;
   display: flex;
@@ -10,7 +9,6 @@
 }
 
 .exploreLink {
-  /* border: 2px solid red; */
   margin-bottom: 0.25rem;
   font-size: 1.3rem;
   font-weight: 600;

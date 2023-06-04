@@ -2,7 +2,7 @@
   width: 40%;
   max-width: 400px;
   margin: 0 auto;
-  /* border: 2px solid red; */
+
   position: relative;
   display: flex;
 }
@@ -52,8 +52,6 @@
   cursor: pointer;
   border-color: transparent;
   letter-spacing: var(--letterSpacing);
-  /* line-height: 1.1;
-  margin-top: 0.5rem; */
   transition: var(--transition);
 }
 
@@ -83,8 +81,4 @@
     margin-top: -1.5rem;
     width: 100%;
   }
-
-  /* .searchBarContainer input:active {
-    outline-color: var(--primary-600);
-  } */
 }

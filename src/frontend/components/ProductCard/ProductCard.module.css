@@ -9,10 +9,6 @@
   cursor: default;
 }
 
-/* .heightImgContainer10 {
-  height: 10rem;
-} */
-
 .productStyle:hover {
   box-shadow: var(--shadow-4);
 }
@@ -84,7 +80,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border: 2px solid red; */
 }
 
 .cardHeader p {
@@ -139,7 +134,6 @@
   margin-bottom: 0.75rem;
   display: flex;
   gap: 0 0.5rem;
-  /* background: red; */
 }
 
 .colorsContainer span,
@@ -164,13 +158,11 @@
 
 .footer {
   width: 100%;
-  /* border: 2px solid red; */
+
   display: flex;
   justify-content: center;
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-  /* margin-top: 1rem;
-  margin-bottom: 0.5rem; */
 }
 
 .footer .cardBtn {
@@ -181,7 +173,6 @@
 }
 
 .footer .cardBtn.goToCartBtn {
-  /* color: red; */
   background: var(--primary-900);
 }
 

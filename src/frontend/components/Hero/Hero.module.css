@@ -4,32 +4,24 @@
   align-items: center;
   gap: 0 1rem;
   color: var(--primary-800);
-  /* border: 2px solid red; */
 }
 
 .content h1 {
   font-size: 2.25rem;
   font-weight: 600;
-  /* border: 2px solid red; */
 }
 
 .content p {
   font-size: 1rem;
   color: var(--grey-500);
   letter-spacing: var(--letterSpacing);
-  /* border: 2px solid red; */
 }
 
 .btnHero {
   font-size: 1.25rem;
   padding: 0.5rem 1.25rem;
   text-transform: uppercase;
-  /* border: 2px solid red; */
 }
-
-/* .content {
-  border: 2px solid black;
-} */
 
 @media screen and (min-width: 768px) {
   .content h1 {
@@ -40,7 +32,6 @@
     font-size: 0.95rem;
   }
   .imageContainer {
-    /* border: 2px solid black; */
     display: block;
     width: 100%;
     margin-left: -1rem;
