@@ -65,8 +65,8 @@
 }
 
 .showFilterBtn {
-  height: 3rem;
-  width: 3rem;
+  height: 3.2rem;
+  width: 3.2rem;
   font-size: 0.85rem;
   border-radius: 50%;
   font-size: 1.5rem;
@@ -78,7 +78,7 @@
   cursor: pointer;
   transition: var(--transition);
   position: fixed;
-  top: 9.5rem;
+  bottom: 9rem;
   right: 1rem;
   z-index: 5;
 }
