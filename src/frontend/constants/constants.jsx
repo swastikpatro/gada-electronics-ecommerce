@@ -33,7 +33,7 @@ export const SORT_TYPE = {
   NAME_Z_TO_A: 'name: z to a',
 };
 
-export const RATINGS = [4, 3, 2, 1, 0];
+export const RATINGS = [4, 3, 2, 1];
 
 export const TEST_USER = {
   email: 'jethalal.gada@gmail.com',
