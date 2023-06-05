@@ -7,11 +7,10 @@ import {
 } from '../components';
 import { useFormInput, useNavigateIfRegistered } from '../hooks';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
-import { ToastType, localStorageKeys } from '../constants/constants';
+import { ToastType, LOCAL_STORAGE_KEYS } from '../constants/constants';
 import { useState } from 'react';
 import { signupService } from '../Services/services';
 import { useAuthContext } from '../contexts/AuthContextProvider';
-import { Loader } from '../commonComponents';
 
 const SignupPage = () => {
   const signupPageLocation = useLocation();
@@ -57,12 +56,11 @@ const SignupPage = () => {
       updateUserAuth({ user, token });
 
       // store this data in localStorage
-      setIntoLocalStorage(localStorageKeys.User, user);
-      setIntoLocalStorage(localStorageKeys.Token, token);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.User, user);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.Token, token);
 
       // show success toast
       toastHandler(ToastType.Success, `Sign up successful`);
-      // console.log({ signupPageLocation });
 
       // if user directly comes to '/signup' from url, so state will be null, after successful registration, user should be directed to home page
       navigate(signupPageLocation?.state?.from ?? '/');
@@ -137,10 +135,11 @@ const SignupPage = () => {
         />
 
         <button className='btn btn-block' type='submit'>
-          <Loader
-            isLoadingState={isSignupFormLoading}
-            text='Create New Account'
-          />
+          {isSignupFormLoading ? (
+            <span className='loader-2'></span>
+          ) : (
+            'Create New Account'
+          )}
         </button>
       </form>
 

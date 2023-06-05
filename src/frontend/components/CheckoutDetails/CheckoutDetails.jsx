@@ -6,7 +6,7 @@ import { VscChromeClose } from 'react-icons/vsc';
 
 import { CHARGE_AND_DISCOUNT, ToastType } from '../../constants/constants';
 import CouponSearch from './CouponSearch';
-import { toastHandler, wait, Popper } from '../../utils/utils';
+import { toastHandler, Popper } from '../../utils/utils';
 
 import { useAuthContext } from '../../contexts/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';

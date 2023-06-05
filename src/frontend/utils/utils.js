@@ -3,8 +3,8 @@ import { v4 as uuid } from 'uuid';
 import {
   ALL_STATES,
   ToastType,
-  customToastId,
-  itemsPerPage,
+  CUSTOM_TOASTID,
+  ITEMS_PER_PAGE,
 } from '../constants/constants';
 import confetti from 'canvas-confetti';
 import { faker } from '@faker-js/faker';
@@ -38,7 +38,7 @@ export const toastHandler = (type, message, toastId = uuid()) => {
 };
 
 export const LOGIN_TOAST = () => {
-  toastHandler(ToastType.Warn, 'Please login to continue', customToastId);
+  toastHandler(ToastType.Warn, 'Please login to continue', CUSTOM_TOASTID);
 };
 
 export const setIntoLocalStorage = (name, dataObj) => {
@@ -70,8 +70,9 @@ export const isPresent = (itemId, list) =>
   !!list.find((singleItem) => singleItem._id === itemId);
 
 export const givePaginatedList = (list) => {
-  return Array.from({ length: Math.ceil(list.length / itemsPerPage) }, (_, i) =>
-    list.slice(itemsPerPage * i, itemsPerPage * (i + 1))
+  return Array.from(
+    { length: Math.ceil(list.length / ITEMS_PER_PAGE) },
+    (_, i) => list.slice(ITEMS_PER_PAGE * i, ITEMS_PER_PAGE * (i + 1))
   );
 };
 

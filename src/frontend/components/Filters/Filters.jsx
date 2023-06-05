@@ -7,9 +7,9 @@ import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { MdClose } from 'react-icons/md';
 import {
   FILTER_INPUT_TYPE,
-  SortType,
+  SORT_TYPE,
   ToastType,
-  ratingsAvailable,
+  RATINGS,
 } from '../../constants/constants';
 import { Slider } from '@mui/material';
 
@@ -136,7 +136,7 @@ const Filters = ({
       <fieldset className={styles.ratingFieldset}>
         <legend>Rating</legend>
 
-        {ratingsAvailable.map((singleRating, index) => (
+        {RATINGS.map((singleRating, index) => (
           <div key={singleRating}>
             <input
               type='radio'
@@ -162,7 +162,7 @@ const Filters = ({
       <fieldset>
         <legend>Sort By</legend>
 
-        {Object.values(SortType).map((singleSortValue, index) => (
+        {Object.values(SORT_TYPE).map((singleSortValue, index) => (
           <div key={singleSortValue}>
             <input
               type='radio'

@@ -13,7 +13,7 @@ import {
 
 import { productsReducer } from '../reducers';
 import { PRODUCTS_ACTION } from '../utils/actions';
-import { ToastType, delayToShowLoader } from '../constants/constants';
+import { ToastType, DELAY_TO_SHOW_LOADER } from '../constants/constants';
 import { useAuthContext } from './AuthContextProvider';
 import { initialProductsState } from '../reducers/productsReducer';
 
@@ -40,7 +40,7 @@ const ProductsContextProvider = ({ children }) => {
 
   const timedMainPageLoader = async () => {
     showMainPageLoader();
-    await wait(delayToShowLoader);
+    await wait(DELAY_TO_SHOW_LOADER);
     hideMainPageLoader();
   };
 
@@ -69,7 +69,7 @@ const ProductsContextProvider = ({ children }) => {
   const fetchAllProductsAndCategories = async () => {
     dispatch({ type: PRODUCTS_ACTION.GET_ALL_PRODUCTS_BEGIN });
     // as the response was quick, used wait (check utils) to show Loader for 1000s
-    await wait(delayToShowLoader);
+    await wait(DELAY_TO_SHOW_LOADER);
 
     try {
       const { products, categories } = await getAllProductsCategoriesService();

@@ -1,7 +1,7 @@
 import { AiFillGithub, AiFillLinkedin, AiOutlineTwitter } from 'react-icons/ai';
 import { v4 as uuid } from 'uuid';
 
-export const footerLinks = [
+export const FOOTER_LINKS = [
   {
     id: 1,
     icon: <AiOutlineTwitter />,
@@ -26,31 +26,31 @@ export const ToastType = {
   Error: 'error',
 };
 
-export const SortType = {
+export const SORT_TYPE = {
   PRICE_LOW_TO_HIGH: 'price: low to high',
   PRICE_HIGH_TO_LOW: 'price: high to low',
   NAME_A_TO_Z: 'name: a to z',
   NAME_Z_TO_A: 'name: z to a',
 };
 
-export const ratingsAvailable = [4, 3, 2, 1, 0];
+export const RATINGS = [4, 3, 2, 1, 0];
 
-export const testUser = {
+export const TEST_USER = {
   email: 'jethalal.gada@gmail.com',
   password: 'babitaji1234',
 };
 
-export const localStorageKeys = {
+export const LOCAL_STORAGE_KEYS = {
   User: 'user',
   Token: 'token',
 };
 
-export const userTypeForLogin = {
+export const LOGIN_CLICK_TYPE = {
   GuestClick: 'guest',
-  RegisterClick: 'registered',
+  RegisterClick: 'register',
 };
 
-export const cartActionType = {
+export const INCREMENT_DECRMENT_TYPE = {
   INCREMENT: 'increment',
   DECREMENT: 'decrement',
 };
@@ -63,17 +63,17 @@ export const FILTER_INPUT_TYPE = {
   CATEGORY: 'category',
 };
 
-export const delayToShowLoader = 500;
+export const DELAY_TO_SHOW_LOADER = 500;
 
-export const delayDebouncedMs = 250;
+export const DELAY_DEBOUNCED_MS = 250;
 
-export const totalSkeletonsLength = 10;
+export const TOTAL_SKELETONS_LENGTH = 10;
 
-export const delayBetnSuggestionLinkClickAndSearchBlur = 250;
+export const DELAY_BETWEEN_BLUR_AND_CLICK = 250;
 
-export const customToastId = 1;
+export const CUSTOM_TOASTID = 1;
 
-export const itemsPerPage = 9;
+export const ITEMS_PER_PAGE = 9;
 
 export const ALL_STATES = [
   'Andhra Pradesh',
@@ -150,4 +150,4 @@ export const CHARGE_AND_DISCOUNT = {
   discount: -200,
 };
 
-export const minDistanceBtwnPriceRange = 1000;
+export const MIN_DISTANCE_BETWEEN_THUMBS = 1000;

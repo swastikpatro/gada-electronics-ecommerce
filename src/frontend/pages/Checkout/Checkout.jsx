@@ -33,7 +33,7 @@ const Checkout = () => {
 
   useEffect(() => {
     return () => {
-      clearTimeout(timer?.current);
+      clearTimeout(timer.current);
     };
   }, []);
 

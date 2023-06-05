@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   COUPONS,
   ToastType,
-  delayBetnSuggestionLinkClickAndSearchBlur,
+  DELAY_BETWEEN_BLUR_AND_CLICK,
 } from '../../constants/constants';
 
 import styles from './CheckoutDetails.module.css';
@@ -28,7 +28,7 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
   };
 
   const handleSearchBlur = async () => {
-    await wait(delayBetnSuggestionLinkClickAndSearchBlur);
+    await wait(DELAY_BETWEEN_BLUR_AND_CLICK);
     setIsCouponsSuggestionVisible(false);
   };
 

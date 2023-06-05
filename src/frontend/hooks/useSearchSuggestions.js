@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { lowerizeAndCheckIncludes, wait } from '../utils/utils';
 import {
-  delayBetnSuggestionLinkClickAndSearchBlur,
-  delayDebouncedMs,
+  DELAY_BETWEEN_BLUR_AND_CLICK,
+  DELAY_DEBOUNCED_MS,
 } from '../constants/constants';
 
 const useSearchSuggestions = ({
@@ -42,7 +42,7 @@ const useSearchSuggestions = ({
       showFilteredList();
 
       setIsSuggestionsLoading(false);
-    }, delayDebouncedMs);
+    }, DELAY_DEBOUNCED_MS);
 
     return () => {
       clearTimeout(timer);
@@ -116,7 +116,7 @@ const useSearchSuggestions = ({
   // 5 Clicks anywhere outside (excluding on input), (handleBlur is called when clicked anywhere in the page, also on clicking submit 🔍 btn, also on any clicking suggestion link )
   const handleBlur = async () => {
     // as on clicking the link, blur was firing first and and stopping the click of suggestionLink i.e. (updateTextOnLinkClick fn), so added delay 250ms.
-    await wait(delayBetnSuggestionLinkClickAndSearchBlur);
+    await wait(DELAY_BETWEEN_BLUR_AND_CLICK);
     setIsSuggestionsVisible(false);
   };
 

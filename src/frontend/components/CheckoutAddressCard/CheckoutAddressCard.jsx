@@ -30,6 +30,7 @@ const CheckoutAddressCard = ({
       </label>
 
       <input
+        className={styles.radio}
         type='radio'
         name='address'
         id={addressId}

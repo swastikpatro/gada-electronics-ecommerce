@@ -1,15 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getFromLocalStorage, setIntoLocalStorage } from '../utils/utils';
-import { localStorageKeys } from '../constants/constants';
+import { LOCAL_STORAGE_KEYS } from '../constants/constants';
 
 const AuthContext = createContext(null);
 
 export const useAuthContext = () => useContext(AuthContext);
 
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(getFromLocalStorage(localStorageKeys.User));
+  const [user, setUser] = useState(
+    getFromLocalStorage(LOCAL_STORAGE_KEYS.User)
+  );
   const [token, setToken] = useState(
-    getFromLocalStorage(localStorageKeys.Token)
+    getFromLocalStorage(LOCAL_STORAGE_KEYS.Token)
   );
 
   const updateUserAuth = ({ user, token }) => {
@@ -21,7 +23,7 @@ const AuthContextProvider = ({ children }) => {
     if (user) {
       setUser((prev) => ({ ...prev, cart: [], wishlist: [] }));
 
-      setIntoLocalStorage(localStorageKeys.User, {
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.User, {
         ...user,
         cart: [],
         wishlist: [],
