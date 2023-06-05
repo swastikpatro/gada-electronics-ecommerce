@@ -147,13 +147,7 @@ const Filters = ({
               checked={singleRating === ratingFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(`${singleRating} stars`, index)}>
-              {singleRating !== 0 ? (
-                <>
-                  {singleRating} <FaStar /> & above
-                </>
-              ) : (
-                'Show All'
-              )}
+              {singleRating} <FaStar /> & above
             </label>
           </div>
         ))}
