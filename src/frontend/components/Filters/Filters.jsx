@@ -81,7 +81,7 @@ const Filters = ({
           max={maxPriceFromContext}
           value={priceFromContext}
           onChange={updatePriceFilter}
-          step={400}
+          step={1000}
           disableSwap
           style={{
             color: 'var(--primary-500)',
@@ -147,7 +147,13 @@ const Filters = ({
               checked={singleRating === ratingFromContext}
             />{' '}
             <label htmlFor={giveUniqueLabelFOR(`${singleRating} stars`, index)}>
-              {singleRating} <FaStar /> & above
+              {singleRating !== 0 ? (
+                <>
+                  {singleRating} <FaStar /> & above
+                </>
+              ) : (
+                'Show All'
+              )}
             </label>
           </div>
         ))}

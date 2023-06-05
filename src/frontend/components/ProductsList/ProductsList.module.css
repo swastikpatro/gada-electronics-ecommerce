@@ -3,6 +3,11 @@
   margin-bottom: 1rem;
 }
 
+.errorContainer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .overlay {
   position: fixed;
   top: 0;

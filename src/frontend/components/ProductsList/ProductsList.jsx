@@ -81,7 +81,7 @@ const ProductsList = ({
 
   if (filteredProductsLength < 1) {
     return (
-      <section className='container'>
+      <section className={styles.errorContainer}>
         {overlayJSXInMobile}
 
         <p className='error-text'>
