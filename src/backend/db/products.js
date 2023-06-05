@@ -966,7 +966,7 @@ export const products = [
     isShippingAvailable: true,
     stock: 18,
     reviewCount: 121,
-    stars: 0.9,
+    stars: 1.9,
   },
   {
     _id: 'cfd61700-7451-445a-84dd-bdd3c023194c',
@@ -1180,7 +1180,7 @@ export const products = [
     isShippingAvailable: false,
     stock: 20,
     reviewCount: 9999,
-    stars: 0.7,
+    stars: 1.7,
   },
   {
     _id: '9f9dccab-add1-4ba5-8c5f-730631b512b5',
