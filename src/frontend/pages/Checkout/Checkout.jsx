@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 import { useNavigate } from 'react-router';
 import {
@@ -23,11 +23,19 @@ const Checkout = () => {
 
   const isCartEmpty = cartFromContext.length < 1;
 
+  const timer = useRef(null);
+
   useEffect(() => {
     if (isCartEmpty && !isCheckoutSuccess) {
       navigate('/products');
     }
   }, [isCartEmpty]);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer?.current);
+    };
+  }, []);
 
   const handleSelect = (addressIdClicked) => {
     setActiveAddressId(addressIdClicked);
@@ -81,6 +89,7 @@ const Checkout = () => {
         <CheckoutDetails
           activeAddressId={activeAddressId}
           updateCheckoutStatus={updateCheckoutStatus}
+          timer={timer}
         />
       </div>
     </main>

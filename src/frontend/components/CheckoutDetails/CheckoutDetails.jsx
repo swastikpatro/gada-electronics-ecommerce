@@ -12,6 +12,7 @@ import { useAuthContext } from '../../contexts/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutDetails = ({
+  timer,
   activeAddressId: activeAddressIdFromProps,
   updateCheckoutStatus,
 }) => {
@@ -101,11 +102,14 @@ const CheckoutDetails = ({
 
           await clearCartDispatch();
           updateCheckoutStatus({ showSuccessMsg: true });
+
           Popper();
           toastHandler(ToastType.Success, 'Payment successful');
-          await wait(3000);
-          updateCheckoutStatus({ showSuccessMsg: false });
-          navigate('/');
+
+          timer.current = setTimeout(() => {
+            updateCheckoutStatus({ showSuccessMsg: false });
+            navigate('/');
+          }, 3000);
         },
         prefill: {
           name: `${firstName} ${lastName}`,
