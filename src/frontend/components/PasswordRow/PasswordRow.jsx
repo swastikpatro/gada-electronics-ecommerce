@@ -18,7 +18,7 @@ const PasswordRow = ({
 
   return (
     <div className={`form-row ${styles.passwordRow}`}>
-      <label className='form-label' htmlFor='password'>
+      <label className='form-label' htmlFor={name}>
         {text}
       </label>
       <input
