@@ -114,8 +114,8 @@ const FiltersContextProvider = ({ children }) => {
 
   // this searchText is coming from searchBar component, inside useSearchSuggestions hook!!
 
-  // applySearchFilter is called on Clicking the 🔍 icon or pressing Enter in the searchInput (i.e. submit event)
-  const applySearchFilter = (searchText) => {
+  // updateSearchFilterInContext is called on Clicking the 🔍 icon or pressing Enter in the searchInput (i.e. submit event)
+  const updateSearchFilterInContext = (searchText) => {
     dispatch({
       type: FILTERS_ACTION.UPDATE_SEARCH_FILTER,
       payloadSearch: searchText,
@@ -138,7 +138,7 @@ const FiltersContextProvider = ({ children }) => {
         clearFilters,
         checkCategoryOnTabClick,
         applyFilters,
-        applySearchFilter,
+        updateSearchFilterInContext,
         updatePaginatedIndex,
         updatePriceFilter,
       }}

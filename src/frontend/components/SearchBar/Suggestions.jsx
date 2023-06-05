@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import Price from '../Price';
 import SuggestionContainer from './SuggestionContainer';
+import styles from './SearchBar.module.css';
 
 const Suggestions = ({
+  trimmedSearchText,
   filteredList,
   isSuggestionsLoading,
   updateTextOnLinkClick,
@@ -15,6 +17,18 @@ const Suggestions = ({
         </div>
       </SuggestionContainer>
     );
+
+  if (!trimmedSearchText) {
+    return (
+      <SuggestionContainer>
+        <div className='horizontal-center'>
+          <p className={`bold ${styles.textPlease}`}>
+            Please enter the name of the electronic item you are looking for.
+          </p>
+        </div>
+      </SuggestionContainer>
+    );
+  }
 
   if (filteredList.length < 1) {
     return (

@@ -8,7 +8,7 @@ import {
 
 const useSearchSuggestions = ({
   productsFromContext,
-  applySearchFilterFnFromContext,
+  updateSearchFilterInContext,
   filtersStateFromContext,
   timedMainPageLoader,
 }) => {
@@ -25,6 +25,7 @@ const useSearchSuggestions = ({
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
 
   const trimmedSearch = searchText.trim();
+  const searchTextFromContextTrimmed = filtersStateFromContext.search.trim();
 
   const showFilteredList = () => {
     setFilteredList(
@@ -57,46 +58,47 @@ const useSearchSuggestions = ({
 
   // 1
   const handleFocus = () => {
-    // if user focusses on the input when there is no text, do nothing.
-
-    if (!searchText) return;
-
-    // but if there is text, show suggestions
     setIsSuggestionsVisible(true);
   };
 
   //2
   const handleSearchChange = (e) => {
     const userText = e.target.value;
-    // onclick of Escape, it clears searchText, this is handled by type='search',
+    const searchPresentInContextAndEmptySearchbar =
+      !userText && !!searchTextFromContextTrimmed;
+
     setSearchText(userText);
-    // coercion
-    setIsSuggestionsVisible(!!userText);
+
+    setIsSuggestionsVisible(true);
+
+    // if user has written no text, and also contains some trimmed text in context, then onChange, clear search filter and show shimmer
+    if (searchPresentInContextAndEmptySearchbar) {
+      updateSearchFilterInContext('');
+    }
+
+    // if user has written no text, and some trimmed text in context and page is /products, show loader
+    if (
+      searchPresentInContextAndEmptySearchbar &&
+      location.pathname === '/products'
+    ) {
+      timedMainPageLoader();
+    }
   };
 
   //3
   const handleSubmit = (e) => {
+    const searchEmptyInContextAndEmptySearchbar =
+      !searchTextFromContextTrimmed && !trimmedSearch;
     e.preventDefault();
 
     setIsSuggestionsVisible(false);
 
-    // if user submits the form or clicks ENTER with no text in any page do nothing, EXCEPT
-    // the ProductListingPage.
-    //  if user is in productListing page and submits the form or clicks ENTER with no text,then
-    // apply Filter on products in productListing Page, so update the searchText
-    if (location.pathname === '/products' && !searchText) {
-      applySearchFilterFnFromContext('');
-      timedMainPageLoader();
-      return;
-    }
-
-    //  for productlisting page with no text handled, so for other pages submitting with no text in search, results in doing nothing!!
-    if (!searchText) {
+    if (searchEmptyInContextAndEmptySearchbar || !trimmedSearch) {
       return;
     }
 
     navigate('/products');
-    applySearchFilterFnFromContext(searchText);
+    updateSearchFilterInContext(searchText);
     timedMainPageLoader();
   };
 
@@ -120,6 +122,7 @@ const useSearchSuggestions = ({
 
   return {
     searchText,
+    trimmedSearch,
     filteredList,
     isSuggestionsLoading,
     isSuggestionsVisible,

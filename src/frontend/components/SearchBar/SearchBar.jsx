@@ -11,13 +11,12 @@ const SearchBar = () => {
   // instead of allData, get from product context
   const { products: productsFromContext, timedMainPageLoader } =
     useAllProductsContext();
-  const {
-    applySearchFilter: applySearchFilterFnFromContext,
-    filters: filtersStateFromContext,
-  } = useFiltersContext();
+  const { updateSearchFilterInContext, filters: filtersStateFromContext } =
+    useFiltersContext();
 
   const {
     searchText,
+    trimmedSearch: trimmedSearchText,
     isSuggestionsVisible,
     isSuggestionsLoading,
     filteredList,
@@ -28,7 +27,7 @@ const SearchBar = () => {
     handleBlur,
   } = useSearchSuggestions({
     productsFromContext,
-    applySearchFilterFnFromContext,
+    updateSearchFilterInContext,
     timedMainPageLoader,
     filtersStateFromContext,
   });
@@ -53,6 +52,7 @@ const SearchBar = () => {
 
       {isSuggestionsVisible && (
         <Suggestions
+          trimmedSearchText={trimmedSearchText}
           filteredList={filteredList}
           isSuggestionsLoading={isSuggestionsLoading}
           updateTextOnLinkClick={updateTextOnLinkClick}

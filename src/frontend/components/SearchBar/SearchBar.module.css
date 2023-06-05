@@ -75,6 +75,12 @@
   font-weight: 600;
 }
 
+.textPlease {
+  letter-spacing: var(--letterSpacing);
+  font-size: 1.1rem;
+  color: var(--primary-800);
+}
+
 @media screen and (max-width: 768px) {
   .searchBarContainer {
     order: 3;
