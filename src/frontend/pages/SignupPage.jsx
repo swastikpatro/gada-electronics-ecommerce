@@ -6,8 +6,8 @@ import {
   Title,
 } from '../components';
 import { useFormInput, useNavigateIfRegistered } from '../hooks';
-import { setIntoLocalStorage, toastHandler } from '../utils/utils';
-import { ToastType, LOCAL_STORAGE_KEYS } from '../constants/constants';
+import { toastHandler } from '../utils/utils';
+import { ToastType } from '../constants/constants';
 import { useState } from 'react';
 import { signupService } from '../Services/services';
 import { useAuthContext } from '../contexts/AuthContextProvider';
@@ -55,10 +55,6 @@ const SignupPage = () => {
       // update AuthContext with data
       updateUserAuth({ user, token });
 
-      // store this data in localStorage
-      setIntoLocalStorage(LOCAL_STORAGE_KEYS.User, user);
-      setIntoLocalStorage(LOCAL_STORAGE_KEYS.Token, token);
-
       // show success toast
       toastHandler(ToastType.Success, `Sign up successful`);
 
@@ -66,7 +62,6 @@ const SignupPage = () => {
       navigate(signupPageLocation?.state?.from ?? '/');
     } catch (error) {
       toastHandler(ToastType.Error, error.response.data.errors[0]);
-
       console.error(error.response);
     }
 
@@ -145,7 +140,13 @@ const SignupPage = () => {
 
       <div>
         <span>
-          Already Registered ? <Link to='/login'>login</Link>
+          Already Registered ?{' '}
+          <Link
+            to='/login'
+            state={{ from: signupPageLocation?.state?.from ?? '/' }}
+          >
+            login
+          </Link>
         </span>
       </div>
     </LoginAndSignupLayout>

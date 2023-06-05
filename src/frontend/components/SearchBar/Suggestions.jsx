@@ -23,7 +23,7 @@ const Suggestions = ({
       <SuggestionContainer>
         <div className='horizontal-center'>
           <p className={`bold ${styles.textPlease}`}>
-            Please enter the name of the electronic item you are looking for.
+            Enter the name of the product.
           </p>
         </div>
       </SuggestionContainer>

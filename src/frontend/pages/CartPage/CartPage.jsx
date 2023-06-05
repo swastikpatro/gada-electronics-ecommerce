@@ -47,21 +47,24 @@ const CartPage = () => {
         <article className={styles.checkout}>
           <h3 className='text-center'>Cart Price Details</h3>
           <hr />
-          {cartFromContext.map(
-            ({ _id, name, qty, price, colors: [{ color }] }) => (
-              <article key={_id} className={styles.row}>
-                <span>
-                  {name}{' '}
-                  <span
-                    className={styles.colorCircle}
-                    style={{ background: color }}
-                  ></span>
-                  ({qty})
-                </span>
-                <Price amount={price * qty} />
-              </article>
-            )
-          )}
+
+          <div className={styles.detailsContainer}>
+            {cartFromContext.map(
+              ({ _id, name, qty, price, colors: [{ color }] }) => (
+                <article key={_id} className={styles.row}>
+                  <span>
+                    {name}{' '}
+                    <span
+                      className={styles.colorCircle}
+                      style={{ background: color }}
+                    ></span>
+                    ({qty})
+                  </span>
+                  <Price amount={price * qty} />
+                </article>
+              )
+            )}
+          </div>
 
           <hr />
           <article className={`${styles.row} ${styles.totalPrice}`}>

@@ -52,8 +52,6 @@ const App = () => {
 
             <Route path='products/:productId' element={<SingleProductPage />} />
 
-            <Route path='products' element={<ProductListingPage />} />
-
             <Route
               path='cart'
               element={
