@@ -400,13 +400,6 @@ button:disabled {
   animation: rotation 2s linear infinite;
 }
 
-.specs-loader {
-  width: 10rem;
-  height: 10rem;
-  margin-left: 0.75rem;
-  animation: rotation 2s linear infinite;
-}
-
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
