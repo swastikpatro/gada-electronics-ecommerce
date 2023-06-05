@@ -75,6 +75,13 @@
     top: calc(var(--nav-height) + 5rem);
   }
 
+  .detailsContainer {
+    min-height: fit-content;
+    max-height: 23rem;
+    overflow-y: auto;
+    margin-bottom: 0;
+  }
+
   .row {
     font-size: 1rem;
     letter-spacing: var(--letterSpacing);
