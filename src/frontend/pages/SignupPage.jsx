@@ -7,7 +7,7 @@ import {
 } from '../components';
 import { useFormInput, useNavigateIfRegistered } from '../hooks';
 import { setIntoLocalStorage, toastHandler } from '../utils/utils';
-import { ToastType, localStorageKeys } from '../constants/constants';
+import { ToastType, LOCAL_STORAGE_KEYS } from '../constants/constants';
 import { useState } from 'react';
 import { signupService } from '../Services/services';
 import { useAuthContext } from '../contexts/AuthContextProvider';
@@ -56,8 +56,8 @@ const SignupPage = () => {
       updateUserAuth({ user, token });
 
       // store this data in localStorage
-      setIntoLocalStorage(localStorageKeys.User, user);
-      setIntoLocalStorage(localStorageKeys.Token, token);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.User, user);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.Token, token);
 
       // show success toast
       toastHandler(ToastType.Success, `Sign up successful`);

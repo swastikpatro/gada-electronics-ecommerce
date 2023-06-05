@@ -3,8 +3,8 @@ import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductsList.module.css';
 import {
-  delayDebouncedMs,
-  totalSkeletonsLength,
+  DELAY_DEBOUNCED_MS,
+  TOTAL_SKELETONS_LENGTH,
 } from '../../constants/constants';
 import SkeletonProductCard from '../ProductCard/SkeletonProductCard';
 import { RiFilter2Fill } from 'react-icons/ri';
@@ -47,7 +47,7 @@ const ProductsList = ({
       applyFilters();
 
       setIsFilterLoading(false);
-    }, delayDebouncedMs);
+    }, DELAY_DEBOUNCED_MS);
 
     return () => {
       clearTimeout(timer);
@@ -58,7 +58,7 @@ const ProductsList = ({
 
   // if is filtering, show skeleton cards
   if (isFilterLoading) {
-    const skeletons = new Array(totalSkeletonsLength).fill(null);
+    const skeletons = new Array(TOTAL_SKELETONS_LENGTH).fill(null);
 
     return (
       <section className={styles.productListSection}>

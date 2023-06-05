@@ -8,7 +8,7 @@ import styles from './CardProductCard.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { ToastType, cartActionType } from '../../constants/constants';
+import { ToastType, INCREMENT_DECRMENT_TYPE } from '../../constants/constants';
 
 const CartProductCard = ({ singleCartItem }) => {
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ const CartProductCard = ({ singleCartItem }) => {
               onClick={
                 qty === 1
                   ? handleDeleteFromCart
-                  : () => handleQuantityClick(cartActionType.DECREMENT)
+                  : () => handleQuantityClick(INCREMENT_DECRMENT_TYPE.DECREMENT)
               }
               disabled={isAllBtnsDisabled}
             >
@@ -110,7 +110,7 @@ const CartProductCard = ({ singleCartItem }) => {
               onClick={
                 qty === colorQuantity
                   ? () => toastHandler(ToastType.Warn, 'Stock Limit exceeded')
-                  : () => handleQuantityClick(cartActionType.INCREMENT)
+                  : () => handleQuantityClick(INCREMENT_DECRMENT_TYPE.INCREMENT)
               }
               disabled={isAllBtnsDisabled}
             >

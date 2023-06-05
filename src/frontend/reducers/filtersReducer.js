@@ -1,4 +1,4 @@
-import { SortType } from '../constants/constants';
+import { SORT_TYPE } from '../constants/constants';
 import { FILTERS_ACTION } from '../utils/actions';
 import {
   convertArrayToObjectWithPropertyFALSE,
@@ -196,17 +196,17 @@ export const filtersReducer = (state, action) => {
       // sort handled here!!, if sortByOption is '', ignore sorting
       if (!!sortByOption) {
         switch (sortByOption) {
-          case SortType.PRICE_LOW_TO_HIGH: {
+          case SORT_TYPE.PRICE_LOW_TO_HIGH: {
             tempProducts = [...tempProducts].sort((a, b) => a.price - b.price);
             break;
           }
 
-          case SortType.PRICE_HIGH_TO_LOW: {
+          case SORT_TYPE.PRICE_HIGH_TO_LOW: {
             tempProducts = [...tempProducts].sort((a, b) => b.price - a.price);
             break;
           }
 
-          case SortType.NAME_A_TO_Z: {
+          case SORT_TYPE.NAME_A_TO_Z: {
             tempProducts = [...tempProducts].sort((a, b) => {
               a = a.name.toLowerCase();
               b = b.name.toLowerCase();
@@ -220,7 +220,7 @@ export const filtersReducer = (state, action) => {
             break;
           }
 
-          case SortType.NAME_Z_TO_A: {
+          case SORT_TYPE.NAME_Z_TO_A: {
             tempProducts = [...tempProducts].sort((a, b) => {
               a = a.name.toLowerCase();
               b = b.name.toLowerCase();

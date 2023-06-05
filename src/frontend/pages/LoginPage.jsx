@@ -8,8 +8,8 @@ import {
 import {
   TEST_USER,
   ToastType,
-  localStorageKeys,
-  userTypeForLogin,
+  LOCAL_STORAGE_KEYS,
+  LOGIN_CLICK_TYPE,
 } from '../constants/constants';
 import { useState } from 'react';
 import { loginUserService } from '../Services/services';
@@ -38,7 +38,7 @@ const LoginPage = () => {
   const handleSubmit = async (e, clickType) => {
     e.preventDefault();
 
-    const isGuestClick = clickType === userTypeForLogin.GuestClick;
+    const isGuestClick = clickType === LOGIN_CLICK_TYPE.GuestClick;
     const userInfo = isGuestClick ? TEST_USER : userInputs;
 
     setActiveBtnLoader(clickType);
@@ -54,8 +54,8 @@ const LoginPage = () => {
       updateUserAuth({ user, token });
 
       // store this data in localStorage
-      setIntoLocalStorage(localStorageKeys.User, user);
-      setIntoLocalStorage(localStorageKeys.Token, token);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.User, user);
+      setIntoLocalStorage(LOCAL_STORAGE_KEYS.Token, token);
 
       // show success toast
       toastHandler(
@@ -81,7 +81,7 @@ const LoginPage = () => {
     <LoginAndSignupLayout>
       <Title>Login</Title>
 
-      <form onSubmit={(e) => handleSubmit(e, userTypeForLogin.RegisterClick)}>
+      <form onSubmit={(e) => handleSubmit(e, LOGIN_CLICK_TYPE.RegisterClick)}>
         <FormRow
           text='Email Address'
           type='email'
@@ -107,7 +107,7 @@ const LoginPage = () => {
           className='btn btn-block'
           type='submit'
         >
-          {activeBtnLoader === userTypeForLogin.RegisterClick ? (
+          {activeBtnLoader === LOGIN_CLICK_TYPE.RegisterClick ? (
             <span className='loader-2'></span>
           ) : (
             'Login'
@@ -118,9 +118,9 @@ const LoginPage = () => {
         <button
           disabled={!!activeBtnLoader}
           className='btn btn-block'
-          onClick={(e) => handleSubmit(e, userTypeForLogin.GuestClick)}
+          onClick={(e) => handleSubmit(e, LOGIN_CLICK_TYPE.GuestClick)}
         >
-          {activeBtnLoader === userTypeForLogin.GuestClick ? (
+          {activeBtnLoader === LOGIN_CLICK_TYPE.GuestClick ? (
             <span className='loader-2'></span>
           ) : (
             'Login as a guest'
