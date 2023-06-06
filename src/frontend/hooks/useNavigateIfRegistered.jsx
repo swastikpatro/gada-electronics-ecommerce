@@ -6,9 +6,9 @@ const useNavigateIfRegistered = (user) => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/', { replace: true });
     }
-  }, []);
+  }, [user]);
 };
 
 export default useNavigateIfRegistered;

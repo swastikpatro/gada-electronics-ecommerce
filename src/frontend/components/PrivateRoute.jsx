@@ -18,12 +18,8 @@ const PrivateRoute = ({ children }) => {
 
   //  so if there is no user data in AuthContext (i.e. user is not logged in) and the route is '/profile', user should come to '/' (home page), so I am passing '/' as state to the Login page.
 
-  if (!user && routeToRedirect !== '/profile') {
-    LOGIN_TOAST();
-  }
-
-  if (routeToRedirect === '/profile' && !user) {
-    routeToRedirect = '/';
+  if (!user) {
+    routeToRedirect !== '/profile' ? LOGIN_TOAST() : (routeToRedirect = '/');
   }
 
   // onclicking any private route
@@ -33,7 +29,11 @@ const PrivateRoute = ({ children }) => {
   if (!user) {
     return (
       <>
-        <Navigate to='/login' state={{ from: routeToRedirect }}></Navigate>
+        <Navigate
+          to='/login'
+          state={{ from: routeToRedirect }}
+          replace
+        ></Navigate>
         <main className='full-page'></main>
       </>
     );
