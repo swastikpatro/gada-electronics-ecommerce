@@ -21,7 +21,9 @@ import { useNavigateIfRegistered } from '../hooks';
 const LoginPage = () => {
   const { updateUserAuth, user } = useAuthContext();
   const navigate = useNavigate();
+
   useNavigateIfRegistered(user);
+
   const initialLoginState = {
     email: '',
     password: '',
@@ -87,7 +89,7 @@ const LoginPage = () => {
           type='email'
           name='email'
           id='email'
-          placeholder='jethalal@gada.com'
+          placeholder='jethalal.gada@gmail.com'
           value={userInputs.email}
           handleChange={handleUserInput}
           disabled={!!activeBtnLoader}
