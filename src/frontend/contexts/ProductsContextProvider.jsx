@@ -105,7 +105,6 @@ const ProductsContextProvider = ({ children }) => {
       toastHandler(ToastType.Success, 'Successfully Added To Cart');
     } catch (error) {
       console.log(error.response);
-      toastHandler(ToastType.Success, 'Error in fetching data');
     }
   };
 

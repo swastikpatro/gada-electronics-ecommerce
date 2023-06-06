@@ -1,4 +1,4 @@
-import { ALL_STATES } from '../../constants/constants';
+import { ALL_STATES, ToastType } from '../../constants/constants';
 
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
 
@@ -8,7 +8,11 @@ import { v4 as uuid } from 'uuid';
 import FormRow from '../FormRow';
 
 import styles from './AddressForm.module.css';
-import { giveRandomData } from '../../utils/utils';
+import {
+  giveRandomData,
+  toastHandler,
+  validateEmptyTextInput,
+} from '../../utils/utils';
 
 const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   const { addAddressDispatch, timedMainPageLoader, editAddressDispatch } =
@@ -16,6 +20,7 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
 
   const isEditing = !!isEditingAndData;
 
+  // alternate is optional
   const defaultState = {
     username: '',
     mobile: '',
@@ -50,6 +55,16 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
+    let isAnyInputEmpty = validateEmptyTextInput({
+      inputsObj: inputs,
+      optionalInput: 'alternate',
+    });
+
+    if (isAnyInputEmpty) {
+      toastHandler(ToastType.Error, 'Please fill all the inputs');
+      return;
+    }
+
     await timedMainPageLoader();
 
     if (isAdding) {
@@ -71,7 +86,7 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
     setInputs(giveRandomData());
   };
 
-  //  stop propagation as this form will be inside modal, on clicking form the modal should not close.
+  //  stop propagation as this form will be inside modal, on clicking form, the modal should not close.
   return (
     <form
       onClick={(e) => e.stopPropagation()}

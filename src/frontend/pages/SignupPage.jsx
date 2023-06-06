@@ -40,16 +40,21 @@ const SignupPage = () => {
       return;
     }
 
+    if (!userInputs.firstName.trim()) {
+      toastHandler(ToastType.Error, 'Please fill all the inputs');
+      return;
+    }
+
     const { email, firstName, lastName, passwordMain: password } = userInputs;
 
     setIsSignupFormLoading(true);
 
     try {
       const { user, token } = await signupService({
-        email,
+        email: email.trim(),
         password,
-        firstName,
-        lastName,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
       });
 
       // update AuthContext with data
@@ -104,7 +109,7 @@ const SignupPage = () => {
           type='email'
           name='email'
           id='email'
-          placeholder='jethalal@gada.com'
+          placeholder='jethalal.gada@gmail.com'
           value={userInputs.email}
           handleChange={handleInputChange}
           disabled={isSignupFormLoading}
