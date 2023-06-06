@@ -229,7 +229,7 @@ const SingleProductPage = () => {
         </div>
 
         <div className={styles.row}>
-          <span>Color Quantity:</span>
+          <span>Available Stock:</span>
           <p>{activeColorObj.colorQuantity}</p>
         </div>
 
