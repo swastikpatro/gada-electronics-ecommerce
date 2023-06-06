@@ -77,7 +77,7 @@
 
   .detailsContainer {
     min-height: fit-content;
-    max-height: 23rem;
+    max-height: 20rem;
     overflow-y: auto;
     margin-bottom: 0;
   }
