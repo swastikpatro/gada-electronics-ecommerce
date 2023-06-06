@@ -123,3 +123,17 @@ export const giveRandomData = () => {
 export const midValue = (value1, value2) => {
   return Math.floor((value1 + value2) / 2);
 };
+
+export const validateEmptyTextInput = ({ inputsObj, optionalInput }) => {
+  for (const property in inputsObj) {
+    if (typeof inputsObj[property] !== 'string' || property === optionalInput) {
+      continue;
+    }
+
+    if (!inputsObj[property].trim()) {
+      return true;
+    }
+  }
+
+  return false;
+};
