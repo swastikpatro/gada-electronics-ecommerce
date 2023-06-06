@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Error } from '../../commonComponents';
 import { getSingleProductService } from '../../Services/services';
 import styles from './SingleProductPage.module.css';
-import { Price } from '../../components';
+import { Error, Price } from '../../components';
 import {
   LOGIN_TOAST,
   calculateDiscountPercent,

@@ -13,6 +13,7 @@ const FeaturedProducts = () => {
   return (
     <section className='section'>
       <Title>Featured Products</Title>
+
       <div className={`container ${styles.featuredCenter}`}>
         {featuredProductsList.map((singleProduct) => (
           <ProductCard key={singleProduct._id} product={singleProduct} />

@@ -20,6 +20,7 @@ import AddAddressBtn from './AddressCard/AddAddressBtn';
 import PrivateRoute from './PrivateRoute';
 import CheckoutDetails from './CheckoutDetails/CheckoutDetails';
 import Modal from './Modal/Modal';
+import Error from './Error/Error';
 
 export {
   Navbar,
@@ -44,4 +45,5 @@ export {
   PrivateRoute,
   CheckoutDetails,
   Modal,
+  Error,
 };

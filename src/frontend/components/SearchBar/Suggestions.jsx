@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import Price from '../Price';
-import SuggestionContainer from './SuggestionContainer';
 import styles from './SearchBar.module.css';
 
 const Suggestions = ({
@@ -11,37 +10,37 @@ const Suggestions = ({
 }) => {
   if (isSuggestionsLoading)
     return (
-      <SuggestionContainer>
+      <section className={styles.suggestions}>
         <div className='horizontal-center'>
           <span className='loading'></span>
         </div>
-      </SuggestionContainer>
+      </section>
     );
 
   if (!trimmedSearchText) {
     return (
-      <SuggestionContainer>
+      <section className={styles.suggestions}>
         <div className='horizontal-center'>
           <p className={`bold ${styles.textPlease}`}>
             Enter the name of the product.
           </p>
         </div>
-      </SuggestionContainer>
+      </section>
     );
   }
 
   if (filteredList.length < 1) {
     return (
-      <SuggestionContainer>
+      <section className={styles.suggestions}>
         <div className='horizontal-center'>
           <p className='error-text'>No products found ☹️</p>
         </div>
-      </SuggestionContainer>
+      </section>
     );
   }
 
   return (
-    <SuggestionContainer>
+    <section className={styles.suggestions}>
       {filteredList.map((item) => (
         <button
           type='button'
@@ -53,7 +52,7 @@ const Suggestions = ({
           <Price amount={item.price} />
         </button>
       ))}
-    </SuggestionContainer>
+    </section>
   );
 };
 

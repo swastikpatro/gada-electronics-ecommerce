@@ -13,14 +13,14 @@ const CartPage = () => {
     cartDetails: { totalCount, totalAmount },
   } = useAllProductsContext();
 
-  if (cartFromContext.length < 1) {
-    return <EmptyList listName='cart' />;
-  }
-
   const handleClearCart = () => {
     clearCartDispatch();
     toastHandler(ToastType.Success, 'Cleared Cart Successfully');
   };
+
+  if (cartFromContext.length < 1) {
+    return <EmptyList listName='cart' />;
+  }
 
   return (
     <main className={`full-page ${styles.cartListPage}`}>

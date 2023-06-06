@@ -10,18 +10,17 @@ export const initialProductsState = {
   cartDetails: {
     totalAmount: 0,
     totalCount: 0,
-    totalDiscountedAmount: 0,
   },
   addressList: [
     {
       addressId: 'abc',
       username: 'Swastik Patro',
-      mobile: 9082931945,
-      alternate: 9082931945,
+      mobile: 9203874811,
+      alternate: 9370818549,
       city: 'kalyan',
       state: 'Maharashtra',
       pincode: 421306,
-      addressInfo: 'Ganesh krupa chawl-1/6, Kolsewadi',
+      addressInfo: '9133 Kessler Grove Apt. 325',
     },
   ],
   // orderDetails: [],

@@ -14,6 +14,7 @@ const Footer = () => {
           </Link>
         ))}
       </div>
+
       <p>
         © {presentYear}{' '}
         <span>

@@ -9,14 +9,14 @@ const WishListPage = () => {
   const { wishlist: wishlistFromContext, clearWishlistDispatch } =
     useAllProductsContext();
 
-  if (wishlistFromContext.length < 1) {
-    return <EmptyList listName='wishlist' />;
-  }
-
   const handleClearWishlist = () => {
     clearWishlistDispatch();
     toastHandler(ToastType.Success, 'Cleared Wishlist Successfully');
   };
+
+  if (wishlistFromContext.length < 1) {
+    return <EmptyList listName='wishlist' />;
+  }
 
   return (
     <main className={`full-page ${styles.wishlistPage}`}>

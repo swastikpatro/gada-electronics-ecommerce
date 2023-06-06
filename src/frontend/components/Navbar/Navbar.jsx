@@ -24,6 +24,7 @@ const Navbar = () => {
             </span>
           </h3>
         </Link>
+
         {!isNavInLoginOrSignupPage && (
           <>
             <SearchBar />

@@ -12,7 +12,7 @@ const Categories = () => {
   const { checkCategoryOnTabClick } = useFiltersContext();
 
   const handleCategoryClick = (categoryNameClicked) => {
-    // check the category in filtersContext
+    // update the category in filtersContext
     checkCategoryOnTabClick(categoryNameClicked);
     // then
     // navigate to products

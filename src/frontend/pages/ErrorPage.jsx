@@ -1,4 +1,4 @@
-import { Error } from '../commonComponents';
+import { Error } from '../components';
 
 const ErrorPage = () => {
   return (

@@ -52,16 +52,10 @@ const ProductCard = ({ product }) => {
     wishlistFromContext
   );
 
-  let productBtnText = '';
-
   // If card is in wishlist page & product is in cartContext show- "go to cart" else show 'move to cart'
-  if (isCardInWishlistPage) {
-    productBtnText = 'move to cart';
-  }
+
   // In productListing page, if this product is in cart- "go to cart" else show 'add to cart'
-  if (!isCardInWishlistPage) {
-    productBtnText = 'add to cart';
-  }
+  let productBtnText = isCardInWishlistPage ? 'move to cart' : 'add to cart';
 
   if (isProductInCart) {
     productBtnText = 'go to cart';
