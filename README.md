@@ -24,6 +24,13 @@ $ npm start
 
 [The Gada Electronics](https://gada-electronics-ecommerce.vercel.app/)
 
+## **DEMO**
+
+<a href="https://www.loom.com/share/322cc01c9fed4c06ba42541fb8675ad0">
+    <p>Gadda Electronics App 📱 - Watch Video</p>
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/322cc01c9fed4c06ba42541fb8675ad0-1686135559450-with-play.gif">
+  </a>
+
 ## **Features -**
 
 - Home page
