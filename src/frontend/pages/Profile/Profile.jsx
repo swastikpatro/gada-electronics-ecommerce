@@ -12,8 +12,12 @@ const Profile = () => {
     updateUserAuth,
     user: { firstName, lastName, email },
   } = useAuthContext();
-  const { clearCartInContext, clearWishlistInContext, timedMainPageLoader } =
-    useAllProductsContext();
+  const {
+    clearCartInContext,
+    clearWishlistInContext,
+    clearAddressInContext,
+    timedMainPageLoader,
+  } = useAllProductsContext();
 
   const { clearFilters } = useFiltersContext();
 
@@ -26,6 +30,7 @@ const Profile = () => {
     clearCartInContext();
     clearWishlistInContext();
     clearFilters();
+    clearAddressInContext();
     toastHandler(ToastType.Success, 'Logged out sucessfully');
 
     navigate('/');

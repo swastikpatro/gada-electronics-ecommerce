@@ -259,6 +259,12 @@ const ProductsContextProvider = ({ children }) => {
     });
   };
 
+  const clearAddressInContext = () => {
+    dispatch({
+      type: PRODUCTS_ACTION.DELETE_ALL_ADDRESS,
+    });
+  };
+
   // const addOrderDispatch = async (orderObj) => {
   //   dispatch({
   //     type: PRODUCTS_ACTION.ADD_ORDER,
@@ -292,6 +298,7 @@ const ProductsContextProvider = ({ children }) => {
         // addOrderDispatch,
         clearCartInContext,
         clearWishlistInContext,
+        clearAddressInContext,
       }}
     >
       {children}
