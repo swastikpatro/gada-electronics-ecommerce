@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { lowerizeAndCheckIncludes, wait } from '../utils/utils';
+import { wait } from '../utils/utils';
 import {
   DELAY_BETWEEN_BLUR_AND_CLICK,
   DELAY_DEBOUNCED_MS,
+  MAX_RESPONSES_IN_CACHE_TO_STORE,
 } from '../constants/constants';
+import { getProductsOnSearch } from '../Services/services';
 
 const useSearchSuggestions = ({
-  productsFromContext,
   updateSearchFilterInContext,
   filtersStateFromContext,
   timedMainPageLoader,
@@ -18,7 +19,8 @@ const useSearchSuggestions = ({
 
   const location = useLocation();
 
-  const [filteredList, setFilteredList] = useState([]);
+  const [suggestionsList, setSuggestionsList] = useState([]);
+  const [cacheSuggestions, setCacheSuggestions] = useState({});
 
   const [isSuggestionsLoading, setIsSuggestionsLoading] = useState(false);
 
@@ -27,21 +29,77 @@ const useSearchSuggestions = ({
   const trimmedSearch = searchText.trim();
   const searchTextFromContextTrimmed = filtersStateFromContext.search.trim();
 
-  const showFilteredList = () => {
-    setFilteredList(
-      productsFromContext.filter(({ name }) =>
-        lowerizeAndCheckIncludes(name, trimmedSearch)
+  const updateCache = (latestResponse) => {
+    const latestSuggestion = {
+      [trimmedSearch]: {
+        responseTime: new Date().getTime(),
+        productsCached: latestResponse,
+      },
+    };
+
+    const updatedCacheData = {
+      ...cacheSuggestions,
+      ...latestSuggestion,
+    };
+
+    const totalCacheSuggestions = Object.keys(updatedCacheData);
+
+    if (totalCacheSuggestions.length < MAX_RESPONSES_IN_CACHE_TO_STORE) {
+      setCacheSuggestions(updatedCacheData);
+      return;
+    }
+
+    const cloneOfUpdateCacheData = structuredClone(updatedCacheData);
+
+    const oldestCacheRespectToTime = Math.min(
+      ...totalCacheSuggestions.map(
+        (cacheKey) => updatedCacheData[cacheKey].responseTime
       )
     );
+
+    delete cloneOfUpdateCacheData[oldestCacheRespectToTime];
+
+    setCacheSuggestions(cloneOfUpdateCacheData);
+  };
+
+  const fetchProductsOnSearch = async () => {
+    try {
+      const resProducts = await getProductsOnSearch({ query: trimmedSearch });
+      setSuggestionsList(resProducts);
+      setIsSuggestionsLoading(false);
+
+      if (resProducts.length < 1) {
+        return;
+      }
+
+      updateCache(resProducts);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
+    if (!trimmedSearch) {
+      return;
+    }
+
     setIsSuggestionsLoading(true);
 
     const timer = setTimeout(() => {
-      showFilteredList();
-
-      setIsSuggestionsLoading(false);
+      if (cacheSuggestions[trimmedSearch]) {
+        setSuggestionsList(cacheSuggestions[trimmedSearch].productsCached);
+        // update time of that cache, if the query is re-searched and cache is present (searched again)
+        setCacheSuggestions({
+          ...cacheSuggestions,
+          [trimmedSearch]: {
+            ...cacheSuggestions[trimmedSearch],
+            responseTime: new Date().getTime(),
+          },
+        });
+        setIsSuggestionsLoading(false);
+        return;
+      }
+      fetchProductsOnSearch();
     }, DELAY_DEBOUNCED_MS);
 
     return () => {
@@ -123,7 +181,7 @@ const useSearchSuggestions = ({
   return {
     searchText,
     trimmedSearch,
-    filteredList,
+    suggestionsList,
     isSuggestionsLoading,
     isSuggestionsVisible,
     updateTextOnLinkClick,

@@ -9,8 +9,7 @@ import { useFiltersContext } from '../../contexts/FiltersContextProvider';
 
 const SearchBar = () => {
   // instead of allData, get from product context
-  const { products: productsFromContext, timedMainPageLoader } =
-    useAllProductsContext();
+  const { timedMainPageLoader } = useAllProductsContext();
   const { updateSearchFilterInContext, filters: filtersStateFromContext } =
     useFiltersContext();
 
@@ -19,14 +18,13 @@ const SearchBar = () => {
     trimmedSearch: trimmedSearchText,
     isSuggestionsVisible,
     isSuggestionsLoading,
-    filteredList,
+    suggestionsList,
     updateTextOnLinkClick,
     handleFocus,
     handleSearchChange,
     handleSubmit,
     handleBlur,
   } = useSearchSuggestions({
-    productsFromContext,
     updateSearchFilterInContext,
     timedMainPageLoader,
     filtersStateFromContext,
@@ -53,7 +51,7 @@ const SearchBar = () => {
       {isSuggestionsVisible && (
         <Suggestions
           trimmedSearchText={trimmedSearchText}
-          filteredList={filteredList}
+          suggestionsList={suggestionsList}
           isSuggestionsLoading={isSuggestionsLoading}
           updateTextOnLinkClick={updateTextOnLinkClick}
         />

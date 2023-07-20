@@ -47,6 +47,12 @@ export const getAllProductsCategoriesService = async () => {
   return { products, categories };
 };
 
+export const getProductsOnSearch = async ({ query }) => {
+  const res = await axios.get(`/api/products/search?query=${query}`);
+
+  return res.data.products.models;
+};
+
 export const getSingleProductService = async (productID) => {
   const {
     status,

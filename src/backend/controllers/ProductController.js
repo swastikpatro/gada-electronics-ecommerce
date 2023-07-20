@@ -1,4 +1,4 @@
-import { Response } from "miragejs";
+import { Response } from 'miragejs';
 
 /**
  * All the routes related to Product are present here.
@@ -24,6 +24,35 @@ export const getProductHandler = function (schema, request) {
   try {
     const product = schema.products.findBy({ _id: productId });
     return new Response(200, {}, { product });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+export const searchProductsHandler = function (schema, request) {
+  const query = request.queryParams.query;
+
+  try {
+    let products = schema.products.where((product) =>
+      product.name.toLowerCase().startsWith(query.toLowerCase())
+    );
+
+    if (products.length < 10) {
+      products = schema.products.where((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+
+    const limitedProducts =
+      products.length > 10 ? products.slice(0, 10) : products;
+
+    return new Response(200, {}, { products: limitedProducts });
   } catch (error) {
     return new Response(
       500,

@@ -4,7 +4,7 @@ import styles from './SearchBar.module.css';
 
 const Suggestions = ({
   trimmedSearchText,
-  filteredList,
+  suggestionsList,
   isSuggestionsLoading,
   updateTextOnLinkClick,
 }) => {
@@ -29,7 +29,7 @@ const Suggestions = ({
     );
   }
 
-  if (filteredList.length < 1) {
+  if (suggestionsList.length < 1) {
     return (
       <section className={styles.suggestions}>
         <div className='horizontal-center'>
@@ -41,7 +41,7 @@ const Suggestions = ({
 
   return (
     <section className={styles.suggestions}>
-      {filteredList.map((item) => (
+      {suggestionsList.map((item) => (
         <button
           type='button'
           // navigates after onClick
