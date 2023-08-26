@@ -37,7 +37,7 @@ $ npm start
 - Product listing page
 - Pagination on product listing page
 - Filter and sort products functionalities with Shimmer (Debounced)
-- Search product functionality with Suggestions (Debounced)
+- Search product functionality with Suggestions (Debounced). These Suggestions are LRU Cached. Also the search handles the filter by product name in product listing page.
 - Individual product page
 - Cart Managment
 - Wishlist managment
