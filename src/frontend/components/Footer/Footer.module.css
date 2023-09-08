@@ -19,18 +19,57 @@
   transition: var(--transition);
 }
 
-.footer p {
+.footer .copyrightDiv {
   color: var(--white);
   text-align: center;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 0 0.5rem;
 }
 
-.footer span .nameLink {
+.jethaDiv {
+  position: relative;
+}
+
+.nameBtn {
+  padding: 0;
   color: var(--primary-300);
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%, -0.5rem);
+  width: 10rem;
+  letter-spacing: var(--letterSpacing);
+  color: var(--black);
+  background: #eed202;
+  font-weight: bold;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--borderRadius);
+  visibility: hidden;
+  transition: var(--transition);
+  display: none;
+}
+
+.jethaDiv:hover .tooltip {
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 
 @media screen and (min-width: 768px) {
-  .footer p {
+  .tooltip {
+    display: block;
+  }
+
+  .footer .copyrightDiv {
     letter-spacing: var(--letterSpacing);
     font-size: 1.15rem;
   }
