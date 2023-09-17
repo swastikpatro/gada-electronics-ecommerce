@@ -20,7 +20,7 @@ export const giveUniqueLabelFOR = (type, i) => `${type}-${i}`;
 
 export const toastHandler = (type, message, toastId = uuid()) => {
   const toastStyle = {
-    position: 'bottom-left',
+    position: 'top-left',
     autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
