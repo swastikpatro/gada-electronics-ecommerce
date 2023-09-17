@@ -26,30 +26,35 @@ $ npm start
 
 ## **DEMO**
 
-<a href="https://www.loom.com/share/322cc01c9fed4c06ba42541fb8675ad0">
+<a href="https://www.awesomescreenshot.com/video/20639625">
     <p>Gadda Electronics App 📱 - Watch Video</p>
     <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/322cc01c9fed4c06ba42541fb8675ad0-1686135559450-with-play.gif">
   </a>
 
 ## **Features -**
 
-- Home page
-- Product listing page
-- Pagination on product listing page
-- Filter and sort products functionalities with Shimmer (Debounced)
-- Search product functionality with Suggestions (Debounced). These Suggestions are LRU Cached. Also clicking the 🔍 button or pressing the Enter key, Search handles the filter by product name in product listing page.
-- Individual product page
-- Cart Managment
-- Wishlist managment
-- Address management
-- Coupon Code Management
-- Checkout page
-- Payment gateway integration
-- Authentication:
-  - User Signup
-  - User Login
-- Fully Responsive
-- Error Page
+▶ Features:
+
+1. Error Page 💀
+1. Easter Egg on the footer of the app (Includes Music) 😉
+1. Authentication:
+   1. User Signup
+   1. User Login
+1. Home page
+1. Product listing page
+1. Pagination on Product listing page
+1. Filter and sort products functionalities with Shimmer UI (Debounced)
+1. Highly Optimized Search product functionality with Suggestions (Debounced). 
+    1. These Suggestions are LRU Cached and older cached responses are deleted once reached the cache limit (50 responses). 
+    1. Also clicking the 🔍 button or pressing the Enter key, the Search even handles the "filter by product name" in product listing page.
+1. Individual product page
+1. 🛒 Cart Managment with selection of colors for a product. 
+1. ❤ Wishlist managment with selection of colors for a product.
+1. Address management (with 'No two addresses can be edited at once')
+1. Coupon Code Management
+1. Checkout page
+1. 💲 Payment Gateway Integration 
+1. Fully Responsive
 
 ## **Built with -**
 
@@ -67,7 +72,7 @@ $ npm start
 ![image](https://github.com/swastikpatro/gada-electronics-ecommerce/assets/113245457/0fd0c9a1-574a-4aef-bfe7-b59bc8ca0536)
 
 ### Home Page
-![Gada Electronics](https://github.com/swastikpatro/gada-electronics-ecommerce/assets/113245457/d9a14521-8498-40f7-b57b-8a141c0b1e3a)
+![Gada Electronics-home](https://github.com/swastikpatro/gada-electronics-ecommerce/assets/113245457/b7ba9291-4afa-4629-a576-bcac41900cf4)
 
 ### Product Listing Page (DESKTOP)
 ![image](https://github.com/swastikpatro/gada-electronics-ecommerce/assets/113245457/c7423acb-db46-498b-85f3-e5d3e5d1a725)
